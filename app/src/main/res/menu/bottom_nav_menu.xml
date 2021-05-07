@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_diary"
+        android:title="@string/title_diary" />
+
+    <item
+        android:id="@+id/navigation_diary_list"
+        android:title="@string/title_diary_list" />
+
+</menu>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.mindgarden.mindgarden.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_diary"
+        android:name="com.mindgarden.mindgarden.ui.diary.DiaryFragment"
+        android:label="@string/title_diary"
+        tools:layout="@layout/fragment_diary" />
+
+    <fragment
+        android:id="@+id/navigation_diary_list"
+        android:name="com.mindgarden.mindgarden.ui.diarylist.DiaryListFragment"
+        android:label="@string/title_diary_list"
+        tools:layout="@layout/fragment_diary_list" />
+</navigation>

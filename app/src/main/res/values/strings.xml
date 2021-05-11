@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Mindgarden</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_diary">Diary</string>
+    <string name="title_diary_list">DiaryList</string>
 </resources>

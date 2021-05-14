@@ -7,7 +7,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.mindgarden.mindgarden.databinding.ActivityMainBinding
-import com.mindgarden.mindgarden.factory.MainViewModelFactory
 import com.mindgarden.mindgarden.model.User
 import com.mindgarden.mindgarden.viewModel.MainViewModel
 
@@ -21,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun subscribeUi(binding: ActivityMainBinding) {
-        var factory = MainViewModelFactory()
+        //var factory = MainViewModelFactory()
         //var viewModel: MainViewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
         var viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 

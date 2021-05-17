@@ -7,8 +7,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.mindgarden.mindgarden.ext.hide
-import com.mindgarden.mindgarden.ext.show
+import com.mindgarden.mindgarden.util.ext.hide
+import com.mindgarden.mindgarden.util.ext.show
 
 class MainActivity : AppCompatActivity() {
 

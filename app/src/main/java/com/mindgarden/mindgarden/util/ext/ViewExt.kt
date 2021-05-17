@@ -1,4 +1,4 @@
-package com.mindgarden.mindgarden.ext
+package com.mindgarden.mindgarden.util.ext
 
 import android.view.View
 

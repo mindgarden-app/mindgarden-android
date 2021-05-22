@@ -1,32 +1,18 @@
 package com.mindgarden.mindgarden.ui.diary
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.mindgarden.mindgarden.R
+import com.mindgarden.mindgarden.databinding.FragmentDiaryBinding
+import com.mindgarden.mindgarden.util.base.BaseFragment
 
-class DiaryFragment : Fragment() {
+class DiaryFragment : BaseFragment<DiaryViewModel, FragmentDiaryBinding>(R.layout.fragment_diary) {
+    override val viewModel: DiaryViewModel by viewModels()
 
-    private lateinit var diaryViewModel: DiaryViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        diaryViewModel =
-            ViewModelProvider(this).get(DiaryViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_diary, container, false)
-        val textView: TextView = root.findViewById(R.id.text_dashboard)
-        diaryViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+    override fun setViewModel() {
+        binding.vm = viewModel
     }
 
+    override fun observeData() {
+        viewModel.showProgress()
+    }
 }

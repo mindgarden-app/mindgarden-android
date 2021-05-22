@@ -1,6 +1,5 @@
 package com.mindgarden.mindgarden
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -9,8 +8,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.mindgarden.mindgarden.databinding.ActivityMainBinding
 import com.mindgarden.mindgarden.model.User
 import com.mindgarden.mindgarden.viewModel.MainViewModel
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_main)

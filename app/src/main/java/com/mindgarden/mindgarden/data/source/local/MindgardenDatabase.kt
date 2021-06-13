@@ -4,11 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.mindgarden.mindgarden.data.model.Diary
 import com.mindgarden.mindgarden.data.model.Garden
 import com.mindgarden.mindgarden.data.model.User
 
 @Database(entities = [Garden::class,Diary::class, User::class], version = 1)
+@TypeConverters(Converters::class)
 abstract class MindGardenDatabase : RoomDatabase() {
     abstract fun gardenDao(): GardenDao
     abstract fun userDao(): UserDao

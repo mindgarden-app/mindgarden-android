@@ -12,7 +12,7 @@ interface DiaryDao {
     fun loadDiary(date: String): List<Diary>
 
     @Update
-    fun editDiary(diary: Diary):Int
+    fun updateDiary(diary: Diary):Int
 
     @Delete
     fun deleteDiary(diary: Diary):Int

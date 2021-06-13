@@ -24,7 +24,7 @@ class MindGardenLocalDataSource(
     }
 
     override fun updateDiary(diary: Diary): Int {
-       return diaryDao.editDiary(diary)
+       return diaryDao.updateDiary(diary)
     }
 
     override fun deleteDiary(diary: Diary): Int {

@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.mindgarden.mindgarden.R
-import com.mindgarden.mindgarden.Injection
+import com.mindgarden.mindgarden.ServiceLocator
 
 class NickNameActivity : AppCompatActivity() {
     private val viewModel: NickNameViewModel by viewModels()
@@ -17,8 +17,8 @@ class NickNameActivity : AppCompatActivity() {
         initBinding(this)
     }
 
-    fun initBinding(context:Context){
-        viewModel.repository = Injection.provideMindGardenRepository(context)
+    private fun initBinding(context:Context){
+        viewModel.repository = ServiceLocator.provideMindGardenRepository(context)
     }
 
 }

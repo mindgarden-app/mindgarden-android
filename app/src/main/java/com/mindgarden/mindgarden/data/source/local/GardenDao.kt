@@ -8,6 +8,6 @@ interface GardenDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun plantTree(garden: Garden)
 
-    @Update
-    fun changeTree(garden: Garden): Int
+//    @Update
+//    fun changeTree(garden: Garden): Int
 }

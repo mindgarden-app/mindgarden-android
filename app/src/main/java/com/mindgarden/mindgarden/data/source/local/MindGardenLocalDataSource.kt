@@ -4,6 +4,9 @@ import com.mindgarden.mindgarden.data.model.Diary
 import com.mindgarden.mindgarden.data.model.Garden
 import com.mindgarden.mindgarden.data.model.User
 import com.mindgarden.mindgarden.data.source.MindGardenDataSource
+import com.mindgarden.mindgarden.data.source.local.dao.DiaryDao
+import com.mindgarden.mindgarden.data.source.local.dao.GardenDao
+import com.mindgarden.mindgarden.data.source.local.dao.UserDao
 
 class MindGardenLocalDataSource(
     val gardenDao: GardenDao,

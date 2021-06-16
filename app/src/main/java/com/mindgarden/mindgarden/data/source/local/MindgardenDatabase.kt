@@ -8,6 +8,9 @@ import androidx.room.TypeConverters
 import com.mindgarden.mindgarden.data.model.Diary
 import com.mindgarden.mindgarden.data.model.Garden
 import com.mindgarden.mindgarden.data.model.User
+import com.mindgarden.mindgarden.data.source.local.dao.DiaryDao
+import com.mindgarden.mindgarden.data.source.local.dao.GardenDao
+import com.mindgarden.mindgarden.data.source.local.dao.UserDao
 
 @Database(entities = [Garden::class,Diary::class, User::class], version = 1)
 @TypeConverters(Converters::class)

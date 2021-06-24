@@ -1,4 +1,4 @@
-package com.mindgarden.mindgarden.data.model
+package com.mindgarden.mindgarden.data.model.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -17,7 +17,7 @@ data class Diary(
     @ColumnInfo(name = "weather")
     val weather: Int,
     @ColumnInfo(name = "weatherTxt")
-    val weatherTxt: Int,
+    val weatherTxt: String,
     @ColumnInfo(name = "img")
-    val img: String
+    val img: String?
 )

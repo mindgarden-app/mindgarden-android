@@ -3,8 +3,17 @@ package com.mindgarden.mindgarden.util.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 open class BaseViewModel : ViewModel() {
+
+    protected val compositeDisposable = CompositeDisposable()
+
+    override fun onCleared() {
+        compositeDisposable.clear()
+        super.onCleared()
+    }
+
     private val _showProgress = MutableLiveData<Boolean>()
     val showProgress : LiveData<Boolean>
         get() = _showProgress

@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.mindgarden.mindgarden.R
 
+// TODO : BaseFragment 상속받아 databinding 적용, DiaryViewModelFactory에서 viewmodel 생성하기
 class DiaryListFragment : Fragment() {
 
     private lateinit var diaryListViewModel: DiaryListViewModel

@@ -2,13 +2,9 @@ package com.mindgarden.mindgarden.ui.diarylist
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mindgarden.mindgarden.dao.DiaryDao
-import com.mindgarden.mindgarden.dao.MindGardenDatabase
-import com.mindgarden.mindgarden.model.Diary
-import com.mindgarden.mindgarden.repo.DiaryRepository
-import com.mindgarden.mindgarden.util.base.BaseViewModel
+import com.mindgarden.mindgarden.data.model.Diary
+import com.mindgarden.mindgarden.data.source.DiaryRepository
 
 //1. class DiaryListViewModel(private val repo : DiaryRepository)
 class DiaryListViewModel(application: Application) : ViewModel() {

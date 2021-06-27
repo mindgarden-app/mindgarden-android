@@ -1,14 +1,14 @@
-package com.mindgarden.mindgarden.dao
+package com.mindgarden.mindgarden.data.source.local
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.mindgarden.mindgarden.model.Diary
+import com.mindgarden.mindgarden.data.model.Diary
 
 @Database(entities = [Diary::class], version = 1)
 abstract class MindGardenDatabase : RoomDatabase() {
-    abstract fun diaryDao():DiaryDao
+    abstract fun diaryDao(): DiaryDao
 
     companion object {
         @Volatile

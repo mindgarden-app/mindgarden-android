@@ -1,4 +1,4 @@
-package com.mindgarden.mindgarden.model
+package com.mindgarden.mindgarden.data.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

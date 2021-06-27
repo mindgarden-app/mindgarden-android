@@ -6,21 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mindgarden.mindgarden.R
-import com.mindgarden.mindgarden.adapter.DiaryListRecyclerViewAdapter
-import com.mindgarden.mindgarden.factory.DiaryListViewModelFactory
-import com.mindgarden.mindgarden.model.Diary
+import com.mindgarden.mindgarden.databinding.FragmentDiaryListBinding
+import com.mindgarden.mindgarden.data.model.Diary
+import com.mindgarden.mindgarden.ui.writeDiary.WriteDiaryActivity
 
 class DiaryListFragment : Fragment() {
     //private lateinit var diaryListViewModel: DiaryListViewModel
@@ -50,16 +46,18 @@ class DiaryListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         //return super.onCreateView(inflater, container, savedInstanceState)
-        val root = inflater.inflate(R.layout.fragment_diary_list, container, false)
+        //val root = inflater.inflate(R.layout.fragment_diary_list, container, false)
+
+        val binding : FragmentDiaryListBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_diary_list, container, false)
 
         val adapter = DiaryListRecyclerViewAdapter({ diary ->
+            val intent : Intent = Intent(requireActivity(), WriteDiaryActivity::class.java)
+            startActivity(intent)
+        }, { diary ->
             deleteDialog(diary)
         })
 
-        val rv : RecyclerView = root.findViewById(R.id.rv_diary_list)
-        rv.adapter = adapter
-        rv.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-        rv.setHasFixedSize(true)
+        setRecyclerView(binding, adapter)
 
         //diaryListViewModel = ViewModelProvider(this).get(DiaryListViewModel::class.java)
 
@@ -71,16 +69,23 @@ class DiaryListFragment : Fragment() {
                 .get(DiaryListViewModel::class.java)*/
 
         diaryListViewModel.getAll().observe(viewLifecycleOwner, Observer<List<Diary>> { diaries ->
-            adapter.setContacts(diaries!!)
+            adapter.setDiaries(diaries!!)
         })
 
-        val btnAdd : Button = root.findViewById(R.id.btn_add)
-        btnAdd.setOnClickListener {
-            val intent : android.content.Intent = android.content.Intent(requireActivity(), com.mindgarden.mindgarden.ui.add.AddActivity::class.java)
+        val btnWrite : Button = binding.btnWrite
+        btnWrite.setOnClickListener {
+            val intent : Intent = Intent(requireActivity(), WriteDiaryActivity::class.java)
             startActivity(intent)
         }
 
-        return root
+        return binding.root
+    }
+
+    private fun setRecyclerView(binding : FragmentDiaryListBinding, adapter : DiaryListRecyclerViewAdapter) {
+        val rv : RecyclerView = binding.rvDiaryList
+        rv.adapter = adapter
+        rv.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+        rv.setHasFixedSize(true)
     }
 
     private fun deleteDialog(diary: Diary) {

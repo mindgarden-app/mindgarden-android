@@ -1,10 +1,8 @@
-package com.mindgarden.mindgarden.factory
+package com.mindgarden.mindgarden.ui.diarylist
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.mindgarden.mindgarden.repo.DiaryRepository
-import com.mindgarden.mindgarden.ui.diarylist.DiaryListViewModel
 
 class DiaryListViewModelFactory(
     private val application: Application

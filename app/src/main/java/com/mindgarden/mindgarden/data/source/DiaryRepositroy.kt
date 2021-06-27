@@ -1,10 +1,10 @@
-package com.mindgarden.mindgarden.repo
+package com.mindgarden.mindgarden.data.source
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import com.mindgarden.mindgarden.dao.DiaryDao
-import com.mindgarden.mindgarden.dao.MindGardenDatabase
-import com.mindgarden.mindgarden.model.Diary
+import com.mindgarden.mindgarden.data.source.local.DiaryDao
+import com.mindgarden.mindgarden.data.source.local.MindGardenDatabase
+import com.mindgarden.mindgarden.data.model.Diary
 
 //1. class DiaryRepository private constructor(private val diaryDao: DiaryDao)
 class DiaryRepository(application: Application) {

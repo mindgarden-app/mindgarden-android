@@ -1,9 +1,8 @@
 package com.mindgarden.mindgarden.ui.nickname
 
 import androidx.lifecycle.ViewModel
-import com.mindgarden.mindgarden.data.source.MindGardenRepository
+import com.mindgarden.mindgarden.data.repository.userRepo.UserRepository
 
-class NickNameViewModel : ViewModel() {
-    var repository: MindGardenRepository? = null
+class NickNameViewModel(val repository: UserRepository) : ViewModel() {
 
 }

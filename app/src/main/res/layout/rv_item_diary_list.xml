@@ -26,11 +26,35 @@
 
     </LinearLayout>-->
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/fl_delete"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="13dp"
+            android:layout_marginEnd="13dp"
+            android:background="@color/design_default_color_primary">
+
+            <TextView
+                android:id="@+id/tv_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="삭제"
+                android:textColor="#ffffff"
+                android:layout_marginEnd="25dp"
+                android:layout_gravity="end|center_vertical" />
+
+        </FrameLayout>
+
     <LinearLayout
         android:id="@+id/ll_diary_list_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/white">
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -96,14 +120,14 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <!--<LinearLayout
             android:id="@+id/ll_diary_list_delete"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.5"
             android:gravity="center"
             android:background="#78DEB0"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <ImageView
                 android:id="@+id/img_diary_list_delete"
@@ -112,8 +136,10 @@
                 android:gravity="center"
                 android:src="@drawable/ic_launcher_background"/>
 
-        </LinearLayout>
+        </LinearLayout>-->
 
     </LinearLayout>
+
+    </FrameLayout>
 
 </layout>

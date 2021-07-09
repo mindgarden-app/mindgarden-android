@@ -3,8 +3,6 @@ package com.mindgarden.mindgarden.ui.diarylist
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mindgarden.mindgarden.R
@@ -30,13 +28,13 @@ class DiaryListRecyclerViewAdapter(val diaryListItemClick: (Diary) -> Unit, val 
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private val tvContent = itemView.findViewById<TextView>(R.id.tv_diary_list_content)
-        private val llDel = itemView.findViewById<LinearLayout>(R.id.ll_diary_list_delete)
-        private val imgDel = itemView.findViewById<ImageView>(R.id.img_diary_list_delete)
+        //private val llDel = itemView.findViewById<LinearLayout>(R.id.ll_diary_list_delete)
+        //private val imgDel = itemView.findViewById<ImageView>(R.id.img_diary_list_delete)
 
         fun bind(diary: Diary) {
             tvContent.text = diary.content
 
-            itemView.setOnClickListener {
+            /*itemView.setOnClickListener {
                 diaryListItemClick(diary)
             }
 
@@ -53,7 +51,7 @@ class DiaryListRecyclerViewAdapter(val diaryListItemClick: (Diary) -> Unit, val 
                     }
                 } else llDel.visibility = View.GONE
                 true
-            }
+            }*/
         }
     }
 

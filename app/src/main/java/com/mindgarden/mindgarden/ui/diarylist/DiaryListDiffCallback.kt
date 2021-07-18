@@ -5,7 +5,7 @@ import com.mindgarden.mindgarden.data.model.Diary
 
 object DiaryListDiffCallback : DiffUtil.ItemCallback<Diary>() {
     override fun areItemsTheSame(oldItem: Diary, newItem: Diary): Boolean {
-        return (oldItem.idx == newItem.idx && oldItem.content == newItem.content)
+        return oldItem.idx == newItem.idx
     }
 
     override fun areContentsTheSame(oldItem: Diary, newItem: Diary): Boolean {

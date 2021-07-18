@@ -14,22 +14,26 @@ class DiaryListAdapter(val diaryListItemClick: (Diary) -> Unit, val diaryListIte
         ListAdapter<Diary, DiaryListAdapter.DiaryListViewHolder>(
             DiaryListDiffCallback
         ) {
-    private var isPressed : Boolean = false
+    //private var isPressed : Boolean = false
 
             inner class DiaryListViewHolder(private val binding : RvItemDiaryListBinding) :
                     RecyclerView.ViewHolder(binding.root) {
                 //private val llDel = itemView.findViewById<LinearLayout>(R.id.ll_diary_list_delete)
                 //private val imgDel = itemView.findViewById<ImageView>(R.id.img_diary_list_delete)
-                private val del = itemView.findViewById<TextView>(R.id.tv_delete)
+                private val tvDel = itemView.findViewById<TextView>(R.id.tv_delete)
 
                         fun bind(diary: Diary) {
                             binding.diary = diary
 
-                            itemView.setOnClickListener {
+                            binding.llDiaryListContainer.setOnClickListener {
                                 diaryListItemClick(diary)
                             }
 
-                            del.setOnLongClickListener {
+                            /*itemView.setOnClickListener {
+                                diaryListItemClick(diary)
+                            }*/
+
+                            tvDel.setOnLongClickListener {
                                 diaryListItemLongClick(diary)
                                 true
                             }

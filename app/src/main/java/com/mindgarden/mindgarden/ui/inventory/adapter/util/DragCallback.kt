@@ -1,4 +1,4 @@
-package com.mindgarden.mindgarden.ui.inventory.adapter.listener
+package com.mindgarden.mindgarden.ui.inventory.adapter.util
 
 import android.content.ClipData
 import android.util.Log
@@ -9,6 +9,8 @@ import android.view.View
 class DragCallback(private val listener: OnDragListener): View.OnDragListener {
 
     interface OnDragListener {
+        fun onDragEntered()
+        fun onDragExited()
         fun onDrop(imgId: String)
     }
 
@@ -18,9 +20,15 @@ class DragCallback(private val listener: OnDragListener): View.OnDragListener {
                 true
             }
             ACTION_DRAG_ENTERED -> {
+                listener.onDragEntered()
                 true
             }
             ACTION_DRAG_LOCATION -> {
+                Log.d("DragCallback", "location item")
+                true
+            }
+            ACTION_DRAG_EXITED -> {
+                listener.onDragExited()
                 true
             }
             ACTION_DROP -> {

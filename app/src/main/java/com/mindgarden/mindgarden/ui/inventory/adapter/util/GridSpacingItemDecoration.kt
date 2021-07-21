@@ -1,4 +1,4 @@
-package com.mindgarden.mindgarden.ui.inventory.adapter
+package com.mindgarden.mindgarden.ui.inventory.adapter.util
 
 import android.content.Context
 import android.graphics.Rect

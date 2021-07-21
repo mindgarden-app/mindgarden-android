@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.mindgarden.mindgarden.data.inject.RepositoryInjector
 import com.mindgarden.mindgarden.data.repository.gardenRepo.GardenRepository
 import com.mindgarden.mindgarden.ui.home.HomeViewModel
+import com.mindgarden.mindgarden.ui.inventory.InventoryViewModel
 import java.lang.IllegalArgumentException
 
 @Suppress("UNCHECKED_CAST")
@@ -16,7 +17,7 @@ class GardenViewModelFactory(private val gardenRepository: GardenRepository) :
         with(modelClass) {
             when {
                 isAssignableFrom(HomeViewModel::class.java) -> HomeViewModel(gardenRepository)
-                // TODO : add Inventory ViewModel
+                isAssignableFrom(InventoryViewModel::class.java) -> InventoryViewModel(gardenRepository)
                 else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }
         } as T

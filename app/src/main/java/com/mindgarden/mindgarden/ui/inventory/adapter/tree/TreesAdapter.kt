@@ -1,45 +1,46 @@
-package com.mindgarden.mindgarden.ui.inventory.adapter
+package com.mindgarden.mindgarden.ui.inventory.adapter.tree
 
 import android.content.ClipData
-import android.content.ClipDescription
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Point
 import android.graphics.drawable.ColorDrawable
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mindgarden.mindgarden.R
-import com.mindgarden.mindgarden.ui.inventory.model.Item
+import com.mindgarden.mindgarden.databinding.ItemInventoryBinding
+import com.mindgarden.mindgarden.ui.inventory.model.InventoryTree
+import com.mindgarden.mindgarden.util.base.BaseViewHolder
 
-class InventoryAdapter(private val items: MutableList<Item>): RecyclerView.Adapter<InventoryAdapter.ViewHolder>(){
+class TreesAdapter(val trees: List<InventoryTree>): RecyclerView.Adapter<TreesAdapter.ViewHolder>(){
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.item_inventory, viewGroup, false)
-        return ViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(parent)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tv.text = items[position].id
+        holder.bind(trees[position])
     }
 
-    override fun getItemCount() = items.count()
+    override fun getItemCount() = trees.size
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tv: TextView = view.findViewById(R.id.tvNum)
+    class ViewHolder(viewGroup: ViewGroup)
+        : BaseViewHolder<ItemInventoryBinding, InventoryTree>(viewGroup, R.layout.item_inventory){
 
         init {
-            tv.tag = tv.text
-            tv.setOnLongClickListener { v ->
-                val dragData = ClipData.newPlainText("id", tv.text.toString())
+            binding.inventoryTreeContainer.setOnLongClickListener { v ->
+                val dragData = ClipData.newPlainText("id", binding.tree?.id.toString())
                 val shadow = MyDragShadowBuilder(v)
                 v.startDragAndDrop(dragData, shadow, null, 0)
             }
         }
+
+        override fun bind(item: InventoryTree) {
+            binding.tree = item
+            binding.executePendingBindings()
+        }
+
     }
 
     private class MyDragShadowBuilder(v: View) : View.DragShadowBuilder(v) {

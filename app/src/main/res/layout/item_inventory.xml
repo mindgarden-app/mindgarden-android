@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="tree"
+            type="com.mindgarden.mindgarden.ui.inventory.model.InventoryTree" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/clItemInventory">
+        android:id="@+id/inventory_tree_container">
 
-        <TextView
-            android:id="@+id/tvNum"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_tree"
+            bind:setDrawableRes="@{tree.treeDrawableRes}"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="#C6B0E1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

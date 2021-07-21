@@ -7,4 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- MindGarden -->
+
+    <!-- inventory -->
+    <color name="border_garden_inventory">#78deb0</color>
+    <color name="background_garden_selected_inventory">#e1fff2</color>
+    <color name="river_inventory">#7de9ff</color>
+    <color name="border_tree_inventory">#9aeec8</color>
+    <color name="background_tree_inventory">#f8f8f8</color>
+
 </resources>

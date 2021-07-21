@@ -3,23 +3,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/dest_home">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/dest_home"
         android:name="com.mindgarden.mindgarden.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_dest_home_to_dest_inventory"
+            app:destination="@id/dest_inventory" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_diary"
+        android:id="@+id/dest_diary"
         android:name="com.mindgarden.mindgarden.ui.diary.DiaryFragment"
         android:label="@string/title_diary"
         tools:layout="@layout/fragment_diary" />
 
     <fragment
-        android:id="@+id/navigation_diary_list"
+        android:id="@+id/dest_diary_list"
         android:name="com.mindgarden.mindgarden.ui.diarylist.DiaryListFragment"
         android:label="@string/title_diary_list"
         tools:layout="@layout/fragment_diary_list" />
+
+    <fragment
+        android:id="@+id/dest_inventory"
+        android:name="com.mindgarden.mindgarden.ui.inventory.InventoryFragment"
+        android:label="InventoryFragment"
+        tools:layout="@layout/fragment_inventory"/>
 </navigation>

@@ -2,11 +2,11 @@
 <resources>
     <array name="tree_array">
         <item>@drawable/ic_launcher_foreground</item>
+        <item>@drawable/ic_baseline_eco_24</item>
         <item>@drawable/ic_launcher_foreground</item>
+        <item>@drawable/ic_baseline_eco_24</item>
         <item>@drawable/ic_launcher_foreground</item>
-        <item>@drawable/ic_launcher_foreground</item>
-        <item>@drawable/ic_launcher_foreground</item>
-        <item>@drawable/ic_launcher_foreground</item>
+        <item>@drawable/ic_baseline_eco_24</item>
         <item>@drawable/ic_launcher_foreground</item>
         <item>@drawable/ic_launcher_foreground</item>
         <item>@drawable/ic_launcher_foreground</item>

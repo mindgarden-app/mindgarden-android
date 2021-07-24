@@ -1,6 +1,7 @@
 package com.mindgarden.mindgarden.ui.inventory
 
 import android.content.res.TypedArray
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.mindgarden.mindgarden.data.repository.gardenRepo.GardenRepository
@@ -27,13 +28,16 @@ class InventoryViewModel(private val gardenRepository: GardenRepository): BaseVi
     fun initGarden(garden: IntArray) {
         val items = mutableListOf<InventoryGarden>()
         // TODO : repository에서 tree data 가져 오기
-        for (i in 0 until garden.lastIndex) {
+        for (i in 0..garden.lastIndex) {
             when (garden[i]) {
                 13, 19, 18, 24 -> {
                     items.add(InventoryGarden(garden[i], 1, GardenType.RIVER))
                 }
+                3 -> {   // Test
+                    items.add(InventoryGarden(garden[i], 2131230823, GardenType.EXIST))
+                }
                 else -> {
-                    items.add(InventoryGarden(garden[i], 1, GardenType.EMPTY))
+                    items.add(InventoryGarden(garden[i], null, GardenType.EMPTY))
                 }
             }
         }

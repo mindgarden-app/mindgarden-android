@@ -5,13 +5,14 @@ import android.util.Log
 import android.view.DragEvent
 import android.view.DragEvent.*
 import android.view.View
+import androidx.annotation.DrawableRes
 
 class DragCallback(private val listener: OnDragListener): View.OnDragListener {
 
     interface OnDragListener {
         fun onDragEntered()
         fun onDragExited()
-        fun onDrop(imgId: String)
+        fun onDrop(@DrawableRes treeResId: Int)
     }
 
     override fun onDrag(v: View?, event: DragEvent?): Boolean {
@@ -33,9 +34,9 @@ class DragCallback(private val listener: OnDragListener): View.OnDragListener {
             }
             ACTION_DROP -> {
                 val item: ClipData.Item = event.clipData.getItemAt(0)
-                val itemId = item.text
+                val itemId = Integer.parseInt("${item.text}")
                 Log.d("DragCallback", "started item id: $itemId")
-                listener.onDrop(itemId.toString())
+                listener.onDrop(itemId)
                 true
             }
             ACTION_DRAG_ENDED -> {
@@ -43,5 +44,9 @@ class DragCallback(private val listener: OnDragListener): View.OnDragListener {
             }
             else -> false
         }
+    }
+
+    companion object {
+        const val LABEL_TREE_RES_ID = "treeResId"
     }
 }

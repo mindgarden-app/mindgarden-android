@@ -1,7 +1,6 @@
-package com.mindgarden.mindgarden.ui.inventory.adapter
+package com.mindgarden.mindgarden.ui.inventory
 
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -13,8 +12,10 @@ import com.mindgarden.mindgarden.ui.inventory.model.InventoryGarden
 import com.mindgarden.mindgarden.ui.inventory.model.InventoryTree
 
 @BindingAdapter("bind:setImageRes")
-fun setImageRes(iv: ImageView, @DrawableRes res: Int) {
-    iv.setImageResource(res)
+fun setImageRes(iv: ImageView, @DrawableRes res: Int?) {
+    res?.let {
+        iv.setImageResource(it)
+    }
 }
 
 @BindingAdapter("bind:treeAdapter")
@@ -28,10 +29,11 @@ fun setGardenAdapter(rv: RecyclerView, items: List<InventoryGarden>) {
 }
 
 @BindingAdapter("bind:gardenType")
-fun setGardenBackground(tv: TextView, type: GardenType) {
+fun setGardenBackground(iv: ImageView, type: GardenType) {
     when (type) {
-        GardenType.EMPTY -> tv.setBackgroundResource(R.drawable.border_garden)
-        GardenType.EXIST -> tv.setBackgroundResource(R.drawable.border_garden)
-        GardenType.RIVER -> tv.setBackgroundResource(R.drawable.background_river)
+        GardenType.EMPTY -> iv.setBackgroundResource(R.drawable.border_garden)
+        GardenType.EXIST -> iv.setBackgroundResource(R.drawable.border_garden)
+        GardenType.PROGRESS -> iv.setBackgroundResource(R.drawable.border_garden)
+        GardenType.RIVER -> iv.setBackgroundResource(R.drawable.background_river)
     }
 }

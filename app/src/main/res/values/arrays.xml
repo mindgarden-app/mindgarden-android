@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="tree_array">
-        <item>@drawable/ic_launcher_foreground</item>
-        <item>@drawable/ic_baseline_eco_24</item>
-        <item>@drawable/ic_launcher_foreground</item>
-        <item>@drawable/ic_baseline_eco_24</item>
-        <item>@drawable/ic_launcher_foreground</item>
-        <item>@drawable/ic_baseline_eco_24</item>
-        <item>@drawable/ic_launcher_foreground</item>
-        <item>@drawable/ic_launcher_foreground</item>
-        <item>@drawable/ic_launcher_foreground</item>
-        <item>@drawable/ic_launcher_foreground</item>
-        <item>@drawable/ic_launcher_foreground</item>
+        <item>@drawable/ic_tree_1</item>
+        <item>@drawable/ic_tree_2</item>
+        <item>@drawable/ic_tree_3</item>
+        <item>@drawable/ic_tree_4</item>
+        <item>@drawable/ic_tree_5</item>
+        <item>@drawable/ic_tree_6</item>
+        <item>@drawable/ic_tree_7</item>
+        <item>@drawable/ic_tree_8</item>
+        <item>@drawable/ic_tree_9</item>
+        <item>@drawable/ic_tree_10</item>
+        <item>@drawable/ic_tree_11</item>
+        <item>@drawable/ic_tree_12</item>
+        <item>@drawable/ic_tree_13</item>
+        <item>@drawable/ic_tree_14</item>
+        <item>@drawable/ic_tree_15</item>
+        <item>@drawable/ic_tree_16</item>
     </array>
 
     <integer-array name="garden_location_array">

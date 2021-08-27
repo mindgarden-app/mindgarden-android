@@ -18,7 +18,7 @@ class NickNameActivity : AppCompatActivity() {
     }
 
     private fun initBinding(context:Context){
-        viewModel.repository = RepositoryInjector.provideUserRepository(context)
+//        viewModel.repository = RepositoryInjector.provideUserRepository(context)
     }
 
 }

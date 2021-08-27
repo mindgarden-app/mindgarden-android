@@ -3,9 +3,13 @@ package com.mindgarden.mindgarden.ui.diarylist
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mindgarden.mindgarden.data.repository.diaryRepo.DiaryRepository
+import com.mindgarden.mindgarden.data.repository.diaryRepo.DefaultDiaryRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class DiaryListViewModel(private val diaryRepository: DiaryRepository) : ViewModel() {
+@HiltViewModel
+class DiaryListViewModel @Inject constructor(
+    private val diaryRepository: DefaultDiaryRepository) : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is DiaryList Fragment"

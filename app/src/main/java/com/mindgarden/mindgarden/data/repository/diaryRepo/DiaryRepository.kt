@@ -1,46 +1,17 @@
 package com.mindgarden.mindgarden.data.repository.diaryRepo
 
 import com.mindgarden.mindgarden.data.model.entity.Diary
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.*
 
-class DiaryRepository(private val localDataSource: DiaryDataSource) : DiaryDataSource {
-
-    override fun writeDiary(diary: Diary): Completable {
-        return localDataSource.writeDiary(diary)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-    }
-
-    override fun editDiary(diary: Diary): Completable {
-        return localDataSource.editDiary(diary)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-    }
-
-    override fun deleteAll(): Completable {
-        return localDataSource.deleteAll()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-    }
-
-    override fun deleteDiary(diary: Diary): Completable {
-        TODO("LocalDiaryDataSource에서 구현 후 호출")
-    }
-
-    override fun getDiaries(date: Date): Flowable<List<Diary>> {
-        return localDataSource.getDiaries(date)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-    }
-
-    override fun getDiary(id: Long): Single<Diary> {
-        return localDataSource.getDiary(id)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-    }
+// TODO("수정 필요")
+interface DiaryRepository {
+    fun writeDiary(diary: Diary): Completable
+    fun editDiary(diary: Diary): Completable
+    fun deleteAll(): Completable
+    fun deleteDiary(diary: Diary): Completable
+    fun getDiaries(date: Date): Flowable<List<Diary>>
+    fun getDiary(id: Long): Single<Diary>
 }

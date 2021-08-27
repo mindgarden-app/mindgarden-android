@@ -3,10 +3,14 @@ package com.mindgarden.mindgarden.ui.diary
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.mindgarden.mindgarden.data.repository.diaryRepo.DiaryRepository
-import com.mindgarden.mindgarden.util.base.BaseViewModel
+import com.mindgarden.mindgarden.data.repository.diaryRepo.DefaultDiaryRepository
+import com.mindgarden.mindgarden.ui.util.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class DiaryViewModel(private val diaryRepository: DiaryRepository) : BaseViewModel() {
+@HiltViewModel
+class DiaryViewModel @Inject constructor(
+    private val diaryRepository: DefaultDiaryRepository) : BaseViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is Diary Fragment"

@@ -5,13 +5,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.mindgarden.mindgarden.data.model.entity.Garden
 import com.mindgarden.mindgarden.data.model.local.Tree
-import com.mindgarden.mindgarden.data.repository.gardenRepo.GardenRepository
-import com.mindgarden.mindgarden.util.base.BaseViewModel
+import com.mindgarden.mindgarden.data.repository.gardenRepo.DefaultGardenRepository
+import com.mindgarden.mindgarden.ui.util.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.kotlin.addTo
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.LinkedHashMap
 
-class HomeViewModel(private val gardenRepository: GardenRepository) : BaseViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val defaultGardenRepository: DefaultGardenRepository) : BaseViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"
@@ -22,6 +26,7 @@ class HomeViewModel(private val gardenRepository: GardenRepository) : BaseViewMo
 
     init {
         plantTree()
+        getGardenTest()
     }
 
     private fun plantTree() {
@@ -34,7 +39,7 @@ class HomeViewModel(private val gardenRepository: GardenRepository) : BaseViewMo
             0, date, mindList
         )
 
-        gardenRepository.plantTree(gardenData)
+        defaultGardenRepository.plantTree(gardenData)
             .subscribe(
             {
                 Log.d("HomeViewModel", "Success insert")
@@ -47,7 +52,7 @@ class HomeViewModel(private val gardenRepository: GardenRepository) : BaseViewMo
     fun getGardenTest() {
         Log.d("HomeViewModel", "date: $date")
 
-        gardenRepository.getGarden(date)
+        defaultGardenRepository.getGarden(date)
             .doOnSubscribe {
                 // show loading progress
             }

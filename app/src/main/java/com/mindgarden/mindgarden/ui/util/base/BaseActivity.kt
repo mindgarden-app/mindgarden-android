@@ -1,4 +1,4 @@
-package com.mindgarden.mindgarden.util.base
+package com.mindgarden.mindgarden.ui.util.base
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle

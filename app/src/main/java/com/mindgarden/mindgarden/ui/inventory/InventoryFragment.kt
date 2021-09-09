@@ -4,18 +4,17 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.mindgarden.mindgarden.R
-import com.mindgarden.mindgarden.data.viewmodelFactory.GardenViewModelFactory
 import com.mindgarden.mindgarden.databinding.FragmentInventoryBinding
-import com.mindgarden.mindgarden.util.base.BaseFragment
+import com.mindgarden.mindgarden.ui.util.base.BaseFragment
 import com.mindgarden.mindgarden.util.ext.getLocationArray
 import com.mindgarden.mindgarden.util.ext.getTreeResArray
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class InventoryFragment:
     BaseFragment<InventoryViewModel, FragmentInventoryBinding>(R.layout.fragment_inventory) {
 
-    override val viewModel: InventoryViewModel by viewModels {
-        GardenViewModelFactory.getInstance(requireActivity().application)
-    }
+    override val viewModel: InventoryViewModel by viewModels()
 
     override fun setViewModel() {
         binding.vm = viewModel

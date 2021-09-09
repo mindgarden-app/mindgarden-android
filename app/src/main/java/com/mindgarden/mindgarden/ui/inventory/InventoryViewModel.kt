@@ -8,9 +8,13 @@ import com.mindgarden.mindgarden.data.repository.gardenRepo.GardenRepository
 import com.mindgarden.mindgarden.ui.inventory.model.GardenType
 import com.mindgarden.mindgarden.ui.inventory.model.InventoryGarden
 import com.mindgarden.mindgarden.ui.inventory.model.InventoryTree
-import com.mindgarden.mindgarden.util.base.BaseViewModel
+import com.mindgarden.mindgarden.ui.util.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class InventoryViewModel(private val gardenRepository: GardenRepository): BaseViewModel() {
+@HiltViewModel
+class InventoryViewModel @Inject constructor(private val gardenRepository: GardenRepository)
+    : BaseViewModel() {
     private val _trees = MutableLiveData<MutableList<InventoryTree>>()
     val trees: LiveData<MutableList<InventoryTree>> get() = _trees
 

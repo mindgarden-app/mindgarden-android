@@ -11,24 +11,24 @@ import com.mindgarden.mindgarden.ui.inventory.model.GardenType
 import com.mindgarden.mindgarden.ui.inventory.model.InventoryGarden
 import com.mindgarden.mindgarden.ui.inventory.model.InventoryTree
 
-@BindingAdapter("bind:setImageRes")
+@BindingAdapter("setImageRes")
 fun setImageRes(iv: ImageView, @DrawableRes res: Int?) {
     res?.let {
         iv.setImageResource(it)
     }
 }
 
-@BindingAdapter("bind:treeAdapter")
+@BindingAdapter("treeAdapter")
 fun setTreeAdapter(rv: RecyclerView, items: List<InventoryTree>) {
     rv.adapter = TreesAdapter(items)
 }
 
-@BindingAdapter("bind:gardenAdapter")
+@BindingAdapter("gardenAdapter")
 fun setGardenAdapter(rv: RecyclerView, items: List<InventoryGarden>) {
     rv.adapter = GardenAdapter(items)
 }
 
-@BindingAdapter("bind:gardenType")
+@BindingAdapter("gardenType")
 fun setGardenBackground(iv: ImageView, type: GardenType) {
     when (type) {
         GardenType.EMPTY -> iv.setBackgroundResource(R.drawable.border_garden)

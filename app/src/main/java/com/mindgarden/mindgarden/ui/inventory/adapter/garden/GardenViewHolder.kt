@@ -1,19 +1,15 @@
 package com.mindgarden.mindgarden.ui.inventory.adapter.garden
 
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
 import android.util.Log
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
-import androidx.core.content.ContextCompat
 import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.databinding.ItemGardenBinding
 import com.mindgarden.mindgarden.ui.inventory.adapter.util.DragCallback
 import com.mindgarden.mindgarden.ui.inventory.model.InventoryGarden
+import com.mindgarden.mindgarden.ui.inventory.setImageRes
 import com.mindgarden.mindgarden.util.base.BaseViewHolder
-import com.mindgarden.mindgarden.util.bindingAdapter.setImageRes
-import com.mindgarden.mindgarden.util.ext.getColorResId
 import com.mindgarden.mindgarden.util.ext.overrideColor
 
 class GardenViewHolder(viewGroup: ViewGroup): BaseViewHolder<ItemGardenBinding, InventoryGarden>(

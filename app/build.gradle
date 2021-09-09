@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 ext {
@@ -10,12 +11,12 @@ ext {
     min_sdk_version = 24
     target_sdk_version = 30
 
-    appcompat_version = '1.3.0'
-    core_ktx_version = '1.5.0'
-    constraintlayout_version = '2.0.4'
+    appcompat_version = '1.3.1'
+    core_ktx_version = '1.6.0'
+    constraintlayout_version = '2.1.0'
     material_version = '1.4.0'
 
-    fragment_version = '1.3.5'
+    fragment_version = '1.3.6'
     navigation_version = '2.3.5'
     viewmodel_version = '2.3.1'
     room_version = '2.3.0'
@@ -26,7 +27,7 @@ ext {
 
     retrofit_version = '2.9.0'
     glide_version = '4.12.0'
-    gson_version = '2.8.6'
+    gson_version = '2.8.8'
 }
 
 android {
@@ -70,6 +71,10 @@ dependencies {
     implementation "androidx.core:core-ktx:$core_ktx_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
     implementation "com.google.android.material:material:$material_version"
+
+    // di hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
     // aac, ktx
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"

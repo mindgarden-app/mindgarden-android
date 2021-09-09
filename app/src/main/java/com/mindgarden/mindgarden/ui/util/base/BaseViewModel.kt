@@ -1,4 +1,4 @@
-package com.mindgarden.mindgarden.util.base
+package com.mindgarden.mindgarden.ui.util.base
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

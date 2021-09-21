@@ -7,19 +7,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mindgarden.mindgarden.R
-import com.mindgarden.mindgarden.data.model.Diary
+import com.mindgarden.mindgarden.data.model.entity.Diary
 import com.mindgarden.mindgarden.databinding.RvItemDiaryListBinding
 
 class DiaryListAdapter(val diaryListItemClick: (Diary) -> Unit, val diaryListItemLongClick: (Diary) -> Unit) :
         ListAdapter<Diary, DiaryListAdapter.DiaryListViewHolder>(
             DiaryListDiffCallback
         ) {
-    //private var isPressed : Boolean = false
-
             inner class DiaryListViewHolder(private val binding : RvItemDiaryListBinding) :
                     RecyclerView.ViewHolder(binding.root) {
-                //private val llDel = itemView.findViewById<LinearLayout>(R.id.ll_diary_list_delete)
-                //private val imgDel = itemView.findViewById<ImageView>(R.id.img_diary_list_delete)
                 private val tvDel = itemView.findViewById<TextView>(R.id.tv_delete)
 
                         fun bind(diary: Diary) {
@@ -29,29 +25,10 @@ class DiaryListAdapter(val diaryListItemClick: (Diary) -> Unit, val diaryListIte
                                 diaryListItemClick(diary)
                             }
 
-                            /*itemView.setOnClickListener {
-                                diaryListItemClick(diary)
-                            }*/
-
                             tvDel.setOnLongClickListener {
                                 diaryListItemLongClick(diary)
                                 true
                             }
-
-                            /*itemView.setOnLongClickListener {
-                                // diaryListItemLongClick(diary)
-                                isPressed = !isPressed
-
-                                if (isPressed) {
-                                    llDel.visibility = View.VISIBLE
-
-                                    imgDel.setOnLongClickListener {
-                                        diaryListItemLongClick(diary)
-                                        true
-                                    }
-                                } else llDel.visibility = View.GONE
-                                true
-                            }*/
                         }
                     }
 

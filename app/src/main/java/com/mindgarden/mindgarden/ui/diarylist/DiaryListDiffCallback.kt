@@ -1,7 +1,7 @@
 package com.mindgarden.mindgarden.ui.diarylist
 
 import androidx.recyclerview.widget.DiffUtil
-import com.mindgarden.mindgarden.data.model.Diary
+import com.mindgarden.mindgarden.data.model.entity.Diary
 
 object DiaryListDiffCallback : DiffUtil.ItemCallback<Diary>() {
     override fun areItemsTheSame(oldItem: Diary, newItem: Diary): Boolean {

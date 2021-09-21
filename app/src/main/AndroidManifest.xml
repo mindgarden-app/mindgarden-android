@@ -3,6 +3,7 @@
     package="com.mindgarden.mindgarden">
 
     <application
+        android:name=".MindGardenApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -10,8 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mindgarden">
         <activity android:name=".ui.writeDiary.WriteDiaryActivity"></activity>
+        <activity android:name=".ui.nickname.NickNameActivity"/>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

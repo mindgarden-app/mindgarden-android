@@ -1,4 +1,4 @@
-package com.mindgarden.mindgarden.util.bindingAdapter
+package com.mindgarden.mindgarden.ui.util.bindingAdapter
 
 import android.view.View
 import androidx.databinding.BindingAdapter

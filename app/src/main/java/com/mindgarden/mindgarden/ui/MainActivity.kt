@@ -1,4 +1,4 @@
-package com.mindgarden.mindgarden
+package com.mindgarden.mindgarden.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -7,9 +7,12 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.mindgarden.mindgarden.util.ext.hide
-import com.mindgarden.mindgarden.util.ext.show
+import com.mindgarden.mindgarden.R
+import com.mindgarden.mindgarden.ui.util.ext.hide
+import com.mindgarden.mindgarden.ui.util.ext.show
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

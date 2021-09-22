@@ -7,12 +7,12 @@ import androidx.annotation.DrawableRes
 import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.databinding.ItemGardenBinding
 import com.mindgarden.mindgarden.ui.inventory.adapter.util.DragCallback
-import com.mindgarden.mindgarden.ui.inventory.model.InventoryGarden
-import com.mindgarden.mindgarden.ui.inventory.setImageRes
+import com.mindgarden.mindgarden.ui.inventory.model.InventoryMind
+import com.mindgarden.mindgarden.ui.util.bindingAdapter.setImageRes
 import com.mindgarden.mindgarden.util.base.BaseViewHolder
 import com.mindgarden.mindgarden.util.ext.overrideColor
 
-class GardenViewHolder(viewGroup: ViewGroup): BaseViewHolder<ItemGardenBinding, InventoryGarden>(
+class GardenViewHolder(viewGroup: ViewGroup): BaseViewHolder<ItemGardenBinding, InventoryMind>(
     viewGroup, R.layout.item_garden
 ){
     init {
@@ -46,7 +46,7 @@ class GardenViewHolder(viewGroup: ViewGroup): BaseViewHolder<ItemGardenBinding, 
         drawable.overrideColor(color)
     }
 
-    override fun bind(item: InventoryGarden) {
+    override fun bind(item: InventoryMind) {
         binding.garden = item
         binding.executePendingBindings()
     }

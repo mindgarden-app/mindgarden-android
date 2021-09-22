@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <import type="android.text.TextUtils" />
         <variable
             name="garden"
-            type="com.mindgarden.mindgarden.ui.inventory.model.InventoryGarden" />
+            type="com.mindgarden.mindgarden.ui.inventory.model.InventoryMind" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,9 +23,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            bind:setImageRes="@{garden.treeIdx}"
-            bind:gardenType="@{garden.type}"
-            bind:ignore="ContentDescription" />
+            app:setImageRes="@{garden.treeIdx}"
+            app:gardenType="@{garden.type}"
+            tools:ignore="ContentDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

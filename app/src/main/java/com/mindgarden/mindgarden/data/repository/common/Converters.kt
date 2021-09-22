@@ -1,16 +1,15 @@
 package com.mindgarden.mindgarden.data.repository.common
 
 import androidx.room.TypeConverter
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.mindgarden.mindgarden.data.model.local.Tree
+import java.time.LocalDateTime
 import java.util.*
+
 
 object Converters {
 
     @TypeConverter
     @JvmStatic
-    fun fromTimestamp(timestamp: Long?): Date? {
+    fun fromTimestampToDate(timestamp: Long?): Date? {
         return timestamp?.let { Date(it) }
     }
 
@@ -22,13 +21,17 @@ object Converters {
 
     @TypeConverter
     @JvmStatic
-    fun jsonToMap(value: String): Map<Int, Tree> {
-        return Gson().fromJson(value, object : TypeToken<Map<Int, Tree>>() {}.type)
+    fun toDate(dateString: String?): LocalDateTime? {
+        return if (dateString == null) {
+            null
+        } else {
+            LocalDateTime.parse(dateString)
+        }
     }
 
     @TypeConverter
     @JvmStatic
-    fun mapToJson(value: Map<Int, Tree>?): String {
-        return if (value == null) "" else Gson().toJson(value)
+    fun toDateString(date: LocalDateTime?): String? {
+        return date?.toString()
     }
 }

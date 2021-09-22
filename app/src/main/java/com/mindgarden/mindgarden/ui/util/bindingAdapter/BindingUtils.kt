@@ -10,7 +10,7 @@ fun setVisible(view: View, isVisible: Boolean) {
     view.visibility = if (isVisible) View.VISIBLE else View.GONE
 }
 
-@BindingAdapter("bind:setDrawableRes")
+@BindingAdapter("setDrawableRes")
 fun setImageRes(view: ImageView, drawableRes: Int) {
     Glide.with(view.context)
         .load(drawableRes)

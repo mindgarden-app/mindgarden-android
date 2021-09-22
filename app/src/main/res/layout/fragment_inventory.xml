@@ -25,7 +25,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="6"
-            app:gardenAdapter="@{vm.garden}"
             tools:listitem="@layout/item_garden" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -41,5 +40,12 @@
             app:treeAdapter="@{vm.trees}"
             tools:listitem="@layout/item_inventory" />
 
+        <Button
+            android:id="@+id/btnPlant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="plant"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

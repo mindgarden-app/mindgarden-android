@@ -6,13 +6,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.ui.inventory.model.GardenType
-import com.mindgarden.mindgarden.ui.inventory.model.InventoryGarden
+import com.mindgarden.mindgarden.ui.inventory.model.InventoryMind
 
 
-class GardenAdapter(private val items: List<InventoryGarden>):
-    ListAdapter<InventoryGarden, RecyclerView.ViewHolder>(GardenDiffUtil()){
+class GardenAdapter: ListAdapter<InventoryMind, RecyclerView.ViewHolder>(GardenDiffUtil()){
 
-    // TODO("Exist, progress type")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             R.layout.item_garden -> GardenViewHolder(parent)
@@ -23,31 +21,28 @@ class GardenAdapter(private val items: List<InventoryGarden>):
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-           is GardenViewHolder -> holder.bind(items[position])
-           is RiverViewHolder -> holder.bind(items[position])
+           is GardenViewHolder -> holder.bind(getItem(position))
+           is RiverViewHolder -> holder.bind(getItem(position))
         }
     }
 
-    override fun getItemCount() = items.count()
-
-    // TODO("Exist, progress type")
-    override fun getItemViewType(position: Int) = when(items[position].type) {
+    override fun getItemViewType(position: Int) = when(getItem(position).type) {
         GardenType.EMPTY -> R.layout.item_garden
         GardenType.EXIST -> R.layout.item_garden
         GardenType.PROGRESS -> R.layout.item_garden
         GardenType.RIVER -> R.layout.item_river
     }
 
-    class GardenDiffUtil : DiffUtil.ItemCallback<InventoryGarden>() {
-        override fun areItemsTheSame(oldItem: InventoryGarden, newItem: InventoryGarden): Boolean {
-            return oldItem.location == newItem.location
+    class GardenDiffUtil : DiffUtil.ItemCallback<InventoryMind>() {
+        override fun areItemsTheSame(oldItem: InventoryMind, newItem: InventoryMind): Boolean {
+            return oldItem.idx == newItem.idx
         }
 
         override fun areContentsTheSame(
-            oldItem: InventoryGarden,
-            newItem: InventoryGarden
+            oldItem: InventoryMind,
+            newItem: InventoryMind
         ): Boolean {
-            return oldItem == newItem
+            return oldItem.location == newItem.location && oldItem.treeIdx == newItem.treeIdx
         }
     }
 }

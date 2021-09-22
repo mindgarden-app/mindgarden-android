@@ -5,10 +5,8 @@ import androidx.annotation.DrawableRes
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mindgarden.mindgarden.R
-import com.mindgarden.mindgarden.ui.inventory.adapter.garden.GardenAdapter
 import com.mindgarden.mindgarden.ui.inventory.adapter.tree.TreesAdapter
 import com.mindgarden.mindgarden.ui.inventory.model.GardenType
-import com.mindgarden.mindgarden.ui.inventory.model.InventoryGarden
 import com.mindgarden.mindgarden.ui.inventory.model.InventoryTree
 
 @BindingAdapter("setImageRes")
@@ -21,11 +19,6 @@ fun setImageRes(iv: ImageView, @DrawableRes res: Int?) {
 @BindingAdapter("treeAdapter")
 fun setTreeAdapter(rv: RecyclerView, items: List<InventoryTree>) {
     rv.adapter = TreesAdapter(items)
-}
-
-@BindingAdapter("gardenAdapter")
-fun setGardenAdapter(rv: RecyclerView, items: List<InventoryGarden>) {
-    rv.adapter = GardenAdapter(items)
 }
 
 @BindingAdapter("gardenType")

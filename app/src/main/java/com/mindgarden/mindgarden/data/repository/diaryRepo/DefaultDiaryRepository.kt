@@ -49,4 +49,11 @@ class DefaultDiaryRepository @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
+
+    // TODO : 조회 1차 작업
+    override fun getAll(): Flowable<List<Diary>> {
+        return localDataSource.getAll()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
 }

@@ -24,4 +24,8 @@ abstract class DiaryDao : BaseDao<Diary> {
 
     @Query("DELETE From diary")
     abstract fun deleteAllDiary(): Completable
+
+    // TODO : 조회 1차 작업
+    @Query("SELECT * From diary")
+    abstract fun loadAll(): Flowable<List<Diary>>
 }

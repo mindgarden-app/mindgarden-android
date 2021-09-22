@@ -10,11 +10,12 @@ import com.mindgarden.mindgarden.ui.diarylist.DiaryListViewModel
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import com.mindgarden.mindgarden.data.model.entity.Diary
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
+@AndroidEntryPoint
 class WriteDiaryActivity : AppCompatActivity() {
     val viewModel: DiaryListViewModel by viewModels()
-    private var id: Long? = null
     private lateinit var btnSave : Button
     private lateinit var etContent: EditText
     val date: Date = Calendar.getInstance().time
@@ -32,13 +33,13 @@ class WriteDiaryActivity : AppCompatActivity() {
     fun clickSave() {
         btnSave.setOnClickListener {
             val content = etContent.text.toString()
+            val diary = Diary(
+                date, content, 1, "good", null
+            )
 
             if (content.isEmpty()) {
                 Toast.makeText(this, "Enter", Toast.LENGTH_SHORT).show()
             } else {
-                val diary = Diary(
-                    date, content, 1, "good", null
-                )
                 viewModel.writeDiary(diary)
                 finish()
             }

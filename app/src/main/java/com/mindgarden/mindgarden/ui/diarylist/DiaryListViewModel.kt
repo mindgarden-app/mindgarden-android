@@ -23,13 +23,36 @@ class DiaryListViewModel @Inject constructor(
     val date: Date = Calendar.getInstance().time
 
     init {
-        getDiaries()
-        //writeDiary()
+        //getDiaries()
         //deleteDiary()
+
+        // TODO : 조회 1차 작업
+        getAll()
     }
 
     fun getDiaries(): Flowable<List<Diary>> {
+        diaryRepository.getDiaries(date).subscribe(
+                {
+                    Log.d("목록", "list success : $it")
+                }, {
+            Log.e("목록", "Error : $it")
+        }
+        ).addTo(compositeDisposable)
+
         return diaryRepository.getDiaries(date)
+    }
+
+    // TODO : 조회 1차 작업
+    fun getAll(): Flowable<List<Diary>> {
+        diaryRepository.getAll().subscribe(
+            {
+                Log.d("목록", "list success : $it")
+            }, {
+                Log.e("목록", "Error : $it")
+            }
+        ).addTo(compositeDisposable)
+
+        return diaryRepository.getAll()
     }
 
     fun writeDiary(diary: Diary) {

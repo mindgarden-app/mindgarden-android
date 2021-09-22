@@ -40,11 +40,11 @@ class DiaryListFragment : BaseFragment<DiaryListViewModel, FragmentDiaryListBind
             deleteDialog(diary)
         })
 
-        /*viewModel.getDiaries().subscribe() {
-                it -> it?.let { diaryListAdapter.submitList(it) }
-        }*/
+        binding.rvDiaryList.apply {
+            adapter = diaryListAdapter
+        }
 
-        viewModel.getDiaries().subscribe(
+        viewModel.getAll().subscribe(
             {
                 it -> it?.let { diaryListAdapter.submitList(it) }
             }, {
@@ -58,25 +58,6 @@ class DiaryListFragment : BaseFragment<DiaryListViewModel, FragmentDiaryListBind
             startActivity(intent)
         }
     }
-
-    /*init {
-        diaryListAdapter = DiaryListAdapter({ diary ->
-            val intent = Intent(requireActivity(), WriteDiaryActivity::class.java)
-            startActivity(intent)
-        }, { diary ->
-            deleteDialog(diary)
-        })
-
-        viewModel.getDiaries().subscribe() {
-            it -> it?.let { diaryListAdapter.submitList(it) }
-        }
-
-        val btnWrite : Button = binding.btnWrite
-        btnWrite.setOnClickListener {
-            val intent : Intent = Intent(requireActivity(), WriteDiaryActivity::class.java)
-            startActivity(intent)
-        }
-    }*/
 
     /*
     override fun onCreateView(

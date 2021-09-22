@@ -13,4 +13,7 @@ interface DiaryDataSource {
     fun deleteDiary(diary: Diary): Completable
     fun getDiaries(date: Date): Flowable<List<Diary>>
     fun getDiary(id: Long): Single<Diary>
+
+    // TODO : 조회 1차 작업
+    fun getAll() : Flowable<List<Diary>>
 }

@@ -70,9 +70,9 @@ class DiaryListViewModel @Inject constructor(
         diaryRepository.deleteDiary(diary)
             .subscribe(
                 {
-                    Log.d("DiaryListViewModel", "Success delete")
+                    Log.d("목록", "Success delete")
                 }, {
-                    Log.e("DiaryListViewModel", "Error : $it")
+                    Log.e("목록", "Error : $it")
                 }
             ).addTo(compositeDisposable)
     }

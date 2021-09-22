@@ -32,7 +32,6 @@ class DefaultDiaryRepository @Inject constructor(
     }
 
     override fun deleteDiary(diary: Diary): Completable {
-        TODO("LocalDiaryDataSource에서 구현 후 호출")
         return localDataSource.deleteDiary(diary)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

@@ -40,8 +40,18 @@ class DiaryListFragment : BaseFragment<DiaryListViewModel, FragmentDiaryListBind
             deleteDialog(diary)
         })
 
+        // Swipe
+        val swipeHelperCallBack = SwipeHelperCallBack().apply { setClamp(200f) }
+        val itemTouchHelper = ItemTouchHelper(swipeHelperCallBack)
+        itemTouchHelper.attachToRecyclerView(binding.rvDiaryList)
+
         binding.rvDiaryList.apply {
             adapter = diaryListAdapter
+
+            setOnTouchListener { _, _ ->
+                swipeHelperCallBack.removePreviousClamp(this)
+                false
+            }
         }
 
         viewModel.getAll().subscribe(
@@ -93,10 +103,6 @@ class DiaryListFragment : BaseFragment<DiaryListViewModel, FragmentDiaryListBind
         /*diaryListViewModel.getAll().observe(viewLifecycleOwner, Observer { it ->
             it?.let { diaryListAdapter.submitList(it) }
         })*/
-
-        viewModel.getDiaries().subscribe() {
-                it -> it?.let { diaryListAdapter.submitList(it) }
-        }
 
         val btnWrite : Button = binding.btnWrite
         btnWrite.setOnClickListener {

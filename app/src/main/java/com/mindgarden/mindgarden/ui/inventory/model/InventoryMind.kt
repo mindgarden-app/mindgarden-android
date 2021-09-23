@@ -8,7 +8,7 @@ data class InventoryMind(
     val gardenDate: LocalDateTime,
     val date: LocalDateTime,
     val location: Int,
-    val treeIdx: Int? = null,
+    var treeIdx: Int? = null, // convert DrawableRes
     var type: GardenType
 ) {
     companion object {
@@ -18,6 +18,14 @@ data class InventoryMind(
             date = this.mindDate,
             location = this.location,
             treeIdx = this.location,
-            type = GardenType.EMPTY)
+            type = GardenType.PLANTED)
+
+        fun InventoryMind.convertMind() = Mind(
+            idx = null,
+            gardenDate = this.gardenDate,
+            mindDate = this.date,
+            location = this.location,
+            treeIdx = this.treeIdx ?: -1
+        )
     }
 }

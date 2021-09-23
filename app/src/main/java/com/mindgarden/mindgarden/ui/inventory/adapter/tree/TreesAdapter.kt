@@ -1,6 +1,7 @@
 package com.mindgarden.mindgarden.ui.inventory.adapter.tree
 
 import android.content.ClipData
+import android.content.ClipDescription.MIMETYPE_TEXT_PLAIN
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Point
@@ -12,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.databinding.ItemInventoryBinding
+import com.mindgarden.mindgarden.ui.inventory.adapter.util.DragCallback.Companion.LABEL_TREE_ID
 import com.mindgarden.mindgarden.ui.inventory.adapter.util.DragCallback.Companion.LABEL_TREE_RES_ID
 import com.mindgarden.mindgarden.ui.inventory.model.InventoryTree
 import com.mindgarden.mindgarden.util.base.BaseViewHolder
@@ -34,7 +36,15 @@ class TreesAdapter(val trees: List<InventoryTree>): RecyclerView.Adapter<TreesAd
 
         init {
             binding.inventoryTreeContainer.setOnLongClickListener { v ->
-                val dragData = ClipData.newPlainText(LABEL_TREE_RES_ID, binding.tree?.treeDrawableRes.toString())
+                val id = ClipData.Item(binding.tree?.id.toString())
+                val drawableId = ClipData.Item(binding.tree?.treeDrawableRes.toString())
+
+                val dragData = ClipData(
+                    MIMETYPE_TEXT_PLAIN,
+                    arrayOf(LABEL_TREE_ID,LABEL_TREE_RES_ID),
+                    id
+                )
+                dragData.addItem(drawableId)
                 val shadow = MyDragShadowBuilder(v, binding.tree?.treeDrawableRes)
                 v.startDragAndDrop(dragData, shadow, null, 0)
             }

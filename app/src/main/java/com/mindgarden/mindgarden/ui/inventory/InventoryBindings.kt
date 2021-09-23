@@ -25,7 +25,7 @@ fun setTreeAdapter(rv: RecyclerView, items: List<InventoryTree>) {
 fun setGardenBackground(iv: ImageView, type: GardenType) {
     when (type) {
         GardenType.EMPTY -> iv.setBackgroundResource(R.drawable.border_garden)
-        GardenType.EXIST -> iv.setBackgroundResource(R.drawable.border_garden)
+        GardenType.PLANTED -> iv.setBackgroundResource(R.drawable.border_garden)
         GardenType.PROGRESS -> iv.setBackgroundResource(R.drawable.border_garden)
         GardenType.RIVER -> iv.setBackgroundResource(R.drawable.background_river)
     }

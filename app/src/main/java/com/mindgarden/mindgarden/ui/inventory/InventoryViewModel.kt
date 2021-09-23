@@ -12,11 +12,13 @@ import com.mindgarden.mindgarden.data.repository.gardenRepo.GardenRepository
 import com.mindgarden.mindgarden.ui.inventory.model.GardenType
 import com.mindgarden.mindgarden.ui.inventory.model.InventoryMind
 import com.mindgarden.mindgarden.ui.inventory.model.InventoryMind.Companion.convertInventoryMind
+import com.mindgarden.mindgarden.ui.inventory.model.InventoryMind.Companion.convertMind
 import com.mindgarden.mindgarden.ui.inventory.model.InventoryTree
 import com.mindgarden.mindgarden.ui.util.base.BaseViewModel
 import com.mindgarden.mindgarden.util.ext.now
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.kotlin.addTo
 import java.time.LocalDateTime
 
@@ -24,6 +26,8 @@ class InventoryViewModel @AssistedInject constructor(
     private val gardenRepository: GardenRepository,
     @Assisted private val initData: InventoryData
 ) : BaseViewModel() {
+    private val itemMap: HashMap<Int, InventoryMind> = LinkedHashMap()
+
     private val _trees = MutableLiveData<MutableList<InventoryTree>>()
     val trees: LiveData<MutableList<InventoryTree>> get() = _trees
 
@@ -40,17 +44,22 @@ class InventoryViewModel @AssistedInject constructor(
 
     @SuppressLint("NullSafeMutableLiveData")
     fun initGarden() {
+        setDefaultGarden(itemMap)
         getGarden()
             .subscribe(
                 {
                     when (it) {
-                        is Result.Error -> _garden.postValue(getDefaultGarden())
-                        is Result.Success -> _garden.value = it.data
+                        is Result.Success ->{
+                            it.data.forEach { d -> Log.i("InventoryViewModel", "[subscribeOn] $d") }
+                            _garden.postValue(it.data)
+                        }
+                        is Result.Error ->
+                            Log.e("InventoryViewModel", "[subscribeOn] ${it.errorMsg}")
                     }
                 },
                 {
                     // error
-                    Log.e("InventoryViewModel", "[subscribeOn] error get data: ${it.message}")
+                    Log.e("InventoryViewModel", "[subscribeOn] error get data: $it")
                 },
             )
             .addTo(compositeDisposable)
@@ -59,31 +68,40 @@ class InventoryViewModel @AssistedInject constructor(
     private fun getGarden() = gardenRepository.getGarden(initData.gardenDate)
         .doOnSubscribe { Log.i("InventoryViewModel", "[doOnSubscribe] show loading view") }
         .map {
-            if (it.isNullOrEmpty()) Result.Error("Empty garden")
-            else{
-                val list = it.map { mind -> mind.copy().convertInventoryMind() }
-                Result.Success(list)
-            }
+            if (!it.isNullOrEmpty()) {
+                it.map { mind -> mind.copy().convertInventoryMind()
+                    .copy(type = GardenType.PLANTED,
+                        treeIdx = _trees.value?.get(mind.treeIdx)?.treeDrawableRes) }
+                    .forEach { iMind -> itemMap[iMind.location] = iMind }
+                Result.Success(itemMap.values.toList())
+            } else Result.Error("Empty Garden")
         }
 
 
-    private fun getDefaultGarden(): MutableList<InventoryMind> {
+    private fun setDefaultGarden(itemMap: HashMap<Int, InventoryMind>) {
         val location = initData.locationResArray
-        val items = mutableListOf<InventoryMind>()
+
         location.forEach { location : Int ->
             when (location) {
-                13, 18, 19, 24 -> items.add(InventoryMind(gardenDate = initData.gardenDate, date = now(),
-                    location = location, type = GardenType.RIVER))
-                else -> items.add(InventoryMind(gardenDate = initData.gardenDate, date = now(),
-                    location = location, type = GardenType.EMPTY))
+                13, 18, 19, 24 -> {
+                    itemMap[location] = InventoryMind(gardenDate = initData.gardenDate, date = now(),
+                        location = location, type = GardenType.RIVER)
+                }
+                else -> {
+                    itemMap[location] = InventoryMind(gardenDate = initData.gardenDate, date = now(),
+                        location = location, type = GardenType.EMPTY)
+                }
             }
         }
-        return items
+        _garden.value = itemMap.values.toList()
+        Log.d("InventoryViewModel", "End set DefaultGarden")
     }
 
-    fun plant() {
-
+    fun plant(mind: InventoryMind): Completable  {
+        Log.i("InventoryViewModel", "plant ${mind.convertMind()}")
+        return gardenRepository.plantTree(mind.convertMind())
     }
+
 
     interface InventoryData {
         val gardenDate: LocalDateTime

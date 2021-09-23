@@ -12,30 +12,25 @@ import com.mindgarden.mindgarden.ui.util.bindingAdapter.setImageRes
 import com.mindgarden.mindgarden.util.base.BaseViewHolder
 import com.mindgarden.mindgarden.util.ext.overrideColor
 
-class GardenViewHolder(viewGroup: ViewGroup): BaseViewHolder<ItemGardenBinding, InventoryMind>(
-    viewGroup, R.layout.item_garden
-){
+class GardenViewHolder(viewGroup: ViewGroup, listener: GardenListener) :
+    BaseViewHolder<ItemGardenBinding, InventoryMind>(viewGroup, R.layout.item_garden) {
     init {
         with(binding.ivGarden) {
             val drawable = background as Drawable
             setBackground(drawable, R.color.white)
 
             setOnDragListener(DragCallback(object : DragCallback.OnDragListener {
-                override fun onDragEntered() {
+                override fun onDragEntered() = Unit
+
+                override fun onDragExited() = Unit
+
+                override fun onDrop(treeId: Int, @DrawableRes treeResId: Int) {
+                    Log.d("EmptyGardenViewHolder",
+                        "itemId: $treeId resId: $treeResId, to: ${binding.garden?.location}")
                     val background = background as Drawable
                     setBackground(background, R.color.background_garden_selected_inventory)
-                }
-
-                override fun onDragExited() {
-                    val background = background as Drawable
-                    setBackground(background, R.color.white)
-                }
-
-                override fun onDrop(@DrawableRes treeResId: Int) {
-                    Log.d("GardenAdapter", "itemId: ${treeResId}, to: ${binding.garden?.location}")
-                    val background = background as Drawable
-                    setBackground(background, R.color.white)
                     setImageRes(this@with, treeResId)
+                    listener.onChange(binding.garden!!, treeId)
                 }
             }))
         }
@@ -49,5 +44,9 @@ class GardenViewHolder(viewGroup: ViewGroup): BaseViewHolder<ItemGardenBinding, 
     override fun bind(item: InventoryMind) {
         binding.garden = item
         binding.executePendingBindings()
+    }
+
+    interface GardenListener {
+        fun onChange(item: InventoryMind, treeIdx: Int)
     }
 }

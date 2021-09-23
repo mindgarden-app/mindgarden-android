@@ -12,7 +12,7 @@ class DragCallback(private val listener: OnDragListener): View.OnDragListener {
     interface OnDragListener {
         fun onDragEntered()
         fun onDragExited()
-        fun onDrop(@DrawableRes treeResId: Int)
+        fun onDrop(treeId: Int, @DrawableRes treeResId: Int)
     }
 
     override fun onDrag(v: View?, event: DragEvent?): Boolean {
@@ -33,10 +33,12 @@ class DragCallback(private val listener: OnDragListener): View.OnDragListener {
                 true
             }
             ACTION_DROP -> {
-                val item: ClipData.Item = event.clipData.getItemAt(0)
-                val itemId = Integer.parseInt("${item.text}")
-                Log.d("DragCallback", "started item id: $itemId")
-                listener.onDrop(itemId)
+                val item1: ClipData.Item = event.clipData.getItemAt(0)
+                val item2 = event.clipData.getItemAt(1)
+                val treeId = Integer.parseInt("${item1.text}")
+                val drawableRes = Integer.parseInt("${item2.text}")
+                Log.d("DragCallback", "started item id: $treeId drawable: $drawableRes")
+                listener.onDrop(treeId, drawableRes)
                 true
             }
             ACTION_DRAG_ENDED -> {
@@ -48,5 +50,6 @@ class DragCallback(private val listener: OnDragListener): View.OnDragListener {
 
     companion object {
         const val LABEL_TREE_RES_ID = "treeResId"
+        const val LABEL_TREE_ID = "treeId"
     }
 }

@@ -13,7 +13,7 @@ import com.mindgarden.mindgarden.data.repository.diaryRepo.local.DiaryDao
 import com.mindgarden.mindgarden.data.repository.gardenRepo.local.dao.GardenDao
 import com.mindgarden.mindgarden.data.repository.userRepo.local.dao.UserDao
 
-@Database(entities = [Garden::class, Diary::class, User::class], version = 2, exportSchema = false)
+@Database(entities = [Garden::class, Diary::class, User::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class MindGardenDatabase : RoomDatabase() {
     abstract fun gardenDao(): GardenDao
@@ -34,7 +34,7 @@ abstract class MindGardenDatabase : RoomDatabase() {
             Room.databaseBuilder(
                 context.applicationContext,
                 MindGardenDatabase::class.java, "mindgarden.db"
-            ).fallbackToDestructiveMigration().build()
+            ).build()
 
     }
 }

@@ -10,6 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mindgarden">
+        <activity android:name=".ui.writeDiary.WriteDiaryActivity"></activity>
         <activity android:name=".ui.nickname.NickNameActivity"/>
         <activity
             android:name=".ui.MainActivity"

@@ -34,4 +34,9 @@ class LocalDiaryDataSource(private val diaryDao: DiaryDao) : DiaryDataSource {
         return diaryDao.loadDiaryById(id)
 
     }
+
+    // TODO : 조회 1차 작업
+    override fun getAll(): Flowable<List<Diary>> {
+        return diaryDao.loadAll()
+    }
 }

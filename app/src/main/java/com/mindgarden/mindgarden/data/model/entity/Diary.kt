@@ -7,9 +7,6 @@ import java.util.*
 
 @Entity
 data class Diary(
-    @PrimaryKey
-    @ColumnInfo(name = "idx")
-    val idx: Long,
     @ColumnInfo(name = "date")
     val date: Date,
     @ColumnInfo(name = "content")
@@ -20,4 +17,8 @@ data class Diary(
     val weatherTxt: String,
     @ColumnInfo(name = "img")
     val img: String?
-)
+){
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "idx")
+    var idx: Long = 0
+}

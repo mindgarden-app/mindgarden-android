@@ -32,7 +32,9 @@ class DefaultDiaryRepository @Inject constructor(
     }
 
     override fun deleteDiary(diary: Diary): Completable {
-        TODO("LocalDiaryDataSource에서 구현 후 호출")
+        return localDataSource.deleteDiary(diary)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
     }
 
     override fun getDiaries(date: Date): Flowable<List<Diary>> {
@@ -43,6 +45,13 @@ class DefaultDiaryRepository @Inject constructor(
 
     override fun getDiary(id: Long): Single<Diary> {
         return localDataSource.getDiary(id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    // TODO : 조회 1차 작업
+    override fun getAll(): Flowable<List<Diary>> {
+        return localDataSource.getAll()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }

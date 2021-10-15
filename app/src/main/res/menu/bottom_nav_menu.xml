@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
+        android:id="@+id/dest_home"
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_diary"
+        android:id="@+id/dest_diary"
         android:title="@string/title_diary" />
 
     <item
-        android:id="@+id/navigation_diary_list"
+        android:id="@+id/dest_diary_list"
         android:title="@string/title_diary_list" />
 
 </menu>

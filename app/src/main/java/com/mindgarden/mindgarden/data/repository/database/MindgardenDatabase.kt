@@ -6,14 +6,14 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.mindgarden.mindgarden.data.model.entity.Diary
-import com.mindgarden.mindgarden.data.model.entity.Garden
+import com.mindgarden.mindgarden.data.model.entity.Mind
 import com.mindgarden.mindgarden.data.model.entity.User
 import com.mindgarden.mindgarden.data.repository.common.Converters
 import com.mindgarden.mindgarden.data.repository.diaryRepo.local.DiaryDao
 import com.mindgarden.mindgarden.data.repository.gardenRepo.local.dao.GardenDao
 import com.mindgarden.mindgarden.data.repository.userRepo.local.dao.UserDao
 
-@Database(entities = [Garden::class, Diary::class, User::class], version = 1, exportSchema = false)
+@Database(entities = [Mind::class, Diary::class, User::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class MindGardenDatabase : RoomDatabase() {
     abstract fun gardenDao(): GardenDao

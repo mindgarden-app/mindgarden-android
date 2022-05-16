@@ -1,21 +1,14 @@
 package com.mindgarden.mindgarden.ui.diarylist
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import com.mindgarden.mindgarden.data.model.entity.Diary
-import com.mindgarden.mindgarden.data.model.entity.Garden
-import com.mindgarden.mindgarden.data.model.local.Tree
+import com.mindgarden.mindgarden.data.db.entity.Diary
 import com.mindgarden.mindgarden.data.repository.diaryRepo.DefaultDiaryRepository
-import com.mindgarden.mindgarden.data.repository.gardenRepo.DefaultGardenRepository
 import com.mindgarden.mindgarden.ui.util.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.kotlin.addTo
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.LinkedHashMap
 
 @HiltViewModel
 class DiaryListViewModel @Inject constructor(

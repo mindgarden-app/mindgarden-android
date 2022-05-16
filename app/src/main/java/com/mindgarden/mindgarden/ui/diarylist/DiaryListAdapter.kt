@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mindgarden.mindgarden.R
-import com.mindgarden.mindgarden.data.model.entity.Diary
+import com.mindgarden.mindgarden.data.db.entity.Diary
 import com.mindgarden.mindgarden.databinding.RvItemDiaryListBinding
 
 class DiaryListAdapter(val diaryListItemClick: (Diary) -> Unit, val diaryListItemLongClick: (Diary) -> Unit) :

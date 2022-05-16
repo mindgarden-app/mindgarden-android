@@ -1,7 +1,7 @@
 package com.mindgarden.mindgarden.data.repository.diaryRepo.local
 
 import androidx.room.*
-import com.mindgarden.mindgarden.data.model.entity.Diary
+import com.mindgarden.mindgarden.data.db.entity.Diary
 import com.mindgarden.mindgarden.data.repository.common.BaseDao
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable

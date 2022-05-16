@@ -1,6 +1,6 @@
 package com.mindgarden.mindgarden.data.repository.gardenRepo.local
 
-import com.mindgarden.mindgarden.data.model.entity.Mind
+import com.mindgarden.mindgarden.data.db.entity.Mind
 import com.mindgarden.mindgarden.data.repository.gardenRepo.GardenDataSource
 import com.mindgarden.mindgarden.data.repository.gardenRepo.local.dao.GardenDao
 import io.reactivex.rxjava3.core.Completable

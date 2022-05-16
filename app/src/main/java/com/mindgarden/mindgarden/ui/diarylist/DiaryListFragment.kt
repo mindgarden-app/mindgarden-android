@@ -1,29 +1,17 @@
 package com.mindgarden.mindgarden.ui.diarylist
 
 import android.content.Intent
-import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.mindgarden.mindgarden.R
-import com.mindgarden.mindgarden.data.model.entity.Diary
-import com.mindgarden.mindgarden.databinding.FragmentDiaryBinding
+import com.mindgarden.mindgarden.data.db.entity.Diary
 import com.mindgarden.mindgarden.databinding.FragmentDiaryListBinding
-import com.mindgarden.mindgarden.ui.diary.DiaryViewModel
 import com.mindgarden.mindgarden.ui.util.base.BaseFragment
 import com.mindgarden.mindgarden.ui.writeDiary.WriteDiaryActivity
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.kotlin.addTo
-import io.reactivex.rxjava3.schedulers.Schedulers
 
 @AndroidEntryPoint
 class DiaryListFragment : BaseFragment<DiaryListViewModel, FragmentDiaryListBinding>(R.layout.fragment_diary_list) {

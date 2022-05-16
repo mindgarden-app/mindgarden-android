@@ -5,7 +5,7 @@
     <data>
         <variable
             name="diary"
-            type="com.mindgarden.mindgarden.data.model.entity.Diary"/>
+            type="com.mindgarden.mindgarden.data.db.entity.Diary"/>
     </data>
 
     <FrameLayout
@@ -76,7 +76,7 @@
                 android:layout_width="200dp"
                 android:layout_height="match_parent"
                 android:gravity="left|center_vertical"
-                android:text="@{diary.content}"
+                android:text="@{diary.contents}"
                 android:textSize="14.5dp"
                 android:textColor="@color/black"
                 android:singleLine="true"

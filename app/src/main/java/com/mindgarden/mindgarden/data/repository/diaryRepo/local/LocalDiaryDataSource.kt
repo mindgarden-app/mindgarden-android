@@ -1,12 +1,10 @@
 package com.mindgarden.mindgarden.data.repository.diaryRepo.local
 
-import com.mindgarden.mindgarden.data.model.entity.Diary
+import com.mindgarden.mindgarden.data.db.entity.Diary
 import com.mindgarden.mindgarden.data.repository.diaryRepo.DiaryDataSource
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.*
 
 class LocalDiaryDataSource(private val diaryDao: DiaryDao) : DiaryDataSource {

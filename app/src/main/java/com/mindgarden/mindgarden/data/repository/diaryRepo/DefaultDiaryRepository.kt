@@ -1,6 +1,6 @@
 package com.mindgarden.mindgarden.data.repository.diaryRepo
 
-import com.mindgarden.mindgarden.data.model.entity.Diary
+import com.mindgarden.mindgarden.data.db.entity.Diary
 import com.mindgarden.mindgarden.di.DataSourceModule
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable

@@ -8,9 +8,10 @@ import android.widget.Toast
 import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.ui.diarylist.DiaryListViewModel
 import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
-import com.mindgarden.mindgarden.data.model.entity.Diary
+import com.mindgarden.mindgarden.data.db.entity.Diary
+import com.mindgarden.mindgarden.util.ext.now
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDateTime
 import java.util.*
 
 @AndroidEntryPoint
@@ -18,7 +19,7 @@ class WriteDiaryActivity : AppCompatActivity() {
     val viewModel: DiaryListViewModel by viewModels()
     private lateinit var btnSave : Button
     private lateinit var etContent: EditText
-    val date: Date = Calendar.getInstance().time
+    val date: LocalDateTime = now()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

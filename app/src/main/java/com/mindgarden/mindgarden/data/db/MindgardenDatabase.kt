@@ -7,8 +7,8 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.mindgarden.mindgarden.data.db.entity.Diary
 import com.mindgarden.mindgarden.data.db.entity.Mind
-import com.mindgarden.mindgarden.data.repository.diaryRepo.local.DiaryDao
-import com.mindgarden.mindgarden.data.repository.gardenRepo.local.dao.GardenDao
+import com.mindgarden.mindgarden.data.db.dao.DiaryDao
+import com.mindgarden.mindgarden.data.db.dao.GardenDao
 
 @Database(entities = [Mind::class, Diary::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)

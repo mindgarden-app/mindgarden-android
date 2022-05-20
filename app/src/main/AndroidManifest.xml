@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mindgarden.mindgarden">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:name=".MindGardenApplication"
@@ -10,10 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mindgarden">
-        <activity android:name=".ui.writeDiary.WriteDiaryActivity"></activity>
-        <activity android:name=".ui.nickname.NickNameActivity"/>
+        <activity android:name=".presentation.writeDiary.WriteDiaryActivity"></activity>
+        <activity android:name=".presentation.nickname.NickNameActivity"/>
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".presentation.MainActivity"
             android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

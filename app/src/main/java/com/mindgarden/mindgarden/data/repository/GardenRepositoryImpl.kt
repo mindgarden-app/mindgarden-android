@@ -12,7 +12,7 @@ import javax.inject.Inject
 class GardenRepositoryImpl @Inject constructor(private val gardenDao: GardenDao) :
     GardenRepository {
 
-    override suspend fun plantMind(mind: Mind) {
+    override suspend fun plantMind(mind: Mind): Long {
         return gardenDao.insert(mind)
     }
 

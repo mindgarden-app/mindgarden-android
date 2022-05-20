@@ -5,6 +5,6 @@ import kotlinx.coroutines.flow.Flow
 import com.mindgarden.mindgarden.util.Result
 
 interface GardenRepository {
-    suspend fun plantMind(mind: Mind)
+    suspend fun plantMind(mind: Mind): Long
     fun getGarden(date: String): Flow<Result<List<Mind>>>
 }

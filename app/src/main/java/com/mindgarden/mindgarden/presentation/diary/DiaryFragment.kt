@@ -1,11 +1,14 @@
-package com.mindgarden.mindgarden.ui.diary
+package com.mindgarden.mindgarden.presentation.diary
 
 import androidx.fragment.app.viewModels
 import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.databinding.FragmentDiaryBinding
-import com.mindgarden.mindgarden.ui.util.base.BaseFragment
+import com.mindgarden.mindgarden.presentation.util.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * Mode : write, view
+ */
 @AndroidEntryPoint
 class DiaryFragment : BaseFragment<DiaryViewModel, FragmentDiaryBinding>(R.layout.fragment_diary) {
 
@@ -13,9 +16,5 @@ class DiaryFragment : BaseFragment<DiaryViewModel, FragmentDiaryBinding>(R.layou
 
     override fun setViewModel() {
         binding.vm = viewModel
-    }
-
-    override fun observeData() {
-        viewModel.showProgress()
     }
 }

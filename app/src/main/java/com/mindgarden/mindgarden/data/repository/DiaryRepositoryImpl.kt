@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class DiaryRepositoryImpl @Inject constructor(private val diaryDao: DiaryDao) : DiaryRepository {
 
-    override suspend fun writeDiary(diary: Diary) {
+    override suspend fun writeDiary(diary: Diary): Long {
         return diaryDao.insert(diary)
     }
 

@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import com.mindgarden.mindgarden.util.Result
 
 interface DiaryRepository {
-    suspend fun writeDiary(diary: Diary)
+    suspend fun writeDiary(diary: Diary): Long
     suspend fun modifyDiary(newDiary: DiaryUpdate)
     suspend fun deleteDiary(idx: Long)
     fun getDiaryListFlow(date: String, isAsc: Boolean): Flow<Result<List<Diary>>>

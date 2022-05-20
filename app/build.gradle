@@ -70,6 +70,7 @@ android {
         viewBinding true
         dataBinding true
     }
+    namespace 'com.mindgarden.mindgarden'
 }
 
 dependencies {

@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 abstract class DiaryDao : BaseDao<Diary> {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract suspend fun insertAll(diaries: List<Diary>)
+    abstract suspend fun insertAll(diaries: List<Diary>): List<Long>
 
     /**
      * 일기 상세 조회

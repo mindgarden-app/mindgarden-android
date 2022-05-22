@@ -6,13 +6,13 @@
     <data>
         <variable
             name="vm"
-            type="com.mindgarden.mindgarden.ui.home.HomeViewModel" />
+            type="com.mindgarden.mindgarden.presentation.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.home.HomeFragment">
+        tools:context=".presentation.home.HomeFragment">
 
         <TextView
             android:id="@+id/text_home"

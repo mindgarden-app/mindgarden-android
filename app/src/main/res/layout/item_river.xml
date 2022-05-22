@@ -7,7 +7,7 @@
         <import type="android.text.TextUtils" />
         <variable
             name="garden"
-            type="com.mindgarden.mindgarden.ui.inventory.model.InventoryMind" />
+            type="com.mindgarden.mindgarden.presentation.inventory.model.InventoryMind" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

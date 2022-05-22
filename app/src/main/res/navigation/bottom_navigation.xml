@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/dest_home"
-        android:name="com.mindgarden.mindgarden.ui.home.HomeFragment"
+        android:name="com.mindgarden.mindgarden.presentation.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -17,19 +17,19 @@
 
     <fragment
         android:id="@+id/dest_diary"
-        android:name="com.mindgarden.mindgarden.ui.diary.DiaryFragment"
+        android:name="com.mindgarden.mindgarden.presentation.diary.DiaryFragment"
         android:label="@string/title_diary"
         tools:layout="@layout/fragment_diary" />
 
     <fragment
         android:id="@+id/dest_diary_list"
-        android:name="com.mindgarden.mindgarden.ui.diarylist.DiaryListFragment"
+        android:name="com.mindgarden.mindgarden.presentation.diarylist.DiaryListFragment"
         android:label="@string/title_diary_list"
         tools:layout="@layout/fragment_diary_list" />
 
     <fragment
         android:id="@+id/dest_inventory"
-        android:name="com.mindgarden.mindgarden.ui.inventory.InventoryFragment"
+        android:name="com.mindgarden.mindgarden.presentation.inventory.InventoryFragment"
         android:label="InventoryFragment"
         tools:layout="@layout/fragment_inventory"/>
 </navigation>

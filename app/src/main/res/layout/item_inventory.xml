@@ -6,7 +6,7 @@
     <data>
         <variable
             name="tree"
-            type="com.mindgarden.mindgarden.ui.inventory.model.InventoryTree" />
+            type="com.mindgarden.mindgarden.presentation.inventory.model.InventoryTree" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

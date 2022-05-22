@@ -1,10 +1,9 @@
 package com.mindgarden.mindgarden.di
 
 import android.content.Context
-import com.mindgarden.mindgarden.data.repository.database.MindGardenDatabase
-import com.mindgarden.mindgarden.data.repository.diaryRepo.local.DiaryDao
-import com.mindgarden.mindgarden.data.repository.gardenRepo.local.dao.GardenDao
-import com.mindgarden.mindgarden.data.repository.userRepo.local.dao.UserDao
+import com.mindgarden.mindgarden.data.db.dao.DiaryDao
+import com.mindgarden.mindgarden.data.db.dao.GardenDao
+import com.mindgarden.mindgarden.data.db.MindGardenDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,10 +29,5 @@ object DatabaseModule {
     @Provides
     fun provideGardenDao(db: MindGardenDatabase): GardenDao {
         return db.gardenDao()
-    }
-
-    @Provides
-    fun userGardenDao(db: MindGardenDatabase): UserDao {
-        return db.userDao()
     }
 }

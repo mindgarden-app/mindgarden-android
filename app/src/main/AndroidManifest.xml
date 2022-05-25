@@ -9,8 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mindgarden">
-        <activity android:name=".presentation.writeDiary.WriteDiaryActivity"></activity>
-        <activity android:name=".presentation.nickname.NickNameActivity"/>
+        <activity
+            android:name=".presentation.diary.DiaryActivity" />
+        <activity android:name=".presentation.writeDiary.WriteDiaryActivity" />
+        <activity android:name=".presentation.nickname.NickNameActivity" />
         <activity
             android:name=".presentation.MainActivity"
             android:label="@string/title_activity_main">

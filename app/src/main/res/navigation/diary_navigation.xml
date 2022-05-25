@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/diary_navigation"
+    app:startDestination="@id/diaryFragment">
+
+    <fragment
+        android:id="@+id/diaryFragment"
+        android:name="com.mindgarden.mindgarden.presentation.diary.DiaryFragment"
+        android:label="DiaryFragment"
+        tools:layout="@layout/fragment_diary">
+        <action
+            android:id="@+id/action_diaryFragment_to_weatherFragment"
+            app:destination="@id/weatherFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/weatherFragment"
+        android:name="com.mindgarden.mindgarden.presentation.diary.WeatherFragment"
+        android:label="fragment_weather"
+        tools:layout="@layout/fragment_weather" />
+</navigation>

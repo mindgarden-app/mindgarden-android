@@ -1,4 +1,4 @@
-package com.mindgarden.mindgarden.presentation.util.base
+package com.mindgarden.mindgarden.presentation.util.common.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

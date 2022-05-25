@@ -1,22 +1,18 @@
 package com.mindgarden.mindgarden.presentation.diarylist
 
 import android.content.Intent
-import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.data.db.entity.Diary
 import com.mindgarden.mindgarden.databinding.FragmentDiaryListBinding
-import com.mindgarden.mindgarden.presentation.util.base.BaseFragment
+import com.mindgarden.mindgarden.presentation.util.common.base.BaseFragment
 import com.mindgarden.mindgarden.presentation.writeDiary.WriteDiaryActivity
 import com.mindgarden.mindgarden.util.ext.now
 import com.mindgarden.mindgarden.util.ext.toGardenDateString
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
 class DiaryListFragment : BaseFragment<DiaryListViewModel, FragmentDiaryListBinding>(R.layout.fragment_diary_list) {

@@ -1,4 +1,4 @@
-package com.mindgarden.mindgarden.presentation.util.base
+package com.mindgarden.mindgarden.presentation.util.common
 
 sealed class UIState<out T> {
     object Loading: UIState<Nothing>()

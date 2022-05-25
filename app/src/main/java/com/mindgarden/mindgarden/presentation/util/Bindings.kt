@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mindgarden.mindgarden.data.db.entity.Diary
 import com.mindgarden.mindgarden.presentation.diarylist.DiaryListAdapter
-import com.mindgarden.mindgarden.presentation.util.base.UIState
+import com.mindgarden.mindgarden.presentation.util.common.UIState
 
 // DiaryList
 @BindingAdapter("setDiaryList")

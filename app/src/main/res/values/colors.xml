@@ -9,12 +9,17 @@
     <color name="white">#FFFFFFFF</color>
 
     <!-- MindGarden -->
+    <color name="divider">#dddddd</color>
+    <color name="garden_green">#78deb0</color>
 
     <!-- inventory -->
-    <color name="border_garden_inventory">#78deb0</color>
     <color name="background_garden_selected_inventory">#e1fff2</color>
     <color name="river_inventory">#7de9ff</color>
     <color name="border_tree_inventory">#9aeec8</color>
     <color name="background_tree_inventory">#f8f8f8</color>
+    <color name="light_blue_400">#FF29B6F6</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="gray_400">#FFBDBDBD</color>
+    <color name="gray_600">#FF757575</color>
 
 </resources>

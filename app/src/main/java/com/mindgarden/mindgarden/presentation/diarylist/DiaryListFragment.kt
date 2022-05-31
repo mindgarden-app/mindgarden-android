@@ -11,13 +11,14 @@ import com.mindgarden.mindgarden.databinding.FragmentDiaryListBinding
 import com.mindgarden.mindgarden.presentation.util.common.base.BaseFragment
 import com.mindgarden.mindgarden.presentation.writeDiary.WriteDiaryActivity
 import com.mindgarden.mindgarden.util.ext.now
-import com.mindgarden.mindgarden.util.ext.toGardenDateString
+import com.mindgarden.mindgarden.util.ext.toStringOfPattern
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DiaryListFragment : BaseFragment<DiaryListViewModel, FragmentDiaryListBinding>(R.layout.fragment_diary_list) {
+class DiaryListFragment :
+    BaseFragment<DiaryListViewModel, FragmentDiaryListBinding>(R.layout.fragment_diary_list) {
     override val viewModel: DiaryListViewModel by viewModels()
-    private lateinit var diaryListAdapter : DiaryListAdapter
+    private lateinit var diaryListAdapter: DiaryListAdapter
 
     override fun setViewModel() {
         binding.vm = viewModel
@@ -44,11 +45,14 @@ class DiaryListFragment : BaseFragment<DiaryListViewModel, FragmentDiaryListBind
         }
 
 
-        val btnWrite : Button = binding.btnLoad
+        val btnWrite: Button = binding.btnLoad
         btnWrite.setOnClickListener {
 //            val intent : Intent = Intent(requireActivity(), WriteDiaryActivity::class.java)
 //            startActivity(intent)
-            viewModel.loadDiaryList(now().toGardenDateString(), false)
+            viewModel.loadDiaryList(
+                now().toStringOfPattern(getString(R.string.pattern_calendar)),
+                false
+            )
         }
     }
 

@@ -1,10 +1,13 @@
 package com.mindgarden.mindgarden.data.db.entity
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 
+@Parcelize
 @Entity
 data class Diary(
     @ColumnInfo(name = "date")
@@ -17,7 +20,7 @@ data class Diary(
     val weatherText: String,
     @ColumnInfo(name = "img")
     val img: String?
-) {
+) : Parcelable {
     @PrimaryKey(autoGenerate = true)
     var idx: Long = 0
 }

@@ -1,14 +1,18 @@
 package com.mindgarden.mindgarden.presentation.util
 
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.ProgressBar
+import android.widget.*
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
+import androidx.annotation.LayoutRes
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.data.db.entity.Diary
 import com.mindgarden.mindgarden.presentation.diarylist.DiaryListAdapter
+import com.mindgarden.mindgarden.presentation.util.common.GardenToolbar
 import com.mindgarden.mindgarden.presentation.util.common.UIState
 
 // DiaryList
@@ -42,3 +46,23 @@ fun setImageRes(view: ImageView, drawableRes: Int) {
         .load(drawableRes)
         .into(view)
 }
+
+@BindingAdapter("setImageButtonRes")
+fun ImageButton.setImageButtonRes(@DrawableRes res: Int) {
+    this.setImageResource(res)
+}
+
+@BindingAdapter("setTextViewBackground")
+fun TextView.setTextViewBackground(@ColorRes bgColor: Int) {
+    when (bgColor) {
+        R.color.garden_green -> {
+            setBackgroundResource(R.drawable.toolbar_green_button)
+            setTextColor(ContextCompat.getColor(this.context, R.color.white))
+        }
+        R.color.gray_600 -> {
+            setBackgroundResource(R.drawable.toolbar_gray_button)
+            setTextColor(ContextCompat.getColor(this.context, R.color.gray_600))
+        }
+    }
+}
+

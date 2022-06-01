@@ -11,6 +11,7 @@
     <!-- MindGarden -->
     <color name="divider">#dddddd</color>
     <color name="garden_green">#78deb0</color>
+    <color name="garden_black">#2b2b2b</color>
 
     <!-- inventory -->
     <color name="background_garden_selected_inventory">#e1fff2</color>

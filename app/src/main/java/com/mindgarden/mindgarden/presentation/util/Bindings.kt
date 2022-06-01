@@ -41,15 +41,15 @@ fun Button.setResult(state: UIState<Long>) {
 
 // common
 @BindingAdapter("setDrawableRes")
-fun setImageRes(view: ImageView, drawableRes: Int) {
-    Glide.with(view.context)
+fun ImageView.setImageRes(drawableRes: Int) {
+    Glide.with(this.context)
         .load(drawableRes)
-        .into(view)
+        .into(this)
 }
 
 @BindingAdapter("setImageButtonRes")
 fun ImageButton.setImageButtonRes(@DrawableRes res: Int) {
-    this.setImageResource(res)
+    Glide.with(this.context).load(res).into(this)
 }
 
 @BindingAdapter("setTextViewBackground")

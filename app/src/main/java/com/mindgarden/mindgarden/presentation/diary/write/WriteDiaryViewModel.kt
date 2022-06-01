@@ -1,4 +1,4 @@
-package com.mindgarden.mindgarden.presentation.diary
+package com.mindgarden.mindgarden.presentation.diary.write
 
 import android.app.Application
 import android.util.Log
@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.data.db.entity.Diary
 import com.mindgarden.mindgarden.domain.usecase.diary.WriteDiaryUseCase
-import com.mindgarden.mindgarden.presentation.diary.WriteDiaryFragment.Companion.SAVED_DIARY
+import com.mindgarden.mindgarden.presentation.diary.write.WriteDiaryFragment.Companion.SAVED_DIARY
 import com.mindgarden.mindgarden.presentation.util.common.GardenToolbar
 import com.mindgarden.mindgarden.presentation.util.common.GardenToolbarListener
 import com.mindgarden.mindgarden.presentation.util.common.UIState

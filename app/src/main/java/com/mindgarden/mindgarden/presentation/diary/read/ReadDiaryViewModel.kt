@@ -1,4 +1,4 @@
-package com.mindgarden.mindgarden.presentation.diary
+package com.mindgarden.mindgarden.presentation.diary.read
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope

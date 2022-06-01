@@ -1,7 +1,6 @@
 package com.mindgarden.mindgarden.presentation.util.common.navigation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +12,7 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import com.mindgarden.mindgarden.R
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 
 /**
@@ -66,6 +63,13 @@ abstract class NavigationFragment<VM : NavigationViewModel, VDB : ViewDataBindin
         when (navCommand) {
             is NavigationCommand.ToDirection -> {
                 navController.navigate(navCommand.directions)
+            }
+            is NavigationCommand.PopBackStackWithResult -> {
+                navController.previousBackStackEntry?.savedStateHandle?.set(
+                    navCommand.key,
+                    navCommand.result
+                )
+                navController.popBackStack()
             }
             is NavigationCommand.Back -> {
                 val result = navController.navigateUp()

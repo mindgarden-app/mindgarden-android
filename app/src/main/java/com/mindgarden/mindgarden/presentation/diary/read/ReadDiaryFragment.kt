@@ -1,15 +1,10 @@
-package com.mindgarden.mindgarden.presentation.diary
+package com.mindgarden.mindgarden.presentation.diary.read
 
-import android.util.Log
 import androidx.fragment.app.viewModels
 import com.mindgarden.mindgarden.R
-import com.mindgarden.mindgarden.data.db.entity.Diary
 import com.mindgarden.mindgarden.databinding.FragmentReadDiaryBinding
-import com.mindgarden.mindgarden.presentation.util.common.UIState
 import com.mindgarden.mindgarden.presentation.util.common.navigation.NavigationFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ReadDiaryFragment :

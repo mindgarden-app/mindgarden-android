@@ -1,14 +1,14 @@
-package com.mindgarden.mindgarden.presentation.diary
+package com.mindgarden.mindgarden.presentation.diary.write
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavArgs
 import androidx.navigation.fragment.navArgs
 import com.mindgarden.mindgarden.R
-import com.mindgarden.mindgarden.data.db.entity.Diary
 import com.mindgarden.mindgarden.databinding.FragmentWriteDiaryBinding
+import com.mindgarden.mindgarden.presentation.diary.weather.Weather
+import com.mindgarden.mindgarden.presentation.diary.weather.WeatherFragment.Companion.WEATHER
 import com.mindgarden.mindgarden.presentation.util.common.navigation.NavigationFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,6 +29,10 @@ class WriteDiaryFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.currentDiary = args.diary
+
+        navController.currentBackStackEntry?.savedStateHandle?.get<Weather>(WEATHER)?.let {
+            Log.d("WriteDiaryFragment", "onViewCreated: ${it}, ${it.defaultText}, ${it.customText}")
+        }
     }
 
     companion object {

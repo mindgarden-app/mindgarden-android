@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.mindgarden.mindgarden.presentation.diary.WriteDiaryViewModel" />
+            type="com.mindgarden.mindgarden.presentation.diary.write.WriteDiaryViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

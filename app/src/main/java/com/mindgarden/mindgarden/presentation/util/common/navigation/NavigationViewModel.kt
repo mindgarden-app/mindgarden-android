@@ -26,7 +26,9 @@ abstract class NavigationViewModel : ViewModel() {
         }
     }
 
-    fun saveArgs() {
-
+    fun popBackStackWithResult(key: String, result: Any) {
+        viewModelScope.launch(Dispatchers.Main) {
+            navigation.publishEvent(NavigationCommand.PopBackStackWithResult(key, result))
+        }
     }
 }

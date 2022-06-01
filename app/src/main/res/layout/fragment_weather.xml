@@ -4,23 +4,109 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="com.mindgarden.mindgarden.presentation.util.common.GardenToolbar" />
+
         <variable
             name="vm"
-            type="com.mindgarden.mindgarden.presentation.diary.WeatherViewModel" />
+            type="com.mindgarden.mindgarden.presentation.diary.weather.WeatherViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.diary.WeatherFragment">
+        android:background="#f8f8f8"
+        tools:context=".presentation.diary.weather.WeatherFragment">
 
         <include
+            android:id="@+id/toolbar"
             layout="@layout/layout_garden_toolbar"
-            app:listener="@{vm.toolbarListener}"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:listener="@{vm.toolbarListener}" />
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="84dp"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <ImageView
+            android:id="@+id/imageButton"
+            android:layout_width="48dp"
+            android:layout_height="49dp"
+            android:background="@drawable/circle_border_weather"
+            android:elevation="5dp"
+            app:setDrawableRes="@{vm.weather.img}"
+            app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
+            app:layout_constraintStart_toStartOf="@id/leftGuideline"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            tools:ignore="ContentDescription" />
+
+        <EditText
+            android:id="@+id/etWeather"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/garden_green"
+            android:gravity="center"
+            android:text="@={vm.weatherText}"
+            android:hint="@{vm.weather.defaultText}"
+            android:paddingBottom="15dp"
+            android:letterSpacing="0.02"
+            android:lineSpacingExtra="8sp"
+            android:textColor="@color/garden_black"
+            android:maxLength="10"
+            android:textSize="15sp"
+            android:inputType="text"
+            app:layout_constraintBottom_toTopOf="@id/barrierWindow"
+            app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+            app:layout_constraintStart_toEndOf="@id/imageButton"
+            android:importantForAutofill="no" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrierWindow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="imageButton" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/leftGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="17dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/rightGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="30dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvWeather"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="26dp"
+            android:background="@color/white"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp"
+            android:paddingStart="19dp"
+            android:paddingEnd="19dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+            tools:listitem="@layout/item_weather"
+            tools:ignore="RtlSymmetry" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

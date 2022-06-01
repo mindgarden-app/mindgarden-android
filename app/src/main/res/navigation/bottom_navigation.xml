@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/readDiaryFragment"
-        android:name="com.mindgarden.mindgarden.presentation.diary.ReadDiaryFragment"
+        android:name="com.mindgarden.mindgarden.presentation.diary.read.ReadDiaryFragment"
         android:label="ReadDiaryFragment"
         tools:layout="@layout/fragment_read_diary">
         <action
@@ -39,7 +39,7 @@
 
     <fragment
         android:id="@+id/writeDiaryFragment"
-        android:name="com.mindgarden.mindgarden.presentation.diary.WriteDiaryFragment"
+        android:name="com.mindgarden.mindgarden.presentation.diary.write.WriteDiaryFragment"
         android:label="@string/title_diary"
         tools:layout="@layout/fragment_write_diary">
         <action
@@ -54,7 +54,7 @@
 
     <fragment
         android:id="@+id/weatherFragment"
-        android:name="com.mindgarden.mindgarden.presentation.diary.WeatherFragment"
+        android:name="com.mindgarden.mindgarden.presentation.diary.weather.WeatherFragment"
         android:label="WeatherFragment"
         tools:layout="@layout/fragment_weather"/>
 

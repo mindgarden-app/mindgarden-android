@@ -60,6 +60,8 @@
             android:text="@{listener.toolbarData.rightButtonText}"
             android:textSize="13sp"
             android:textStyle="normal"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

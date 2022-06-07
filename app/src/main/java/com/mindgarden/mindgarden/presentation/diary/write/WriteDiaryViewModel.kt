@@ -16,9 +16,9 @@ import com.mindgarden.mindgarden.presentation.util.common.navigation.NavigationV
 import com.mindgarden.mindgarden.util.ext.now
 import com.mindgarden.mindgarden.util.ext.toStringOfPattern
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,6 +28,7 @@ class WriteDiaryViewModel @Inject constructor(
     private val writeDiaryUseCase: WriteDiaryUseCase
 ) : NavigationViewModel() {
 
+    // from readDiary
     var currentDiary: Diary? = null
         set(value) {
             stateHandle.set(SAVED_DIARY, value)
@@ -39,15 +40,17 @@ class WriteDiaryViewModel @Inject constructor(
             Log.d("WriteDiaryViewModel", "savedStateHandle: $this")
             currentDiary = this
         }
+
+        currentDiary?.let { diary ->
+            _weather.value = Weather.values()[diary.weather]
+            _weather.value.customText = diary.weatherText
+            diary.img?.let { _images.value = it }
+            contents.value = diary.contents
+            _date.value = diary.date
+        }
     }
 
-    private val _state = MutableStateFlow<UIState<Long>>(UIState.Loading)
-    val state: StateFlow<UIState<Long>> get() = _state
-
-    fun goToWeatherFragment() {
-        navigate(WriteDiaryFragmentDirections.actionWriteDiaryFragmentToWeatherFragment())
-    }
-
+    // weather
     private val _weather = MutableStateFlow(Weather.Default)
     val weather: StateFlow<Weather> = _weather
 
@@ -55,26 +58,45 @@ class WriteDiaryViewModel @Inject constructor(
         _weather.value = weather
     }
 
-    private val _images= MutableStateFlow<List<String>>(emptyList())
+    fun goToWeatherFragment() {
+        navigate(WriteDiaryFragmentDirections.actionWriteDiaryFragmentToWeatherFragment())
+    }
+
+    // images
+    private val _images = MutableStateFlow<List<String>>(emptyList())
     val images: StateFlow<List<String>> = _images
 
     fun setImages(images: List<String>) {
-        Log.d("WriteDiaryViewModel", "setImages: $images")
         _images.value = images
     }
 
-    private val mockDiary = Diary(
-        now(),
-        "time: ${now()} \n this is mock",
-        weather = 0,
-        weatherText = "this is weather text",
-        img = null
+    val contents = MutableStateFlow<String?>(null)
+
+    private val _date = MutableStateFlow(now())
+    val date: StateFlow<LocalDateTime> = _date
+
+    val diary = combine(_weather, _images, contents, _date) { weather, list, content, date ->
+        Diary(
+            date,
+            content ?: "",
+            weather.ordinal,
+            weather.customText.ifEmpty { weather.defaultText },
+            list
+        )
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.Eagerly,
+        Diary(now(), "", Weather.Default.ordinal, Weather.Default.defaultText, null)
     )
 
+    private val _state = MutableStateFlow<UIState<Long>>(UIState.Loading)
+    val state: StateFlow<UIState<Long>> get() = _state
+
     fun writeDiary() = viewModelScope.launch {
+        Log.d("WriteDiaryViewModel", "writeDiary Click!")
         _state.value = UIState.Loading
         runCatching {
-            writeDiaryUseCase.invoke(mockDiary.copy(img = images.value))
+            writeDiaryUseCase.invoke(diary.value)
         }.onSuccess {
             _state.value = UIState.Success(it)
         }.onFailure {
@@ -83,11 +105,9 @@ class WriteDiaryViewModel @Inject constructor(
     }
 
     val toolbarListener = object : GardenToolbarListener {
-        val pattern = application.getString(R.string.pattern_toolbar_diary)
         override val toolbarData: GardenToolbar
             get() = GardenToolbar.WriteDiaryToolbar().copy(
-                title =
-                currentDiary?.date?.toStringOfPattern(pattern) ?: now().toStringOfPattern(pattern)
+                title = _date.value.toStringOfPattern(application.getString(R.string.pattern_toolbar_diary))
             )
 
         override fun leftButtonClick() {

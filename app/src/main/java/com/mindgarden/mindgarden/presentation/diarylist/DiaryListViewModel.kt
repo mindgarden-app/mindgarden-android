@@ -32,6 +32,9 @@ class DiaryListViewModel @Inject constructor(
                         is com.mindgarden.mindgarden.util.Result.Success -> {
                             _state.value = UIState.Success(result.data)
                             Log.d("DiaryListViewModel", "loadDiaryList: ${result.data.size}")
+                            result.data.forEach {
+                                Log.d("DiaryListViewModel", "loadDiaryList: $it")
+                            }
                         }
                     }
                 }

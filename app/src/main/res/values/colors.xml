@@ -12,6 +12,7 @@
     <color name="divider">#dddddd</color>
     <color name="garden_green">#78deb0</color>
     <color name="garden_black">#2b2b2b</color>
+    <color name="shadow">#14000000</color>
 
     <!-- inventory -->
     <color name="background_garden_selected_inventory">#e1fff2</color>

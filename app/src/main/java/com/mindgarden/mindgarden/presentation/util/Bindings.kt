@@ -1,18 +1,19 @@
 package com.mindgarden.mindgarden.presentation.util
 
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
-import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
+import androidx.core.view.marginTop
+import androidx.core.view.updateLayoutParams
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.data.db.entity.Diary
 import com.mindgarden.mindgarden.presentation.diarylist.DiaryListAdapter
-import com.mindgarden.mindgarden.presentation.util.common.GardenToolbar
 import com.mindgarden.mindgarden.presentation.util.common.UIState
 
 // DiaryList
@@ -30,14 +31,19 @@ fun ProgressBar.setVisibility(state: UIState<Long>) {
     this.visibility = if (state is UIState.Loading) View.VISIBLE else View.GONE
 }
 
-@BindingAdapter("setResult")
-fun Button.setResult(state: UIState<Long>) {
-    this.text = when (state) {
-        is UIState.Error -> "Error"
-        UIState.Loading -> "Write Diary"
-        is UIState.Success -> "success write diary. id: ${state.data}"
+@BindingAdapter("updateMargin")
+fun EditText.updateMargin(rvIsVisible: Boolean) {
+    if (rvIsVisible) {
+        updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            setMargins(24, 0, 24,0)
+        }
+    } else {
+        updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            setMargins(24, 42, 24,0)
+        }
     }
 }
+
 
 // common
 @BindingAdapter("setDrawableRes")

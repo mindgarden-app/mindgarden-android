@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.text.TextUtils" />
+        <variable
+            name="weather"
+            type="com.mindgarden.mindgarden.presentation.diary.weather.Weather" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="5dp"
+            android:elevation="2dp"
+            android:background="@drawable/border_weather" />
+
+        <ImageView
+            android:id="@+id/ivViewWeather"
+            android:layout_width="48dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="2dp"
+            android:background="@drawable/circle_border_weather"
+            android:elevation="3dp"
+            android:layout_gravity="center_vertical"
+            app:setDrawableRes="@{weather.img}"
+            tools:ignore="ContentDescription" />
+
+
+        <TextView
+            android:id="@+id/tvViewWeather"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/garden_black"
+            android:textSize="14sp"
+            android:elevation="4dp"
+            android:text="@{TextUtils.isEmpty(weather.customText) ? weather.defaultText : weather.customText}"
+            tools:text="기분 없음" />
+
+    </FrameLayout>
+</layout>

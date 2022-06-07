@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.data.db.entity.Diary
 import com.mindgarden.mindgarden.domain.usecase.diary.WriteDiaryUseCase
+import com.mindgarden.mindgarden.presentation.diary.weather.Weather
 import com.mindgarden.mindgarden.presentation.diary.write.WriteDiaryFragment.Companion.SAVED_DIARY
 import com.mindgarden.mindgarden.presentation.util.common.GardenToolbar
 import com.mindgarden.mindgarden.presentation.util.common.GardenToolbarListener
@@ -43,6 +44,25 @@ class WriteDiaryViewModel @Inject constructor(
     private val _state = MutableStateFlow<UIState<Long>>(UIState.Loading)
     val state: StateFlow<UIState<Long>> get() = _state
 
+    fun goToWeatherFragment() {
+        navigate(WriteDiaryFragmentDirections.actionWriteDiaryFragmentToWeatherFragment())
+    }
+
+    private val _weather = MutableStateFlow(Weather.Default)
+    val weather: StateFlow<Weather> = _weather
+
+    fun setWeather(weather: Weather) {
+        _weather.value = weather
+    }
+
+    private val _images= MutableStateFlow<List<String>>(emptyList())
+    val images: StateFlow<List<String>> = _images
+
+    fun setImages(images: List<String>) {
+        Log.d("WriteDiaryViewModel", "setImages: $images")
+        _images.value = images
+    }
+
     private val mockDiary = Diary(
         now(),
         "time: ${now()} \n this is mock",
@@ -54,16 +74,12 @@ class WriteDiaryViewModel @Inject constructor(
     fun writeDiary() = viewModelScope.launch {
         _state.value = UIState.Loading
         runCatching {
-            writeDiaryUseCase.invoke(mockDiary)
+            writeDiaryUseCase.invoke(mockDiary.copy(img = images.value))
         }.onSuccess {
             _state.value = UIState.Success(it)
         }.onFailure {
             _state.value = UIState.Error(it as Error)
         }
-    }
-
-    fun goToWeatherFragment() {
-        navigate(WriteDiaryFragmentDirections.actionWriteDiaryFragmentToWeatherFragment())
     }
 
     val toolbarListener = object : GardenToolbarListener {

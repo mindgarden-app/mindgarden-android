@@ -9,7 +9,6 @@ import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.data.db.entity.Diary
 import com.mindgarden.mindgarden.databinding.FragmentDiaryListBinding
 import com.mindgarden.mindgarden.presentation.util.common.base.BaseFragment
-import com.mindgarden.mindgarden.presentation.writeDiary.WriteDiaryActivity
 import com.mindgarden.mindgarden.util.ext.now
 import com.mindgarden.mindgarden.util.ext.toStringOfPattern
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,9 +22,8 @@ class DiaryListFragment :
     override fun setViewModel() {
         binding.vm = viewModel
 
+        // TODO: navigation 이용해서 view Diary 화면으로 이동할 수 있도록 해주세요
         diaryListAdapter = DiaryListAdapter({
-            val intent = Intent(requireActivity(), WriteDiaryActivity::class.java)
-            startActivity(intent)
         }, { diary ->
             deleteDialog(diary)
         })

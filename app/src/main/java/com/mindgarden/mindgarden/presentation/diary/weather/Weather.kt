@@ -13,6 +13,6 @@ enum class Weather(val img: Int, val defaultText: String) {
     Rainy(R.drawable.img_weather_8_rainy, "우울해요"),
     CloudWithThunder(R.drawable.img_weather_9_cloudwiththunder, "짜증나요"),
     Thunderbolt(R.drawable.img_weather_10_thunderbolt, "화가나요"),
-    Default(R.drawable.img_weather_11_logo_small, "기분 없음");
+    Default(R.drawable.img_weather_11_logo_large, "기분 없음");
     var customText: String = ""
 }

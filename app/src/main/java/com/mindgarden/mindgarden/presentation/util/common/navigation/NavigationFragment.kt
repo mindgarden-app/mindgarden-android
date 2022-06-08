@@ -32,7 +32,7 @@ abstract class NavigationFragment<VM : NavigationViewModel, VDB : ViewDataBindin
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         fragmentScope = viewLifecycleOwner.lifecycleScope
         return binding.root
     }
@@ -79,5 +79,4 @@ abstract class NavigationFragment<VM : NavigationViewModel, VDB : ViewDataBindin
             }
         }
     }
-
 }

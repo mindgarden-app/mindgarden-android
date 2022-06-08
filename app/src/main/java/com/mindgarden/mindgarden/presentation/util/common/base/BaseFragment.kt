@@ -17,7 +17,7 @@ abstract class BaseFragment<VM: ViewModel, VDB: ViewDataBinding>(@LayoutRes priv
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -28,5 +28,4 @@ abstract class BaseFragment<VM: ViewModel, VDB: ViewDataBinding>(@LayoutRes priv
     }
 
     open fun observeData() = Unit
-
 }

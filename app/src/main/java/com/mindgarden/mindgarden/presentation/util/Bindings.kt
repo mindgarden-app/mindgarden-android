@@ -6,7 +6,6 @@ import android.widget.*
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
-import androidx.core.view.marginTop
 import androidx.core.view.updateLayoutParams
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +14,8 @@ import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.data.db.entity.Diary
 import com.mindgarden.mindgarden.presentation.diarylist.DiaryListAdapter
 import com.mindgarden.mindgarden.presentation.util.common.UIState
+import com.mindgarden.mindgarden.util.ext.toStringOfPattern
+import java.time.LocalDateTime
 
 // DiaryList
 @BindingAdapter("setDiaryList")
@@ -44,6 +45,12 @@ fun EditText.updateMargin(rvIsVisible: Boolean) {
     }
 }
 
+@BindingAdapter("setReadDiaryTime")
+fun TextView.setReadDiaryTime(localDateTime: LocalDateTime){
+    val time = localDateTime.toStringOfPattern(context.getString(R.string.pattern_read_diary))
+    context.getString(R.string.read_diary_time, time)
+    text = context.getString(R.string.read_diary_time, time)
+}
 
 // common
 @BindingAdapter("setDrawableRes")

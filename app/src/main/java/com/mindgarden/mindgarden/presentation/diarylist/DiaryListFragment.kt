@@ -1,9 +1,9 @@
 package com.mindgarden.mindgarden.presentation.diarylist
 
-import android.content.Intent
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.data.db.entity.Diary
@@ -24,6 +24,7 @@ class DiaryListFragment :
 
         // TODO: navigation 이용해서 view Diary 화면으로 이동할 수 있도록 해주세요
         diaryListAdapter = DiaryListAdapter({
+           findNavController().navigate(DiaryListFragmentDirections.actionDiaryListFragmentToReadDiaryFragment(it))
         }, { diary ->
             deleteDialog(diary)
         })

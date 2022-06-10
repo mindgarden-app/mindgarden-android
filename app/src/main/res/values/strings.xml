@@ -13,10 +13,12 @@
     <!-- write Diary -->
     <string name="write_diary_btn_go_weather">기분을 선택하세요</string>
     <string name="write_diary_edit_hint">내용을 입력하세요</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- read Diary -->
+    <string name="read_diary_time">%s pm</string>
 
     <!-- LocalDateTime Pattern -->
     <string name="pattern_calendar">"yyyy-MM"</string>
     <string name="pattern_toolbar_diary">yy-MM-dd (EEE)</string>
+    <string name="pattern_read_diary">hh:mm</string>
+
 </resources>

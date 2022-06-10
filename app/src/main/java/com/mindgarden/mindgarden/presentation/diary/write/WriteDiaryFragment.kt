@@ -2,6 +2,7 @@ package com.mindgarden.mindgarden.presentation.diary.write
 
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
@@ -13,12 +14,24 @@ import com.mindgarden.mindgarden.presentation.diary.weather.Weather
 import com.mindgarden.mindgarden.presentation.diary.weather.WeatherFragment.Companion.WEATHER
 import com.mindgarden.mindgarden.presentation.util.common.navigation.NavigationFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class WriteDiaryFragment :
     NavigationFragment<WriteDiaryViewModel, FragmentWriteDiaryBinding>(R.layout.fragment_write_diary) {
     private val args: WriteDiaryFragmentArgs by navArgs()
-    override val viewModel: WriteDiaryViewModel by viewModels()
+
+    @Inject
+    lateinit var writeDiaryViewModelFactory: WriteDiaryViewModel.WriteDiaryViewModelFactory
+
+    override val viewModel: WriteDiaryViewModel by viewModels {
+        WriteDiaryViewModel.provideFactory(
+            writeDiaryViewModelFactory, args.diary
+        )
+    }
 
     private val selectImageAdapter by lazy {
         SelectImageAdapter(
@@ -34,8 +47,7 @@ class WriteDiaryFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.currentDiary = args.diary
-
+        Log.d("WriteDiaryFragment", "onViewCreated: ${args.diary}")
         initRecyclerview()
         setWeather()
         onAddPhotoClicked()
@@ -63,6 +75,7 @@ class WriteDiaryFragment :
         with(binding.rvImagesWriteDiary) {
             addItemDecoration(ItemDecoration())
             adapter = selectImageAdapter
+            args.diary?.let { selectImageAdapter.submitList(it.img) }
         }
     }
 
@@ -74,9 +87,9 @@ class WriteDiaryFragment :
 
     // gallery
     private val getImages =
-        registerForActivityResult(ActivityResultContracts.GetMultipleContents()) {
-            it?.let {
-                it.map { uri -> uri.toString() }.toList().apply {
+        registerForActivityResult(ActivityResultContracts.OpenMultipleDocuments()) { images ->
+            if (images.isNotEmpty()) {
+                images.map { uri -> uri.toString() }.toList().apply {
                     selectImageAdapter.submitList(this)
                 }
             }
@@ -84,7 +97,7 @@ class WriteDiaryFragment :
 
     private fun onAddPhotoClicked() {
         binding.btnAddPhoto.setOnClickListener {
-            getImages.launch("image/*")
+            getImages.launch(arrayOf("image/*"))
         }
     }
 

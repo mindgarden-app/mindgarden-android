@@ -74,6 +74,7 @@
                     app:updateMargin="@{vm.images.size() > 0}"/>
 
             </LinearLayout>
+
         </ScrollView>
 
         <FrameLayout

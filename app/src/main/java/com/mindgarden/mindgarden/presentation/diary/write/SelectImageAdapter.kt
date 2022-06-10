@@ -8,12 +8,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mindgarden.mindgarden.databinding.ItemSelectImageBinding
+import com.mindgarden.mindgarden.presentation.diary.ImageDiffCallback
 
 class SelectImageAdapter(
     private val onDeleteButtonClickListener: (Int) -> Unit,
     private val listChangeListener: (List<String>) -> Unit
     ) :
-    ListAdapter<String, SelectImageAdapter.ViewHolder>(SelectImageDiffCallback()) {
+    ListAdapter<String, SelectImageAdapter.ViewHolder>(ImageDiffCallback()) {
 
     inner class ViewHolder(private val binding: ItemSelectImageBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -57,15 +58,4 @@ class SelectImageAdapter(
         holder.bind(item)
     }
 
-}
-
-class SelectImageDiffCallback : DiffUtil.ItemCallback<String>() {
-
-    override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
-        return oldItem == newItem
-    }
-
-    override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
-        return oldItem == newItem
-    }
 }

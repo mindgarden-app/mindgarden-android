@@ -33,7 +33,7 @@ class DiaryListViewModel @Inject constructor(
                             _state.value = UIState.Success(result.data)
                             Log.d("DiaryListViewModel", "loadDiaryList: ${result.data.size}")
                             result.data.forEach {
-                                Log.d("DiaryListViewModel", "loadDiaryList: $it")
+                                Log.d("DiaryListViewModel", "loadDiaryList: $it, ${it.weather.customText}")
                             }
                         }
                     }

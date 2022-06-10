@@ -19,7 +19,11 @@
         android:id="@+id/diaryListFragment"
         android:name="com.mindgarden.mindgarden.presentation.diarylist.DiaryListFragment"
         android:label="@string/title_diary_list"
-        tools:layout="@layout/fragment_diary_list" />
+        tools:layout="@layout/fragment_diary_list" >
+        <action
+            android:id="@+id/action_diaryListFragment_to_readDiaryFragment"
+            app:destination="@id/readDiaryFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/inventoryFragment"
@@ -34,7 +38,12 @@
         tools:layout="@layout/fragment_read_diary">
         <action
             android:id="@+id/action_readDiaryFragment_to_writeDiaryFragment"
-            app:destination="@id/writeDiaryFragment" />
+            app:destination="@id/writeDiaryFragment"
+            app:popUpTo="@id/readDiaryFragment"
+            app:popUpToInclusive="true"/>
+        <argument
+            android:name="diary"
+            app:argType="com.mindgarden.mindgarden.data.db.entity.Diary" />
     </fragment>
 
     <fragment
@@ -50,6 +59,11 @@
             app:argType="com.mindgarden.mindgarden.data.db.entity.Diary"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_writeDiaryFragment_to_readDiaryFragment"
+            app:popUpTo="@id/writeDiaryFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/readDiaryFragment" />
     </fragment>
 
     <fragment

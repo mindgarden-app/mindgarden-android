@@ -2,56 +2,55 @@ package com.mindgarden.mindgarden.presentation.diary.write
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.data.db.entity.Diary
+import com.mindgarden.mindgarden.data.db.entity.DiaryUpdate
+import com.mindgarden.mindgarden.domain.usecase.diary.ModifyDiaryUseCase
 import com.mindgarden.mindgarden.domain.usecase.diary.WriteDiaryUseCase
 import com.mindgarden.mindgarden.presentation.diary.weather.Weather
-import com.mindgarden.mindgarden.presentation.diary.write.WriteDiaryFragment.Companion.SAVED_DIARY
+import com.mindgarden.mindgarden.presentation.diary.weather.WeatherType
 import com.mindgarden.mindgarden.presentation.util.common.GardenToolbar
 import com.mindgarden.mindgarden.presentation.util.common.GardenToolbarListener
 import com.mindgarden.mindgarden.presentation.util.common.UIState
 import com.mindgarden.mindgarden.presentation.util.common.navigation.NavigationViewModel
 import com.mindgarden.mindgarden.util.ext.now
 import com.mindgarden.mindgarden.util.ext.toStringOfPattern
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
-import javax.inject.Inject
+import javax.annotation.Nullable
 
-@HiltViewModel
-class WriteDiaryViewModel @Inject constructor(
+class WriteDiaryViewModel @AssistedInject constructor(
     private val application: Application,
-    private val stateHandle: SavedStateHandle,
-    private val writeDiaryUseCase: WriteDiaryUseCase
+    private val writeDiaryUseCase: WriteDiaryUseCase,
+    private val modifyDiaryUseCase: ModifyDiaryUseCase,
+    @Assisted @Nullable private val diaryFromRead: Diary?
 ) : NavigationViewModel() {
 
-    // from readDiary
-    var currentDiary: Diary? = null
-        set(value) {
-            stateHandle.set(SAVED_DIARY, value)
-            field = value
-        }
+    @dagger.assisted.AssistedFactory
+    interface WriteDiaryViewModelFactory {
+        fun create(initParams: Diary?): WriteDiaryViewModel
+    }
 
-    init {
-        stateHandle.get<Diary>(SAVED_DIARY)?.run {
-            Log.d("WriteDiaryViewModel", "savedStateHandle: $this")
-            currentDiary = this
-        }
-
-        currentDiary?.let { diary ->
-            _weather.value = Weather.values()[diary.weather]
-            _weather.value.customText = diary.weatherText
-            diary.img?.let { _images.value = it }
-            contents.value = diary.contents
-            _date.value = diary.date
+    companion object {
+        fun provideFactory(
+            writeDiaryViewModelFactory: WriteDiaryViewModelFactory,
+            initParams: Diary?
+        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return writeDiaryViewModelFactory.create(initParams) as T
+            }
         }
     }
 
     // weather
-    private val _weather = MutableStateFlow(Weather.Default)
+    private val _weather = MutableStateFlow(diaryFromRead?.weather ?: Weather(WeatherType.Default))
     val weather: StateFlow<Weather> = _weather
 
     fun setWeather(weather: Weather) {
@@ -70,35 +69,39 @@ class WriteDiaryViewModel @Inject constructor(
         _images.value = images
     }
 
-    val contents = MutableStateFlow<String?>(null)
+    val contents = MutableStateFlow(diaryFromRead?.contents ?: "")
 
-    private val _date = MutableStateFlow(now())
+    private val _date = MutableStateFlow(diaryFromRead?.date ?: now())
     val date: StateFlow<LocalDateTime> = _date
 
     val diary = combine(_weather, _images, contents, _date) { weather, list, content, date ->
         Diary(
             date,
-            content ?: "",
-            weather.ordinal,
-            weather.customText.ifEmpty { weather.defaultText },
+            content,
+            weather,
             list
         )
     }.stateIn(
         viewModelScope,
         SharingStarted.Eagerly,
-        Diary(now(), "", Weather.Default.ordinal, Weather.Default.defaultText, null)
+        Diary(now(), "", Weather(WeatherType.Default), null)
     )
 
-    private val _state = MutableStateFlow<UIState<Long>>(UIState.Loading)
-    val state: StateFlow<UIState<Long>> get() = _state
+    private val _state = MutableStateFlow<UIState<Any>>(UIState.Loading)
+    val state: StateFlow<UIState<Any>> get() = _state
 
     fun writeDiary() = viewModelScope.launch {
         Log.d("WriteDiaryViewModel", "writeDiary Click!")
         _state.value = UIState.Loading
         runCatching {
-            writeDiaryUseCase.invoke(diary.value)
+            if (diaryFromRead != null) {
+                modifyDiaryUseCase.invoke(diaryFromRead.idx, DiaryUpdate.fromDiary(diary.value))
+            } else {
+                writeDiaryUseCase.invoke(diary.value)
+            }
         }.onSuccess {
             _state.value = UIState.Success(it)
+            navigate(WriteDiaryFragmentDirections.actionWriteDiaryFragmentToReadDiaryFragment(diary.value))
         }.onFailure {
             _state.value = UIState.Error(it as Error)
         }

@@ -19,33 +19,32 @@
             android:layout_height="49dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             android:layout_marginEnd="5dp"
-            android:elevation="2dp"
-            android:background="@drawable/border_weather" />
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/border_weather"
+            android:elevation="2dp" />
 
         <ImageView
             android:id="@+id/ivViewWeather"
             android:layout_width="48dp"
             android:layout_height="49dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="2dp"
             android:background="@drawable/circle_border_weather"
             android:elevation="3dp"
-            android:layout_gravity="center_vertical"
-            app:setDrawableRes="@{weather.img}"
+            app:setDrawableRes="@{weather.weatherType.img}"
             tools:ignore="ContentDescription" />
-
 
         <TextView
             android:id="@+id/tvViewWeather"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:elevation="4dp"
             android:gravity="center"
+            android:text="@{TextUtils.isEmpty(weather.customText) ? weather.weatherType.defaultText : weather.customText}"
             android:textColor="@color/garden_black"
             android:textSize="14sp"
-            android:elevation="4dp"
-            android:text="@{TextUtils.isEmpty(weather.customText) ? weather.defaultText : weather.customText}"
             tools:text="기분 없음" />
 
     </FrameLayout>

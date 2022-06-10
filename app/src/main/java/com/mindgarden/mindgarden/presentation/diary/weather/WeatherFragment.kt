@@ -19,7 +19,7 @@ class WeatherFragment :
 
     private val weatherAdapter: WeatherAdapter by lazy {
         WeatherAdapter {
-            viewModel.setWeather(Weather.values()[it])
+            viewModel.setWeather(WeatherType.values()[it])
         }
     }
 

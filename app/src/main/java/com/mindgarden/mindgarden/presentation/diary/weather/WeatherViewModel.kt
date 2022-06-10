@@ -9,18 +9,14 @@ import kotlinx.coroutines.flow.StateFlow
 
 class WeatherViewModel : NavigationViewModel() {
 
-    private val _weather = MutableStateFlow(Weather.Default)
-    val weather: StateFlow<Weather> = _weather
+    private val _weather = MutableStateFlow(WeatherType.Default)
+    val weather: StateFlow<WeatherType> = _weather
 
-    init {
-        _weather.value.customText = ""
-    }
-
-    fun setWeather(weather: Weather) {
+    fun setWeather(weather: WeatherType) {
         _weather.value = weather
     }
 
-    val weatherText = MutableStateFlow<String?>(null)
+    val weatherText = MutableStateFlow("")
 
     val toolbarListener = object : GardenToolbarListener {
         override val toolbarData: GardenToolbar
@@ -31,11 +27,10 @@ class WeatherViewModel : NavigationViewModel() {
         }
 
         override fun rightButtonClick() {
-            if (weatherText.value.isNullOrBlank()) {
-                popBackStackWithResult(WEATHER, weather.value)
+            if (weatherText.value.isBlank()) {
+                popBackStackWithResult(WEATHER, Weather(weather.value))
             } else {
-                _weather.value.customText = weatherText.value!!
-                popBackStackWithResult(WEATHER, weather.value)
+                popBackStackWithResult(WEATHER, Weather(weather.value, weatherText.value))
             }
         }
     }

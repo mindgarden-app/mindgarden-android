@@ -4,7 +4,7 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.parcelize.IgnoredOnParcel
+import com.mindgarden.mindgarden.presentation.diary.weather.Weather
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 
@@ -16,9 +16,7 @@ data class Diary(
     @ColumnInfo(name = "contents")
     val contents: String,
     @ColumnInfo(name = "weather")
-    val weather: Int,
-    @ColumnInfo(name = "weatherText")
-    val weatherText: String,
+    val weather: Weather,
     @ColumnInfo(name = "img")
     val img: List<String>?
 ) : Parcelable {
@@ -29,7 +27,15 @@ data class Diary(
 data class DiaryUpdate(
     val idx: Long,
     val contents: String,
-    val weather: Int,
-    val weatherText: String,
-    val img: String?
-)
+    val weather: Weather,
+    val img: List<String>?
+) {
+    companion object {
+        fun fromDiary(old: Diary) = DiaryUpdate(
+            idx = old.idx,
+            contents = old.contents,
+            weather = old.weather,
+            img = old.img
+        )
+    }
+}

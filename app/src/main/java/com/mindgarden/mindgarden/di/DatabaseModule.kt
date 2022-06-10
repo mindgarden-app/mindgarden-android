@@ -6,6 +6,7 @@ import com.mindgarden.mindgarden.data.db.dao.DiaryDao
 import com.mindgarden.mindgarden.data.db.dao.GardenDao
 import com.mindgarden.mindgarden.data.db.MindGardenDatabase
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,15 +20,17 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideMindGardenDatabase(@ApplicationContext ctx: Context, moshi: Moshi): MindGardenDatabase {
-        Converters.initialize(moshi)
-        return MindGardenDatabase.getInstance(ctx)
+    fun provideMoshi(): Moshi {
+        return Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
     }
 
     @Singleton
     @Provides
-    fun provideMoshi(): Moshi {
-        return Moshi.Builder().build()
+    fun provideMindGardenDatabase(@ApplicationContext ctx: Context, moshi: Moshi): MindGardenDatabase {
+        Converters.initialize(moshi)
+        return MindGardenDatabase.getInstance(ctx)
     }
 
     @Provides

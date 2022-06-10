@@ -11,7 +11,7 @@ import com.mindgarden.mindgarden.databinding.ItemWeatherBinding
 class WeatherAdapter(private val onClick: (position: Int) -> Unit) :
     RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder>() {
 
-    private val weathers = Weather.values()
+    private val weathers = WeatherType.values()
 
     private var selectedPos = -1
     private var lastItemSelectedPos = -1
@@ -34,7 +34,7 @@ class WeatherAdapter(private val onClick: (position: Int) -> Unit) :
             }
         }
 
-        fun bind(item: Weather) {
+        fun bind(item: WeatherType) {
             binding.tvWeather.text = item.defaultText
             Glide.with(binding.ivWeather.context)
                 .load(item.img)

@@ -1,7 +1,10 @@
 package com.mindgarden.mindgarden.presentation.diarylist
 
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -9,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.data.db.entity.Diary
 import com.mindgarden.mindgarden.databinding.RvItemDiaryListBinding
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class DiaryListAdapter(val diaryListItemClick: (Diary) -> Unit, val diaryListItemLongClick: (Diary) -> Unit) :
         ListAdapter<Diary, DiaryListAdapter.DiaryListViewHolder>(
@@ -40,6 +45,11 @@ class DiaryListAdapter(val diaryListItemClick: (Diary) -> Unit, val diaryListIte
 
     override fun onBindViewHolder(holder: DiaryListViewHolder, position: Int) {
         holder.bind(getItem(position))
+        holder.itemView.findViewById<TextView>(R.id.tv_diary_list_day_num).text = getItem(position).date.dayOfMonth.toString()
+        holder.itemView.findViewById<TextView>(R.id.tv_diary_list_day_text).text = getItem(position).date.format(DateTimeFormatter.ofPattern("E").withLocale(
+            Locale.forLanguageTag("en")
+        ))
+        Log.e("인덱스 : ", getItem(position).idx.toString())
     }
 }
 

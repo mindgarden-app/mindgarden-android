@@ -49,8 +49,8 @@
                 android:layout_centerHorizontal="true"
                 android:gravity="center_horizontal"
                 android:text="00"
-                android:textSize="16dp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/tv_diary_list_day_text"

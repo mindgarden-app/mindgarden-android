@@ -6,7 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.databinding.FragmentHomeBinding
-import com.mindgarden.mindgarden.presentation.util.base.BaseFragment
+import com.mindgarden.mindgarden.presentation.util.common.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

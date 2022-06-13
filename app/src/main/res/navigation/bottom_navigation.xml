@@ -3,33 +3,86 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/dest_home">
+    app:startDestination="@+id/homeFragment">
 
     <fragment
-        android:id="@+id/dest_home"
+        android:id="@+id/homeFragment"
         android:name="com.mindgarden.mindgarden.presentation.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_dest_home_to_dest_inventory"
-            app:destination="@id/dest_inventory" />
+            app:destination="@id/inventoryFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/dest_diary"
-        android:name="com.mindgarden.mindgarden.presentation.diary.DiaryFragment"
-        android:label="@string/title_diary"
-        tools:layout="@layout/fragment_diary" />
-
-    <fragment
-        android:id="@+id/dest_diary_list"
+        android:id="@+id/diaryListFragment"
         android:name="com.mindgarden.mindgarden.presentation.diarylist.DiaryListFragment"
         android:label="@string/title_diary_list"
-        tools:layout="@layout/fragment_diary_list" />
+        tools:layout="@layout/fragment_diary_list" >
+        <action
+            android:id="@+id/action_diaryListFragment_to_readDiaryFragment"
+            app:destination="@id/readDiaryFragment" />
+    </fragment>
 
     <fragment
-        android:id="@+id/dest_inventory"
+        android:id="@+id/inventoryFragment"
         android:name="com.mindgarden.mindgarden.presentation.inventory.InventoryFragment"
         android:label="InventoryFragment"
         tools:layout="@layout/fragment_inventory"/>
+
+    <fragment
+        android:id="@+id/readDiaryFragment"
+        android:name="com.mindgarden.mindgarden.presentation.diary.read.ReadDiaryFragment"
+        android:label="ReadDiaryFragment"
+        tools:layout="@layout/fragment_read_diary">
+        <action
+            android:id="@+id/action_readDiaryFragment_to_writeDiaryFragment"
+            app:destination="@id/writeDiaryFragment"
+            app:popUpTo="@id/readDiaryFragment"
+            app:popUpToInclusive="true"/>
+        <argument
+            android:name="diary"
+            app:argType="com.mindgarden.mindgarden.data.db.entity.Diary" />
+        <action
+            android:id="@+id/action_readDiaryFragment_to_diaryImageFragment"
+            app:destination="@id/diaryImageFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/writeDiaryFragment"
+        android:name="com.mindgarden.mindgarden.presentation.diary.write.WriteDiaryFragment"
+        android:label="@string/title_diary"
+        tools:layout="@layout/fragment_write_diary">
+        <action
+            android:id="@+id/action_writeDiaryFragment_to_weatherFragment"
+            app:destination="@id/weatherFragment" />
+        <argument
+            android:name="diary"
+            app:argType="com.mindgarden.mindgarden.data.db.entity.Diary"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_writeDiaryFragment_to_readDiaryFragment"
+            app:popUpTo="@id/writeDiaryFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/readDiaryFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/weatherFragment"
+        android:name="com.mindgarden.mindgarden.presentation.diary.weather.WeatherFragment"
+        android:label="WeatherFragment"
+        tools:layout="@layout/fragment_weather"/>
+
+    <fragment
+        android:id="@+id/diaryImageFragment"
+        android:name="com.mindgarden.mindgarden.presentation.diary.read.DiaryImageFragment"
+        android:label="DiaryImageFragment"
+        tools:layout="@layout/fragment_diary_image">
+        <argument
+            android:name="diaryImages"
+            app:argType="string[]" />
+    </fragment>
+
 </navigation>

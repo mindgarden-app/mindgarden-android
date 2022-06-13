@@ -29,7 +29,7 @@ class GardenViewHolder(viewGroup: ViewGroup, listener: GardenListener) :
                         "itemId: $treeId resId: $treeResId, to: ${binding.garden?.location}")
                     val background = background as Drawable
                     setBackground(background, R.color.background_garden_selected_inventory)
-                    setImageRes(this@with, treeResId)
+                    setImageRes(treeResId)
                     listener.onChange(binding.garden!!, treeId)
                 }
             }))

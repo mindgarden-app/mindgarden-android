@@ -1,34 +1,30 @@
 package com.mindgarden.mindgarden.presentation.diarylist
 
-import android.content.Intent
-import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.data.db.entity.Diary
 import com.mindgarden.mindgarden.databinding.FragmentDiaryListBinding
-import com.mindgarden.mindgarden.presentation.util.base.BaseFragment
-import com.mindgarden.mindgarden.presentation.writeDiary.WriteDiaryActivity
+import com.mindgarden.mindgarden.presentation.util.common.base.BaseFragment
 import com.mindgarden.mindgarden.util.ext.now
-import com.mindgarden.mindgarden.util.ext.toGardenDateString
+import com.mindgarden.mindgarden.util.ext.toStringOfPattern
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
-class DiaryListFragment : BaseFragment<DiaryListViewModel, FragmentDiaryListBinding>(R.layout.fragment_diary_list) {
+class DiaryListFragment :
+    BaseFragment<DiaryListViewModel, FragmentDiaryListBinding>(R.layout.fragment_diary_list) {
     override val viewModel: DiaryListViewModel by viewModels()
-    private lateinit var diaryListAdapter : DiaryListAdapter
+    private lateinit var diaryListAdapter: DiaryListAdapter
 
     override fun setViewModel() {
         binding.vm = viewModel
 
+        // TODO: navigation 이용해서 view Diary 화면으로 이동할 수 있도록 해주세요
         diaryListAdapter = DiaryListAdapter({
-            val intent = Intent(requireActivity(), WriteDiaryActivity::class.java)
-            startActivity(intent)
+           findNavController().navigate(DiaryListFragmentDirections.actionDiaryListFragmentToReadDiaryFragment(it))
         }, { diary ->
             deleteDialog(diary)
         })
@@ -48,11 +44,14 @@ class DiaryListFragment : BaseFragment<DiaryListViewModel, FragmentDiaryListBind
         }
 
 
-        val btnWrite : Button = binding.btnLoad
+        val btnWrite: Button = binding.btnLoad
         btnWrite.setOnClickListener {
 //            val intent : Intent = Intent(requireActivity(), WriteDiaryActivity::class.java)
 //            startActivity(intent)
-            viewModel.loadDiaryList(now().toGardenDateString(), false)
+            viewModel.loadDiaryList(
+                now().toStringOfPattern(getString(R.string.pattern_calendar)),
+                false
+            )
         }
     }
 

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mindgarden.mindgarden.data.db.entity.Diary
 import com.mindgarden.mindgarden.domain.usecase.diary.LoadDiaryListUseCase
-import com.mindgarden.mindgarden.presentation.util.base.UIState
+import com.mindgarden.mindgarden.presentation.util.common.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -32,6 +32,9 @@ class DiaryListViewModel @Inject constructor(
                         is com.mindgarden.mindgarden.util.Result.Success -> {
                             _state.value = UIState.Success(result.data)
                             Log.d("DiaryListViewModel", "loadDiaryList: ${result.data.size}")
+                            result.data.forEach {
+                                Log.d("DiaryListViewModel", "loadDiaryList: $it, ${it.weather.customText}")
+                            }
                         }
                     }
                 }

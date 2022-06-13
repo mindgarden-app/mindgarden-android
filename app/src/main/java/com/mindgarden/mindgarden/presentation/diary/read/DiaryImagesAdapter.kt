@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.mindgarden.mindgarden.databinding.ItemReadDiaryImageBinding
+import com.mindgarden.mindgarden.databinding.ItemDiaryImageBinding
 import com.mindgarden.mindgarden.presentation.diary.ImageDiffCallback
 
-class ReadDiaryImagesAdapter
-    : ListAdapter<String, ReadDiaryImagesAdapter.ViewHolder>(ImageDiffCallback()) {
+class DiaryImagesAdapter
+    : ListAdapter<String, DiaryImagesAdapter.ViewHolder>(ImageDiffCallback()) {
 
-    inner class ViewHolder(private val binding: ItemReadDiaryImageBinding) :
+    inner class ViewHolder(private val binding: ItemDiaryImageBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(uriString: String) {
@@ -26,7 +26,7 @@ class ReadDiaryImagesAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = ItemReadDiaryImageBinding.inflate(layoutInflater, parent, false)
+        val binding = ItemDiaryImageBinding.inflate(layoutInflater, parent, false)
         return ViewHolder(binding)
     }
 

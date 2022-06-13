@@ -1,5 +1,7 @@
 package com.mindgarden.mindgarden.presentation.util
 
+import android.content.res.Resources
+import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -10,6 +12,8 @@ import androidx.core.view.updateLayoutParams
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.data.db.entity.Diary
 import com.mindgarden.mindgarden.presentation.diarylist.DiaryListAdapter
@@ -36,23 +40,47 @@ fun ProgressBar.setVisibility(state: UIState<Long>) {
 fun EditText.updateMargin(rvIsVisible: Boolean) {
     if (rvIsVisible) {
         updateLayoutParams<ViewGroup.MarginLayoutParams> {
-            setMargins(24, 0, 24,0)
+            setMargins(24f.dp, 0, 24f.dp, 0)
         }
     } else {
         updateLayoutParams<ViewGroup.MarginLayoutParams> {
-            setMargins(24, 42, 24,0)
+            setMargins(24f.dp, 42f.dp, 24f.dp, 0)
         }
     }
 }
 
+@BindingAdapter("updateMargin")
+fun TextView.updateMargin(ivIsVisible: Boolean) {
+    if (ivIsVisible) {
+        updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            setMargins(23f.dp, 37f.dp, 23f.dp, 0)
+        }
+    } else {
+        updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            setMargins(23f.dp, 25f.dp, 23f.dp, 0)
+        }
+    }
+}
+
+val Float.dp: Int
+    get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
+
 @BindingAdapter("setReadDiaryTime")
-fun TextView.setReadDiaryTime(localDateTime: LocalDateTime){
+fun TextView.setReadDiaryTime(localDateTime: LocalDateTime) {
     val time = localDateTime.toStringOfPattern(context.getString(R.string.pattern_read_diary))
     context.getString(R.string.read_diary_time, time)
     text = context.getString(R.string.read_diary_time, time)
 }
 
 // common
+@BindingAdapter("setImageUri")
+fun ImageView.setImageUri(uri: Uri?) {
+    Glide.with(this.context)
+        .load(uri)
+        .transform(CenterCrop(), RoundedCorners(5f.dp))
+        .into(this)
+}
+
 @BindingAdapter("setDrawableRes")
 fun ImageView.setImageRes(drawableRes: Int) {
     Glide.with(this.context)

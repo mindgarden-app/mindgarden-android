@@ -1,6 +1,7 @@
 package com.mindgarden.mindgarden.presentation.diary.read
 
 import android.app.Application
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.mindgarden.mindgarden.R
@@ -32,6 +33,25 @@ class ReadDiaryViewModel @AssistedInject constructor(
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 return readDiaryViewModelFactory.create(diary) as T
             }
+        }
+    }
+
+    var firstImage: Uri? = null
+    var isButtonVisible: Boolean = false
+
+    init {
+        diary.img?.let {
+            if (it.isNotEmpty())
+                firstImage = Uri.parse(diary.img[0])
+            if (it.size > 1)
+                isButtonVisible = true
+        }
+    }
+
+
+    fun goDiaryImageFragment() {
+        if (!diary.img.isNullOrEmpty()) {
+            navigate(ReadDiaryFragmentDirections.actionReadDiaryFragmentToDiaryImageFragment(diary.img.toTypedArray()))
         }
     }
 

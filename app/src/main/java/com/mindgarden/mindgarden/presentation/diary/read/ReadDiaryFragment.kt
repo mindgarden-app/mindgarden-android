@@ -1,7 +1,5 @@
 package com.mindgarden.mindgarden.presentation.diary.read
 
-import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.mindgarden.mindgarden.R
@@ -10,7 +8,6 @@ import com.mindgarden.mindgarden.presentation.util.common.navigation.NavigationF
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-// TODO : 이미지뷰 UI 정해지면 다시 작업
 @AndroidEntryPoint
 class ReadDiaryFragment :
     NavigationFragment<ReadDiaryViewModel, FragmentReadDiaryBinding>(R.layout.fragment_read_diary) {
@@ -26,15 +23,5 @@ class ReadDiaryFragment :
 
     override fun setViewModel() {
         binding.vm = viewModel
-    }
-
-//    private val rvImagesAdapter : ReadDiaryImagesAdapter by lazy {
-//        ReadDiaryImagesAdapter()
-//    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-//        binding.rvImagesReadDiary.adapter = rvImagesAdapter
-//        rvImagesAdapter.submitList(args.diary.img)
     }
 }

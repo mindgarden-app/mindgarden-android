@@ -23,7 +23,7 @@ abstract class NavigationFragment<VM : NavigationViewModel, VDB : ViewDataBindin
     protected abstract val viewModel: VM
     protected abstract fun setViewModel()
     protected lateinit var binding: VDB
-    protected lateinit var fragmentScope: LifecycleCoroutineScope
+    private lateinit var fragmentScope: LifecycleCoroutineScope
     lateinit var navController: NavController
 
     override fun onCreateView(

@@ -44,6 +44,9 @@
         <argument
             android:name="diary"
             app:argType="com.mindgarden.mindgarden.data.db.entity.Diary" />
+        <action
+            android:id="@+id/action_readDiaryFragment_to_diaryImageFragment"
+            app:destination="@id/diaryImageFragment" />
     </fragment>
 
     <fragment
@@ -71,5 +74,15 @@
         android:name="com.mindgarden.mindgarden.presentation.diary.weather.WeatherFragment"
         android:label="WeatherFragment"
         tools:layout="@layout/fragment_weather"/>
+
+    <fragment
+        android:id="@+id/diaryImageFragment"
+        android:name="com.mindgarden.mindgarden.presentation.diary.read.DiaryImageFragment"
+        android:label="DiaryImageFragment"
+        tools:layout="@layout/fragment_diary_image">
+        <argument
+            android:name="diaryImages"
+            app:argType="string[]" />
+    </fragment>
 
 </navigation>

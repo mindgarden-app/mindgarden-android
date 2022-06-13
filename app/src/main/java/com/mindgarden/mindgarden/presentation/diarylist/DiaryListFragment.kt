@@ -3,9 +3,14 @@ package com.mindgarden.mindgarden.presentation.diarylist
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
 import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
@@ -39,7 +44,7 @@ class DiaryListFragment : BaseFragment<DiaryListViewModel, FragmentDiaryListBind
         super.onViewCreated(view, savedInstanceState)
 
         // 일기 개별 삭제 - 스와이프
-        val swipeHelperCallBack = SwipeHelperCallBack().apply { setClamp(200f) }
+        val swipeHelperCallBack = SwipeHelperCallBack().apply { setClamp(170f) }
         val itemTouchHelper = ItemTouchHelper(swipeHelperCallBack)
         itemTouchHelper.attachToRecyclerView(binding.rvDiaryList)
 
@@ -87,20 +92,26 @@ class DiaryListFragment : BaseFragment<DiaryListViewModel, FragmentDiaryListBind
             binding.tvDate.text = today.format(DateTimeFormatter.ofPattern("yyyy-MM"))
 
             // 일기 목록 조회
-            observeDiaryList(binding.tvDate.text.toString())
+            observeDiaryList(binding.tvDate.text.toString(), false)
 
             binding.btnLeft.setOnClickListener {
                 today = today.minusMonths(1)
                 binding.tvDate.text = today.format(DateTimeFormatter.ofPattern("yyyy-MM"))
                 //binding.tvDate.text = now().toGardenDate().minusMonths(1).format(DateTimeFormatter.ofPattern("yyyy-MM"))
-                observeDiaryList(binding.tvDate.text.toString())
+                observeDiaryList(binding.tvDate.text.toString(), false)
             }
 
             binding.btnRight.setOnClickListener {
                 today = today.plusMonths(1)
                 binding.tvDate.text = today.format(DateTimeFormatter.ofPattern("yyyy-MM"))
                 //binding.tvDate.text = now().toGardenDate().minusMonths(1).format(DateTimeFormatter.ofPattern("yyyy-MM"))
-                observeDiaryList(binding.tvDate.text.toString())
+                observeDiaryList(binding.tvDate.text.toString(), false)
+            }
+
+            var isasc = true;
+            binding.imgSort.setOnClickListener {
+                observeDiaryList(binding.tvDate.text.toString(), isasc)
+                isasc = !isasc
             }
         }
     }
@@ -111,8 +122,8 @@ class DiaryListFragment : BaseFragment<DiaryListViewModel, FragmentDiaryListBind
     }
     */
 
-    private fun observeDiaryList(date : String) {
-        viewModel.loadDiaryList(date, false)
+    private fun observeDiaryList(date : String, asc : Boolean) {
+        viewModel.loadDiaryList(date, asc)
 
         //binding.llListZero.visibility = View.VISIBLE
         //binding.llListZero.visibility = View.GONE
@@ -144,13 +155,52 @@ class DiaryListFragment : BaseFragment<DiaryListViewModel, FragmentDiaryListBind
     }
 
     private fun deleteDialog(diary: Diary) {
+        /*
         val builder = AlertDialog.Builder(requireActivity())
-        builder.setMessage("Delete selected diary?")
-            .setNegativeButton("NO") { _, _ -> }
-            .setPositiveButton("YES") { _, _ ->
+        builder.setTitle("일기 삭제").setMessage("삭제하시겠습니까?")
+            .setNegativeButton("취소") { _, _ -> }
+            .setPositiveButton("삭제") { _, _ ->
                 viewModel.deleteDiary(diary.idx)
                 diaryListAdapter.notifyDataSetChanged()
             }
-        builder.show()
+        val dlg: AlertDialog = builder.show()
+        messageModi(dlg)
+        buttonModi(dlg)
+        dlg.show()
+        */
+        val dlg = LessonDeleteDialog(this@DiaryListFragment.context!!)
+        dlg.listener = object : LessonDeleteDialog.LessonDeleteDialogClickedListener {
+            override fun onDeleteClicked() {
+                viewModel.deleteDiary(diary.idx)
+                diaryListAdapter.notifyDataSetChanged()
+            }
+        }
+        dlg.start()
     }
+    /*
+    fun messageModi(dlg : AlertDialog) {
+        var messageText: TextView? = dlg.findViewById(android.R.id.message)
+        messageText!!.gravity = Gravity.CENTER
+        //messageText!!.typeface = ResourcesCompat.getFont(holder.itemView.context, R.font.notosanscjkr_regular)
+        messageText!!.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f)
+    }
+
+    fun buttonModi(dlg : AlertDialog) {
+        val btnNegative = dlg.getButton(AlertDialog.BUTTON_NEGATIVE);
+        val btnPositive = dlg.getButton(AlertDialog.BUTTON_POSITIVE);
+
+        btnNegative.gravity = Gravity.CENTER
+        //btnNegative.typeface = ResourcesCompat.getFont(holder.itemView.context, R.font.notosanscjkr_medium)
+        btnNegative.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f)
+
+        btnPositive.gravity = Gravity.CENTER
+        //btnPositive.typeface = ResourcesCompat.getFont(holder.itemView.context, R.font.notosanscjkr_medium)
+        btnPositive.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f)
+
+        val layoutParams : LinearLayout.LayoutParams = btnPositive.layoutParams as LinearLayout.LayoutParams
+        layoutParams.weight = 10f;
+        btnNegative.setLayoutParams(layoutParams);
+        btnPositive.setLayoutParams(layoutParams);
+    }
+    */
 }

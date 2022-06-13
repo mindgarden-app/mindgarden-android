@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
@@ -21,7 +22,7 @@ class DiaryListAdapter(val diaryListItemClick: (Diary) -> Unit, val diaryListIte
         ) {
             inner class DiaryListViewHolder(private val binding : RvItemDiaryListBinding) :
                     RecyclerView.ViewHolder(binding.root) {
-                private val tvDel = itemView.findViewById<TextView>(R.id.tv_delete)
+                private val tvDel = itemView.findViewById<ImageView>(R.id.tv_delete)
 
                         fun bind(diary: Diary) {
                             binding.diary = diary

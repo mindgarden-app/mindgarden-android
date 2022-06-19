@@ -41,5 +41,6 @@ class DiaryListViewModel @Inject constructor(
 
     fun deleteDiary(idx: Long) = viewModelScope.launch {
         deleteDiaryUseCase.invoke(idx)
+        Log.e("삭제 완료", "")
     }
 }

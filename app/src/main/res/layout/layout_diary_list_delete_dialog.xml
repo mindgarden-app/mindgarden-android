@@ -5,7 +5,7 @@
     android:layout_width="248dp"
     android:layout_height="176dp"
     android:layout_gravity="center"
-    android:background="@drawable/bg_dialog_rounded">
+    android:background="@drawable/background_dialog_rounded">
 
     <TextView
         android:id="@+id/dialog_title"
@@ -48,16 +48,16 @@
             tools:ignore="MissingConstraints"
             android:background="#e8e8e8"></LinearLayout>
 
-            <TextView
-                android:id="@+id/btn_detail_delete_cancel"
-                android:layout_width="124.5dp"
-                android:layout_height="53.5dp"
-                android:gravity="center"
-                android:text="취소"
-                android:textColor="#78deb0"
-                android:textSize="14sp"
-                android:textStyle="normal"
-                tools:ignore="MissingConstraints"/>
+        <TextView
+            android:id="@+id/txt_cancel"
+            android:layout_width="124.5dp"
+            android:layout_height="53.5dp"
+            android:gravity="center"
+            android:text="취소"
+            android:textColor="#78deb0"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            tools:ignore="MissingConstraints"/>
 
         <LinearLayout
             android:id="@+id/line"
@@ -65,18 +65,18 @@
             android:layout_height="53.5dp"
             tools:ignore="MissingConstraints,Orientation"
             android:background="#e8e8e8"
-            app:layout_constraintLeft_toRightOf="@id/btn_detail_delete_cancel"></LinearLayout>
+            app:layout_constraintLeft_toRightOf="@id/txt_cancel"></LinearLayout>
 
-            <TextView
-                android:id="@+id/btn_detail_delete"
-                android:layout_width="123.5dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="삭제"
-                android:textColor="#78deb0"
-                android:textSize="14sp"
-                android:textStyle="normal"
-                app:layout_constraintLeft_toRightOf="@id/line"/>
+        <TextView
+            android:id="@+id/txt_delete"
+            android:layout_width="123.5dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="삭제"
+            android:textColor="#78deb0"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            app:layout_constraintLeft_toRightOf="@id/line"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

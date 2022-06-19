@@ -4,4 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="activity_inventory_item_space">10dp</dimen>
+    <dimen name="fragment_write_diary_item_right_space">5dp</dimen>
+    <dimen name="fragment_write_diary_item_top_space">31dp</dimen>
+    <dimen name="fragment_write_diary_item_bottom_space">34dp</dimen>
 </resources>

@@ -10,7 +10,7 @@ import com.mindgarden.mindgarden.presentation.inventory.adapter.garden.GardenAda
 import com.mindgarden.mindgarden.presentation.inventory.adapter.garden.GardenViewHolder
 import com.mindgarden.mindgarden.presentation.inventory.model.GardenType
 import com.mindgarden.mindgarden.presentation.inventory.model.InventoryMind
-import com.mindgarden.mindgarden.presentation.util.base.BaseFragment
+import com.mindgarden.mindgarden.presentation.util.common.base.BaseFragment
 import com.mindgarden.mindgarden.util.ext.getLocationArray
 import com.mindgarden.mindgarden.util.ext.getTreeResArray
 import com.mindgarden.mindgarden.util.ext.now

@@ -4,9 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.data.db.entity.Diary
@@ -14,8 +17,10 @@ import com.mindgarden.mindgarden.databinding.FragmentDiaryListBinding
 import com.mindgarden.mindgarden.presentation.util.base.BaseFragment
 import com.mindgarden.mindgarden.presentation.util.base.UIState
 import com.mindgarden.mindgarden.presentation.writeDiary.WriteDiaryActivity
+import com.mindgarden.mindgarden.presentation.util.common.base.BaseFragment
 import com.mindgarden.mindgarden.util.ext.now
 import com.mindgarden.mindgarden.util.ext.toGardenDate
+import com.mindgarden.mindgarden.util.ext.toStringOfPattern
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.format.DateTimeFormatter
 
@@ -46,6 +51,14 @@ class DiaryListFragment : BaseFragment<DiaryListViewModel, FragmentDiaryListBind
             }, { diary ->
                 deleteDialog(diary)
             })
+            /*
+        // TODO: navigation 이용해서 view Diary 화면으로 이동할 수 있도록 해주세요
+        diaryListAdapter = DiaryListAdapter({
+           findNavController().navigate(DiaryListFragmentDirections.actionDiaryListFragmentToReadDiaryFragment(it))
+        }, { diary ->
+            deleteDialog(diary)
+        })
+            */
 
             adapter = diaryListAdapter
 
@@ -83,6 +96,14 @@ class DiaryListFragment : BaseFragment<DiaryListViewModel, FragmentDiaryListBind
             //binding.tvDate.text = now().toGardenDate().minusMonths(1).format(DateTimeFormatter.ofPattern("yyyy-MM"))
             observeDiaryList(binding.tvDate.text.toString(), false)
             Log.e("날짜 4. right 후", "")
+        val btnWrite: Button = binding.btnLoad
+        btnWrite.setOnClickListener {
+//            val intent : Intent = Intent(requireActivity(), WriteDiaryActivity::class.java)
+//            startActivity(intent)
+            viewModel.loadDiaryList(
+                now().toStringOfPattern(getString(R.string.pattern_calendar)),
+                false
+            )
         }
     }
 

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.mindgarden.mindgarden.presentation.diary.read.ReadDiaryViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/layout_garden_toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:listener="@{vm.toolbarListener}" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include
+                    android:id="@+id/weatherViewReadDiary"
+                    layout="@layout/layout_weather"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="18dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:weather="@{vm.diary.weather}" />
+
+                <TextView
+                    android:id="@+id/tvTimeReadDiary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="23dp"
+                    android:layout_marginTop="24dp"
+                    android:textColor="@color/garden_black"
+                    android:textSize="13sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/weatherViewReadDiary"
+                    app:setReadDiaryTime="@{vm.diary.date}"
+                    tools:text="08:09 pm" />
+
+                <ImageView
+                    android:id="@+id/ivImageReadDiary"
+                    android:layout_width="match_parent"
+                    android:layout_height="206dp"
+                    android:layout_marginStart="23dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="23dp"
+                    android:visibility="@{vm.firstImage == null ? View.GONE : View.VISIBLE}"
+                    android:onClick="@{() -> vm.goDiaryImageFragment()}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvTimeReadDiary"
+                    app:setImageUri="@{vm.firstImage}"
+                    tools:ignore="ContentDescription" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="206dp"
+                    android:layout_marginStart="23dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="23dp"
+                    android:background="#4F000000"
+                    android:visibility="@{vm.isButtonVisible ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvTimeReadDiary" />
+
+                <ImageButton
+                    android:layout_width="11dp"
+                    android:layout_height="11dp"
+                    android:src="@drawable/icn_stack"
+                    android:padding="10dp"
+                    android:layout_marginEnd="14dp"
+                    android:layout_marginBottom="14dp"
+                    android:visibility="@{vm.isButtonVisible ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="@id/ivImageReadDiary"
+                    app:layout_constraintEnd_toEndOf="@id/ivImageReadDiary"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{vm.diary.contents}"
+                    android:textColor="@color/garden_black"
+                    android:textSize="13.5sp"
+                    app:updateMargin="@{vm.firstImage != null}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ivImageReadDiary" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+</layout>

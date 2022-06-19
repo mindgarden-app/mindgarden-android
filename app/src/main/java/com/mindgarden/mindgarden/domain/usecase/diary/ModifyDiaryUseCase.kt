@@ -10,7 +10,6 @@ class ModifyDiaryUseCase @Inject constructor(private val diaryRepository: DiaryR
             DiaryUpdate(
                 idx = oldDiaryIdx,
                 contents = diary.contents,
-                weatherText = diary.weatherText,
                 weather = diary.weather,
                 img = diary.img
             )

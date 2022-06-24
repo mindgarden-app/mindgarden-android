@@ -14,38 +14,106 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_garden"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:foregroundGravity="center"
-            app:layout_constraintBottom_toTopOf="@+id/rv_inventory"
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/layout_garden_toolbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="6"
-            tools:listitem="@layout/item_garden" />
+            app:listener="@{vm.toolbarListener}" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fadeScrollbars="true"
+            android:layout_marginTop="27.5dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintBottom_toTopOf="@id/rv_tree">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivMinimap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_minimap"
+                    android:layout_marginEnd="17dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:id="@+id/ivSignN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_sign_n"
+                    android:layout_marginBottom="9dp"
+                    app:layout_constraintBottom_toTopOf="@id/rv_garden"
+                    app:layout_constraintStart_toStartOf="@id/barrier_inventory_left"
+                    tools:ignore="ContentDescription" />
+
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/barrier_inventory_left"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:barrierDirection="left"
+                    app:constraint_referenced_ids="rv_garden" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_garden"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp"
+                    app:layout_constraintTop_toBottomOf="@+id/ivMinimap"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="6"
+                    tools:listitem="@layout/item_garden" />
+
+                <ImageView
+                    android:id="@+id/ivSignS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_sign_s"
+                    android:layout_marginTop="9dp"
+                    app:layout_constraintEnd_toEndOf="@id/barrier_inventory_right"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_garden"
+                    tools:ignore="ContentDescription" />
+
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/barrier_inventory_right"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:barrierDirection="end"
+                    app:constraint_referenced_ids="rv_garden" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            app:dividerColor="@color/divider"
+            app:layout_constraintBottom_toTopOf="@id/rv_tree"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_inventory"
+            android:id="@+id/rv_tree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/purple_700"
             android:orientation="horizontal"
+            android:backgroundTint="@color/white"
+            android:paddingStart="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:treeAdapter="@{vm.trees}"
-            tools:listitem="@layout/item_inventory" />
+            tools:listitem="@layout/item_tree"
+            tools:ignore="RtlSymmetry" />
 
-        <Button
-            android:id="@+id/btnPlant"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="plant"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -12,6 +12,6 @@ abstract class GardenDao : BaseDao<Mind> {
      * 정원 조회
      * date: "yyyy-MM"
      */
-    @Query("SELECT * from mind WHERE date = :date")
+    @Query("SELECT * from mind WHERE date LIKE '%' || :date || '%' ORDER BY location")
     abstract fun loadGarden(date: String): Flow<List<Mind>>
 }

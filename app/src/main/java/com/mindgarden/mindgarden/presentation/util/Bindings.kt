@@ -1,13 +1,17 @@
 package com.mindgarden.mindgarden.presentation.util
 
 import android.content.res.Resources
+import android.graphics.drawable.VectorDrawable
 import android.net.Uri
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.updateLayoutParams
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +21,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.data.db.entity.Diary
 import com.mindgarden.mindgarden.presentation.diarylist.DiaryListAdapter
+import com.mindgarden.mindgarden.presentation.inventory.model.GardenType
 import com.mindgarden.mindgarden.presentation.util.common.UIState
 import com.mindgarden.mindgarden.util.ext.toStringOfPattern
 import java.time.LocalDateTime
@@ -72,6 +77,21 @@ fun TextView.setReadDiaryTime(localDateTime: LocalDateTime) {
     text = context.getString(R.string.read_diary_time, time)
 }
 
+// inventory
+@BindingAdapter("setClickable")
+fun ImageView.setGardenClickable(type: GardenType) {
+    this.isClickable = type == GardenType.EMPTY && !isSelected
+}
+
+@BindingAdapter("gardenType")
+fun setGardenBackground(iv: ImageView, type: GardenType) {
+    when (type) {
+        GardenType.EMPTY -> iv.setBackgroundResource(R.drawable.background_tree_selected)
+        GardenType.PLANTED -> iv.setBackgroundResource(R.drawable.background_tree_selected)
+        GardenType.LAKE -> iv.setBackgroundResource(R.drawable.background_lake)
+    }
+}
+
 // common
 @BindingAdapter("setImageUri")
 fun ImageView.setImageUri(uri: Uri?) {
@@ -82,10 +102,30 @@ fun ImageView.setImageUri(uri: Uri?) {
 }
 
 @BindingAdapter("setDrawableRes")
-fun ImageView.setImageRes(drawableRes: Int) {
-    Glide.with(this.context)
-        .load(drawableRes)
-        .into(this)
+fun ImageView.setImageRes(@DrawableRes drawableRes: Int?) {
+    drawableRes?.let {
+        Glide.with(this.context)
+            .load(drawableRes)
+            .into(this)
+    }
+}
+
+@BindingAdapter("setVectorDrawableRes")
+fun ImageView.setVectorImageRes(@DrawableRes drawableRes: Int?) {
+    if (drawableRes == null) {
+        Log.d("Bindings", "setVectorImageRes: null")
+        this.setImageDrawable(null)
+    } else {
+        val bitmap =
+            (ResourcesCompat.getDrawable(
+                this.resources,
+                drawableRes,
+                null
+            ) as VectorDrawable).toBitmap()
+        Glide.with(this.context)
+            .load(bitmap)
+            .into(this)
+    }
 }
 
 @BindingAdapter("setImageButtonRes")

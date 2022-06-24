@@ -5,5 +5,5 @@
         android:color="@color/garden_green" />
     <corners android:radius="4dp" />
     <solid
-        android:color="@color/white" />
+        android:color="@color/background_garden_selected_inventory" />
 </shape>

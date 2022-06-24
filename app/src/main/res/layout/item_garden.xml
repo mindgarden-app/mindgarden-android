@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.text.TextUtils" />
         <variable
             name="garden"
             type="com.mindgarden.mindgarden.presentation.inventory.model.InventoryMind" />
@@ -18,13 +17,13 @@
             android:id="@+id/iv_garden"
             android:layout_width="51dp"
             android:layout_height="51dp"
-            android:background="@drawable/border_garden"
+            android:background="@drawable/selector_garden"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:setImageRes="@{garden.treeIdx}"
-            app:gardenType="@{garden.type}"
+            app:setClickable="@{garden.type}"
+            app:setVectorDrawableRes="@{garden.tree.treeImg}"
             tools:ignore="ContentDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

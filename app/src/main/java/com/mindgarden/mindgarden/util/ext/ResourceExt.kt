@@ -11,14 +11,6 @@ import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import com.mindgarden.mindgarden.R
 
-// array resource
-/**
- * Typed Array should be recycled after use with "recycle()"
- */
-fun Resources.getTreeResArray() = this.obtainTypedArray(R.array.tree_array)
-
-fun Resources.getLocationArray() = this.getIntArray(R.array.garden_location_array)
-
 // drawable resource
 fun Drawable.overrideColor(@ColorInt colorInt: Int) {
     when (this) {

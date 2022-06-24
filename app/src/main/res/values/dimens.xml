@@ -7,4 +7,10 @@
     <dimen name="fragment_write_diary_item_right_space">5dp</dimen>
     <dimen name="fragment_write_diary_item_top_space">31dp</dimen>
     <dimen name="fragment_write_diary_item_bottom_space">34dp</dimen>
+
+    <dimen name="fragment_inventory_tree_item_right_space">6.7dp</dimen>
+    <dimen name="fragment_inventory_tree_item_top_space">20.4dp</dimen>
+    <dimen name="fragment_inventory_tree_item_bottom_space">22dp</dimen>
+
+    <dimen name="fragment_inventory_garden_item_space">4.5dp</dimen>
 </resources>

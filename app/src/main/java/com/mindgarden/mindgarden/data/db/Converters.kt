@@ -2,9 +2,11 @@ package com.mindgarden.mindgarden.data.db
 
 import androidx.room.TypeConverter
 import com.mindgarden.mindgarden.presentation.diary.weather.Weather
+import com.mindgarden.mindgarden.presentation.inventory.model.Tree
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
+import kotlinx.coroutines.joinAll
 import java.time.LocalDateTime
 
 object Converters {
@@ -54,5 +56,17 @@ object Converters {
         val type = Types.newParameterizedType(List::class.java, String::class.java)
         val typeAdapter = moshi.adapter<List<String>>(type)
         return typeAdapter.toJson(list)
+    }
+
+    @TypeConverter
+    fun jsonToTree(json: String): Tree? {
+        val adapter: JsonAdapter<Tree> = moshi.adapter(Tree::class.java)
+        return adapter.fromJson(json)
+    }
+
+    @TypeConverter
+    fun treeToJson(tree: Tree): String {
+        val adapter: JsonAdapter<Tree> = moshi.adapter(Tree::class.java)
+        return adapter.toJson(tree)
     }
 }

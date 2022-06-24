@@ -1,47 +1,32 @@
 package com.mindgarden.mindgarden.presentation.inventory
 
-import android.content.res.TypedArray
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.RecyclerView
 import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.databinding.FragmentInventoryBinding
 import com.mindgarden.mindgarden.presentation.inventory.adapter.garden.GardenAdapter
-import com.mindgarden.mindgarden.presentation.inventory.adapter.garden.GardenViewHolder
-import com.mindgarden.mindgarden.presentation.inventory.model.GardenType
-import com.mindgarden.mindgarden.presentation.inventory.model.InventoryMind
-import com.mindgarden.mindgarden.presentation.util.common.base.BaseFragment
-import com.mindgarden.mindgarden.util.ext.getLocationArray
-import com.mindgarden.mindgarden.util.ext.getTreeResArray
-import com.mindgarden.mindgarden.util.ext.now
-import com.mindgarden.mindgarden.util.ext.toGardenDate
+import com.mindgarden.mindgarden.presentation.inventory.adapter.tree.TreeAdapter
+import com.mindgarden.mindgarden.presentation.util.common.navigation.NavigationFragment
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDateTime
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class InventoryFragment:
-    BaseFragment<InventoryViewModel, FragmentInventoryBinding>(R.layout.fragment_inventory),
-    GardenViewHolder.GardenListener
-{
+class InventoryFragment :
+    NavigationFragment<InventoryViewModel, FragmentInventoryBinding>(R.layout.fragment_inventory) {
+    private val args: InventoryFragmentArgs by navArgs()
 
     @Inject
     lateinit var inventoryViewModelFactory: InventoryViewModel.AssistedFactory
 
-    private val inventoryInitData = object : InventoryViewModel.InventoryData {
-        override val treeResArray: TypedArray
-            get() = resources.getTreeResArray()
-        override val locationResArray: IntArray
-            get() = resources.getLocationArray()
-        // TODO : Home 에서 넘겨 받은 gardenDate 값 필요
-        override val gardenDate: LocalDateTime
-            get() = now().toGardenDate()
-    }
-
     override val viewModel: InventoryViewModel by viewModels {
         InventoryViewModel.provideFactory(
             inventoryViewModelFactory,
-            inventoryInitData
+            args.date
         )
     }
 
@@ -49,47 +34,75 @@ class InventoryFragment:
         binding.vm = viewModel
     }
 
-    private val gardenAdapter by lazy { GardenAdapter(this) }
+    private val gardenAdapter by lazy {
+        GardenAdapter({
+            viewModel.clickGarden(it)
+        }, {
+            viewModel.removeTree(it)
+        })
+    }
 
-    override fun onChange(item: InventoryMind, treeIdx: Int) {
-        val itemIdx = gardenAdapter.currentList.indexOf(item)
-        with(gardenAdapter.currentList[itemIdx]) {
-            type = GardenType.PROGRESS
-            this.treeIdx = treeIdx
+    private val treeAdapter by lazy {
+        TreeAdapter {
+            viewModel.clickTree(it)
         }
-        gardenAdapter.submitList(gardenAdapter.currentList)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.loadGarden()
+
         binding.rvGarden.apply {
             adapter = gardenAdapter
-            itemAnimator = null
+            addItemDecoration(GardenItemSpace())
         }
 
-        viewModel.garden.observe(viewLifecycleOwner, ::observeGarden)
-        viewModel.initInventoryTrees()
-        viewModel.initGarden()
-        plantTree()
-    }
-
-    private fun observeGarden(list: List<InventoryMind>?) {
-        gardenAdapter.submitList(list)
-    }
-
-    private fun plantTree() {
-        binding.btnPlant.setOnClickListener {
-//            gardenAdapter.currentList.filter { it.type == GardenType.PROGRESS }.forEach {
-//                Log.d("Inventory Fragment","plant tree filter $it")
-//                viewModel.plant(it).subscribe(
-//                    {
-//                        Toast.makeText(requireContext(), "success plant tree", Toast.LENGTH_SHORT).show()
-//                    },
-//                    {
-//                        Toast.makeText(requireContext(), "fail plant tree: ${it.message}", Toast.LENGTH_SHORT).show()
-//                    }
-//                ).addTo(compositeDisposable)
-//            }
+        binding.rvTree.apply {
+            adapter = treeAdapter
+            addItemDecoration(TreeItemSpace())
         }
     }
+
+    override fun observeData() {
+        fragmentScope.launch {
+            viewModel.garden.collect {
+                gardenAdapter.submitList(it)
+            }
+        }
+    }
+
+    inner class GardenItemSpace : RecyclerView.ItemDecoration() {
+        override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
+            context?.let {
+                outRect.right =
+                    it.resources.getDimensionPixelSize(R.dimen.fragment_inventory_garden_item_space)
+                outRect.top =
+                    it.resources.getDimensionPixelSize(R.dimen.fragment_inventory_garden_item_space)
+            }
+        }
+    }
+
+    inner class TreeItemSpace : RecyclerView.ItemDecoration() {
+        override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
+            context?.let {
+                outRect.right =
+                    it.resources.getDimensionPixelSize(R.dimen.fragment_inventory_tree_item_right_space)
+                outRect.bottom =
+                    it.resources.getDimensionPixelSize(R.dimen.fragment_inventory_tree_item_bottom_space)
+                outRect.top =
+                    it.resources.getDimensionPixelSize(R.dimen.fragment_inventory_tree_item_top_space)
+            }
+        }
+    }
+
 }

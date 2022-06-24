@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.text.TextUtils" />
         <variable
-            name="garden"
-            type="com.mindgarden.mindgarden.presentation.inventory.model.InventoryMind" />
+            name="tree"
+            type="com.mindgarden.mindgarden.presentation.inventory.model.Tree" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containerItemTree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/iv_garden"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
-            android:background="@drawable/border_garden"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/iv_tree"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/selector_tree"
+            android:clickable="true"
+            android:focusable="true"
+            app:setVectorDrawableRes="@{tree.treeImg}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:setImageRes="@{garden.treeIdx}"
-            app:gardenType="@{garden.type}"
             tools:ignore="ContentDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
+

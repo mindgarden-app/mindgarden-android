@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listener"
+            type="com.mindgarden.mindgarden.presentation.util.common.MainToolbarListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white">
+
+        <ImageButton
+            android:id="@+id/toolbarSortButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16.3dp"
+            android:backgroundTint="@android:color/transparent"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            app:setImageButtonRes="@{listener.toolbarData.sortButtonImg}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+
+        <ImageButton
+            android:id="@+id/toolbarLeftButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="90dp"
+            android:backgroundTint="@android:color/transparent"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            app:setImageButtonRes="@{listener.toolbarData.leftButtonImg}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/toolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:letterSpacing="0.02"
+            android:lineSpacingExtra="9sp"
+            android:textColor="@color/garden_black"
+            android:textSize="13sp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="0000년 00월"/>
+
+        <ImageButton
+            android:id="@+id/toolbarRightButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="90dp"
+            android:backgroundTint="@android:color/transparent"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            app:setImageButtonRes="@{listener.toolbarData.rightButtonImg}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:dividerThickness="1dp"
+            app:dividerColor="@color/divider"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

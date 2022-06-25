@@ -16,7 +16,15 @@
     tools:context=".presentation.diarylist.DiaryListFragment"
     android:background="#f8f8f8">
 
-    <ImageView
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/layout_main_toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:listener="@{vm.toolbarListener}" />
+
+    <!--<ImageView
         android:id="@+id/img_sort"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
@@ -62,7 +70,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="8dp"
         app:layout_constraintHorizontal_bias="0.5"
-        android:text="right"/>
+        android:text="right"/>-->
 
     <LinearLayout
         android:id="@+id/ll_list_zero"
@@ -82,7 +90,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:id="@+id/rv_diary_list"
-        app:layout_constraintTop_toBottomOf="@id/btn_left"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

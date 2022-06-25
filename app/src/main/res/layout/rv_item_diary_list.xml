@@ -45,12 +45,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:paddingTop="6dp"
                     android:gravity="center_horizontal"
+                    android:paddingTop="6dp"
                     android:text="00"
                     android:textColor="#2b2b2b"
                     android:textSize="16sp"
-                    android:textStyle="normal"/>
+                    android:textStyle="normal" />
 
                 <TextView
                     android:id="@+id/tv_diary_list_day_text"
@@ -99,6 +99,8 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:gravity="center"
+                    android:background="@drawable/circle_border_weather"
+                    android:elevation="3dp"
                     android:src="@drawable/ic_launcher_foreground"/>
 
             </LinearLayout>

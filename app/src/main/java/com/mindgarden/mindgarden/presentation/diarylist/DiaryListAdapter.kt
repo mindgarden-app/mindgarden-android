@@ -48,6 +48,7 @@ class DiaryListAdapter(val diaryListItemClick: (Diary) -> Unit, val diaryListIte
         holder.itemView.findViewById<TextView>(R.id.tv_diary_list_day_text).text = getItem(position).date.format(DateTimeFormatter.ofPattern("E").withLocale(
             Locale.forLanguageTag("en")
         ))
+        holder.itemView.findViewById<ImageView>(R.id.img_diary_list_weather).setImageResource(getItem(position).weather.weatherType.img)
         Log.e("인덱스 : ", getItem(position).idx.toString())
     }
 }

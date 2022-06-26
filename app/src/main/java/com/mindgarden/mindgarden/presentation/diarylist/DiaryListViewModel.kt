@@ -75,14 +75,10 @@ class DiaryListViewModel @Inject constructor(
 
         override fun leftButtonClick() {
             setToolbarDate(getToolbarDate().minusMonths(1))
-            //_date.value = _date.value.minusMonths(1)
-            //this.toolbarData.title = getDate().toStringOfPattern(application.getString(R.string.pattern_toolbar_diary_list))
         }
 
         override fun rightButtonClick() {
             setToolbarDate(getToolbarDate().plusMonths(1))
-            //_date.value = _date.value.plusMonths(1)
-            //this.toolbarData.title = getDate().toStringOfPattern(application.getString(R.string.pattern_toolbar_diary_list))
         }
 
         override fun sortButtonClick() {

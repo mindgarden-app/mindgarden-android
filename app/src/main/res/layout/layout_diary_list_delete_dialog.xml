@@ -15,7 +15,7 @@
         android:paddingTop="24dp"
         android:text="일기 삭제"
         android:textSize="18sp"
-        android:textColor="#2b2b2b"
+        android:textColor="@color/garden_black"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,14 +29,14 @@
         android:gravity="center"
         android:text="삭제하시겠습니까?"
         android:textSize="14sp"
-        android:textColor="#2b2b2b"
+        android:textColor="@color/garden_black"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dialog_title"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="248dp"
+        android:layout_width="match_parent"
         android:layout_height="53.5dp"
         app:layout_constraintTop_toBottomOf="@id/dialog_message"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,15 +46,15 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             tools:ignore="MissingConstraints"
-            android:background="#e8e8e8"></LinearLayout>
+            android:background="@color/circle_border_diary_list_weather"></LinearLayout>
 
         <TextView
             android:id="@+id/txt_cancel"
             android:layout_width="124.5dp"
-            android:layout_height="53.5dp"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:text="취소"
-            android:textColor="#78deb0"
+            android:textColor="@color/diary_list_item_delete"
             android:textSize="14sp"
             android:textStyle="normal"
             tools:ignore="MissingConstraints"/>
@@ -62,9 +62,9 @@
         <LinearLayout
             android:id="@+id/line"
             android:layout_width="1dp"
-            android:layout_height="53.5dp"
+            android:layout_height="match_parent"
             tools:ignore="MissingConstraints,Orientation"
-            android:background="#e8e8e8"
+            android:background="@color/circle_border_diary_list_weather"
             app:layout_constraintLeft_toRightOf="@id/txt_cancel"></LinearLayout>
 
         <TextView
@@ -73,7 +73,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="삭제"
-            android:textColor="#78deb0"
+            android:textColor="@color/diary_list_item_delete"
             android:textSize="14sp"
             android:textStyle="normal"
             app:layout_constraintLeft_toRightOf="@id/line"/>

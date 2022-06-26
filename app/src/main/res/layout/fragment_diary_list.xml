@@ -14,7 +14,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.diarylist.DiaryListFragment"
-    android:background="#f8f8f8">
+    android:background="@color/background_diary_list">
 
     <include
         android:id="@+id/toolbar"
@@ -23,54 +23,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:listener="@{vm.toolbarListener}" />
-
-    <!--<ImageView
-        android:id="@+id/img_sort"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:background="@drawable/ic_tree_1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btn_left"/>
-
-    <Button
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_left"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintStart_toEndOf="@id/img_sort"
-        app:layout_constraintEnd_toStartOf="@id/tv_date"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintHorizontal_bias="0.5"
-        android:text="left"/>
-
-    <TextView
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_date"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintStart_toEndOf="@id/btn_left"
-        android:layout_marginStart="8dp"
-        app:layout_constraintEnd_toStartOf="@id/btn_right"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintHorizontal_bias="0.5"
-        android:text="0000년 00월"
-        />
-
-    <Button
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_right"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintStart_toEndOf="@id/tv_date"
-        android:layout_marginStart="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintHorizontal_bias="0.5"
-        android:text="right"/>-->
 
     <LinearLayout
         android:id="@+id/ll_list_zero"

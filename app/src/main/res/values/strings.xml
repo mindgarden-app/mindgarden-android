@@ -22,5 +22,4 @@
     <string name="pattern_toolbar_diary">yy-MM-dd (EEE)</string>
     <string name="pattern_read_diary">hh:mm</string>
     <string name="pattern_toolbar_diary_list">yyyy년 MM월</string>
-
 </resources>

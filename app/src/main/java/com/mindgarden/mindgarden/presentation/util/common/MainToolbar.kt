@@ -9,9 +9,9 @@ sealed class MainToolbar {
     abstract val sortButtonImg: Int?
 
     data class DiaryListToolbar(
-        override val leftButtonImg: Int = R.drawable.btn_left_changed,
+        override val leftButtonImg: Int = R.drawable.btn_month_left,
         override var title: String = "",
-        override val rightButtonImg: Int = R.drawable.btn_right_changed,
+        override val rightButtonImg: Int = R.drawable.btn_month_right,
         override val sortButtonImg: Int? = R.drawable.btn_order
     ) : MainToolbar()
 }

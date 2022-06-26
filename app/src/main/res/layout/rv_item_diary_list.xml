@@ -10,16 +10,16 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="51dp">
+        android:layout_height="53dp">
 
         <FrameLayout
             android:id="@+id/fl_delete"
             android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:background="#78deb0">
+            android:layout_height="53dp"
+            android:background="@color/diary_list_item_delete">
 
             <ImageView
-                android:id="@+id/tv_delete"
+                android:id="@+id/img_delete"
                 android:layout_width="12.8dp"
                 android:layout_height="14dp"
                 android:layout_marginRight="24.1dp"
@@ -31,7 +31,7 @@
         <LinearLayout
             android:id="@+id/ll_diary_list_container"
             android:layout_width="match_parent"
-            android:layout_height="51dp"
+            android:layout_height="53dp"
             android:orientation="horizontal"
             android:background="@drawable/border_rv_item_diary_list_bottom">
 
@@ -48,7 +48,7 @@
                     android:gravity="center_horizontal"
                     android:paddingTop="6dp"
                     android:text="00"
-                    android:textColor="#2b2b2b"
+                    android:textColor="@color/garden_black"
                     android:textSize="16sp"
                     android:textStyle="normal" />
 
@@ -61,7 +61,7 @@
                     android:paddingBottom="7dp"
                     android:gravity="center"
                     android:text="Day"
-                    android:textColor="#888888"
+                    android:textColor="@color/diary_list_item_day_text"
                     android:textSize="11sp"
                     android:textStyle="normal" />
 
@@ -99,8 +99,7 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:gravity="center"
-                    android:background="@drawable/circle_border_weather"
-                    android:elevation="3dp"
+                    android:background="@drawable/circle_border_diary_list_weather"
                     android:src="@drawable/ic_launcher_foreground"/>
 
             </LinearLayout>

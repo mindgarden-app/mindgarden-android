@@ -14,29 +14,30 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/toolbarSortButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16.3dp"
             android:backgroundTint="@android:color/transparent"
-            android:minWidth="48dp"
-            android:minHeight="48dp"
-            app:setImageButtonRes="@{listener.toolbarData.sortButtonImg}"
+            android:minWidth="20dp"
+            android:minHeight="16dp"
+            android:src="@drawable/btn_order"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/toolbarLeftButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="90dp"
             android:backgroundTint="@android:color/transparent"
-            android:minWidth="48dp"
-            android:minHeight="48dp"
-            app:setImageButtonRes="@{listener.toolbarData.leftButtonImg}"
+            android:minWidth="5.7dp"
+            android:minHeight="9dp"
+            android:src="@drawable/btn_month_left"
+            android:onClick="@{() -> listener.leftButtonClick()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -47,9 +48,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:letterSpacing="0.02"
-            android:lineSpacingExtra="9sp"
-            android:textColor="@color/garden_black"
+            android:letterSpacing="0.05"
+            android:textColor="@color/main_toolbar_title"
             android:textSize="13sp"
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -58,15 +58,15 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="0000년 00월"/>
 
-        <ImageButton
+        <ImageView
             android:id="@+id/toolbarRightButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="90dp"
             android:backgroundTint="@android:color/transparent"
-            android:minWidth="48dp"
-            android:minHeight="48dp"
-            app:setImageButtonRes="@{listener.toolbarData.rightButtonImg}"
+            android:minWidth="5.7dp"
+            android:minHeight="9dp"
+            android:src="@drawable/btn_month_right"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

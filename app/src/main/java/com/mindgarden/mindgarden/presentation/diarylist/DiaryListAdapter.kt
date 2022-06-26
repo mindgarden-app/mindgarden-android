@@ -20,7 +20,7 @@ class DiaryListAdapter(val diaryListItemClick: (Diary) -> Unit, val diaryListIte
         ) {
             inner class DiaryListViewHolder(private val binding : RvItemDiaryListBinding) :
                     RecyclerView.ViewHolder(binding.root) {
-                private val tvDel = itemView.findViewById<ImageView>(R.id.tv_delete)
+                private val imgDel = itemView.findViewById<ImageView>(R.id.img_delete)
 
                         fun bind(diary: Diary) {
                             binding.diary = diary
@@ -29,7 +29,7 @@ class DiaryListAdapter(val diaryListItemClick: (Diary) -> Unit, val diaryListIte
                                 diaryListItemClick(diary)
                             }
 
-                            tvDel.setOnLongClickListener {
+                            imgDel.setOnLongClickListener {
                                 diaryListItemLongClick(diary)
                                 true
                             }

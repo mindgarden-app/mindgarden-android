@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
         <variable
             name="vm"
             type="com.mindgarden.mindgarden.presentation.diarylist.DiaryListViewModel" />
@@ -29,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:visibility="gone">
+        android:visibility="@{vm.diary.size() > 0 ? View.GONE : View.VISIBLE}">
 
         <ImageView
             android:layout_width="115.5dp"
@@ -47,7 +48,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="55dp"
-        app:setDiaryList="@{vm.state}"
+        app:setDiaryList="@{vm.diary}"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
     </androidx.recyclerview.widget.RecyclerView>
 

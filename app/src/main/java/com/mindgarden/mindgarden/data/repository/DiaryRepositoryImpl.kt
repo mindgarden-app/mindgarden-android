@@ -20,15 +20,17 @@ class DiaryRepositoryImpl @Inject constructor(private val diaryDao: DiaryDao) : 
         return diaryDao.updateDiary(newDiary)
     }
 
-    override suspend fun deleteDiary(idx: Long) {
-        return diaryDao.deleteDiaryByIdx(idx)
+    override suspend fun deleteDiary(diary: Diary) {
+        return diaryDao.delete(diary)
     }
 
     override fun getDiaryListFlow(date: String, isAsc: Boolean): Flow<Result<List<Diary>>> =
-        flow {
-            diaryDao.loadDiaryList(date, isAsc).collect { result ->
-                emit(Result.Success(result))
+        flow<Result<List<Diary>>> {
+            diaryDao.loadDiaryList(date, isAsc).collect {
+                emit(Result.Success(it))
             }
+        }.catch { e ->
+            emit(Result.Error(e.localizedMessage, e))
         }
 
     override fun getDiaryFlow(idx: Long): Flow<Result<Diary>> = flow<Result<Diary>> {

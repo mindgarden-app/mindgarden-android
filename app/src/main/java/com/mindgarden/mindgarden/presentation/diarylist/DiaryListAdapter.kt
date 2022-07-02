@@ -4,7 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
+import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +25,12 @@ class DiaryListAdapter(val diaryListItemClick: (Diary) -> Unit, val diaryListIte
                         fun bind(diary: Diary) {
                             binding.diary = diary
 
+                            binding.tvDiaryListDayNum.text = diary.date.dayOfMonth.toString()
+                            binding.tvDiaryListDayText.text = diary.date.format(DateTimeFormatter.ofPattern("E").withLocale(
+                                Locale.forLanguageTag("en")
+                            ))
+                            binding.imgDiaryListWeather.setImageResource(diary.weather.weatherType.img)
+
                             binding.llDiaryListContainer.setOnClickListener {
                                 diaryListItemClick(diary)
                             }
@@ -43,12 +49,8 @@ class DiaryListAdapter(val diaryListItemClick: (Diary) -> Unit, val diaryListIte
     }
 
     override fun onBindViewHolder(holder: DiaryListViewHolder, position: Int) {
+        holder.itemView.findViewById<LinearLayout>(R.id.ll_diary_list_container).translationX = 0f
         holder.bind(getItem(position))
-        holder.itemView.findViewById<TextView>(R.id.tv_diary_list_day_num).text = getItem(position).date.dayOfMonth.toString()
-        holder.itemView.findViewById<TextView>(R.id.tv_diary_list_day_text).text = getItem(position).date.format(DateTimeFormatter.ofPattern("E").withLocale(
-            Locale.forLanguageTag("en")
-        ))
-        holder.itemView.findViewById<ImageView>(R.id.img_diary_list_weather).setImageResource(getItem(position).weather.weatherType.img)
         Log.e("인덱스 : ", getItem(position).idx.toString())
     }
 }

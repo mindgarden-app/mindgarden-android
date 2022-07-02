@@ -13,7 +13,7 @@
         android:layout_height="71dp"
         android:paddingLeft="25dp"
         android:paddingTop="24dp"
-        android:text="일기 삭제"
+        android:text="@string/delete_dialog_title"
         android:textSize="18sp"
         android:textColor="@color/garden_black"
         android:textStyle="normal"
@@ -27,7 +27,7 @@
         android:layout_height="50.5dp"
         android:paddingBottom="30.5dp"
         android:gravity="center"
-        android:text="삭제하시겠습니까?"
+        android:text="@string/delete_dialog_msg"
         android:textSize="14sp"
         android:textColor="@color/garden_black"
         android:textStyle="normal"
@@ -42,37 +42,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <LinearLayout
+        <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            tools:ignore="MissingConstraints"
-            android:background="@color/circle_border_diary_list_weather"></LinearLayout>
+            app:dividerThickness="0dp"
+            app:dividerColor="@color/circle_border_diary_list_weather"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/txt_cancel"
             android:layout_width="124.5dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="취소"
+            android:text="@string/delete_dialog_cancel"
             android:textColor="@color/diary_list_item_delete"
             android:textSize="14sp"
             android:textStyle="normal"
             tools:ignore="MissingConstraints"/>
 
-        <LinearLayout
+        <com.google.android.material.divider.MaterialDivider
             android:id="@+id/line"
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            tools:ignore="MissingConstraints,Orientation"
-            android:background="@color/circle_border_diary_list_weather"
-            app:layout_constraintLeft_toRightOf="@id/txt_cancel"></LinearLayout>
+            app:dividerThickness="0dp"
+            app:dividerColor="@color/circle_border_diary_list_weather"
+            app:layout_constraintLeft_toRightOf="@+id/txt_cancel"/>
 
         <TextView
             android:id="@+id/txt_delete"
             android:layout_width="123.5dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="삭제"
+            android:text="@string/delete_dialog_del"
             android:textColor="@color/diary_list_item_delete"
             android:textSize="14sp"
             android:textStyle="normal"

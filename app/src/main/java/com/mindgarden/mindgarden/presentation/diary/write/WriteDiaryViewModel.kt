@@ -75,7 +75,7 @@ class WriteDiaryViewModel @AssistedInject constructor(
     val date: StateFlow<LocalDateTime> = _date
 
     val diary = combine(_weather, _images, contents, _date) { weather, list, content, date ->
-        Diary(
+        Diary.of(
             date,
             content,
             weather,
@@ -84,7 +84,7 @@ class WriteDiaryViewModel @AssistedInject constructor(
     }.stateIn(
         viewModelScope,
         SharingStarted.Eagerly,
-        Diary(now(), "", Weather(WeatherType.Default), null)
+        Diary.of(now(), "", Weather(WeatherType.Default), null)
     )
 
     private val _state = MutableStateFlow<UIState<Any>>(UIState.Loading)

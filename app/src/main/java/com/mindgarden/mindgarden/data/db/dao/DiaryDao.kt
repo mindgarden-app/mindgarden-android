@@ -25,8 +25,8 @@ abstract class DiaryDao : BaseDao<Diary> {
      * isAsc : 1 - 오래된 순, 0 - 최신 순
      */
     @Query("SELECT * FROM diary WHERE date LIKE '%' || :date || '%' ORDER BY " +
-            "CASE WHEN :isAsc = 1 THEN date END ASC," +
-            "CASE WHEN :isAsc = 0 THEN date END DESC")
+            "CASE WHEN :isAsc = 1 THEN idx END ASC," +
+            "CASE WHEN :isAsc = 0 THEN idx END DESC")
     @Throws(SQLiteException::class)
     abstract fun loadDiaryList(date: String, isAsc: Boolean): Flow<List<Diary>>
 
@@ -35,11 +35,4 @@ abstract class DiaryDao : BaseDao<Diary> {
      */
     @Update(entity = Diary::class, onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun updateDiary(obj: DiaryUpdate)
-
-    /**
-     * 일기 삭제
-     */
-    @Query("DELETE FROM diary WHERE idx = :idx")
-    @Throws(SQLiteException::class)
-    abstract suspend fun deleteDiaryByIdx(idx: Long)
 }

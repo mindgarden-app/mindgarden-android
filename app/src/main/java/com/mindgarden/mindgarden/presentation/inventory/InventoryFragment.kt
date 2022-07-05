@@ -12,7 +12,6 @@ import com.mindgarden.mindgarden.presentation.inventory.adapter.garden.GardenAda
 import com.mindgarden.mindgarden.presentation.inventory.adapter.tree.TreeAdapter
 import com.mindgarden.mindgarden.presentation.util.common.navigation.NavigationFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -35,11 +34,13 @@ class InventoryFragment :
     }
 
     private val gardenAdapter by lazy {
-        GardenAdapter({
-            viewModel.clickGarden(it)
-        }, {
-            viewModel.removeTree(it)
-        })
+        GardenAdapter(
+            if (args.isEmptyGarden) 0 else -1,
+            {
+                viewModel.clickGarden(it)
+            }, {
+                viewModel.removeTree(it)
+            })
     }
 
     private val treeAdapter by lazy {
@@ -60,14 +61,6 @@ class InventoryFragment :
         binding.rvTree.apply {
             adapter = treeAdapter
             addItemDecoration(TreeItemSpace())
-        }
-    }
-
-    override fun observeData() {
-        fragmentScope.launch {
-            viewModel.garden.collect {
-                gardenAdapter.submitList(it)
-            }
         }
     }
 

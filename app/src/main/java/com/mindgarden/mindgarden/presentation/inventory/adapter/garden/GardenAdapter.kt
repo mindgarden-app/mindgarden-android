@@ -11,9 +11,9 @@ import com.mindgarden.mindgarden.databinding.ItemGardenBinding
 import com.mindgarden.mindgarden.databinding.ItemLakeBinding
 import com.mindgarden.mindgarden.presentation.inventory.model.GardenType
 import com.mindgarden.mindgarden.presentation.inventory.model.InventoryMind
-import kotlin.properties.Delegates
 
 class GardenAdapter(
+    initialSelectedPosition: Int,
     val clickEvent: (location: Int) -> Unit,
     val removeEvent: (location: Int) -> Unit
 ) :
@@ -33,12 +33,7 @@ class GardenAdapter(
         }
     }
 
-    private var selectedPosition by Delegates.observable(-1) { _, oldPos, newPos ->
-        if (newPos in currentList.indices) {
-            notifyItemChanged(oldPos)
-            notifyItemChanged(newPos)
-        }
-    }
+    private var selectedPosition = initialSelectedPosition
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is GardenViewHolder) {

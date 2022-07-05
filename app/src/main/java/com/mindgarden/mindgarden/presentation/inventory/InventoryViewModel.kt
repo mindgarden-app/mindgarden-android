@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.data.db.entity.Mind
+import com.mindgarden.mindgarden.domain.usecase.diary.GetDiaryCountUseCase
+import com.mindgarden.mindgarden.domain.usecase.garden.GetMindCountUseCase
 import com.mindgarden.mindgarden.domain.usecase.garden.LoadGardenUseCase
 import com.mindgarden.mindgarden.domain.usecase.garden.PlantMindUseCase
 import com.mindgarden.mindgarden.presentation.inventory.model.GardenType
@@ -28,7 +30,7 @@ class InventoryViewModel @AssistedInject constructor(
     @Assisted val date: String,
     private val loadGardenUseCase: LoadGardenUseCase,
     private val plantMindUseCase: PlantMindUseCase,
-    private val application: Application
+    application: Application
 ) : NavigationViewModel() {
 
     private val gardenMap: HashMap<Int, InventoryMind> = LinkedHashMap()
@@ -61,6 +63,8 @@ class InventoryViewModel @AssistedInject constructor(
                             .map { it.convertInventoryMind() }
                             .forEach { gardenMap[it.location] = it }
                         _garden.value = gardenMap.values.toList()
+                    } else {
+                        clickGarden(1)  //default click tree
                     }
                 }
             }

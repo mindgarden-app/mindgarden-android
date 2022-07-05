@@ -33,6 +33,10 @@
         <argument
             android:name="date"
             app:argType="string" />
+        <argument
+            android:name="isEmptyGarden"
+            app:argType="boolean"
+            android:defaultValue="true" />
     </fragment>
 
     <fragment

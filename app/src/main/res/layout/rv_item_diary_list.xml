@@ -10,97 +10,101 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="53dp">
 
         <FrameLayout
             android:id="@+id/fl_delete"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/design_default_color_primary">
+            android:layout_height="53dp"
+            android:background="@color/diary_list_item_delete">
 
-            <TextView
-                android:id="@+id/tv_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="삭제"
-                android:textColor="#ffffff"
-                android:layout_marginEnd="25dp"
-                android:layout_gravity="end|center_vertical" />
+            <ImageView
+                android:id="@+id/img_delete"
+                android:layout_width="12.8dp"
+                android:layout_height="14dp"
+                android:layout_marginRight="24.1dp"
+                android:layout_gravity="end|center_vertical"
+                android:background="@drawable/icn_delete"/>
 
         </FrameLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_diary_list_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/white">
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center_horizontal">
-
-            <TextView
-                android:id="@+id/tv_diary_list_day_num"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_centerHorizontal="true"
-                android:gravity="center_horizontal"
-                android:text="00"
-                android:textSize="16dp"
-                android:textColor="@color/black"/>
-
-            <TextView
-                android:id="@+id/tv_diary_list_day_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_diary_list_day_num"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="Day"
-                android:textSize="12.5dp"
-                android:textColor="#888888"/>
-
-        </RelativeLayout>
-
         <LinearLayout
-            android:id="@+id/ll_diary_list_content"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="8">
+            android:id="@+id/ll_diary_list_container"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:orientation="horizontal"
+            android:background="@drawable/border_rv_item_diary_list_bottom">
 
-            <TextView
-                android:id="@+id/tv_diary_list_content"
-                android:layout_width="200dp"
+            <RelativeLayout
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="left|center_vertical"
-                android:text="@{diary.contents}"
-                android:textSize="14.5dp"
-                android:textColor="@color/black"
-                android:singleLine="true"
-                tools:text="test"/>
+                android:layout_weight="2">
+
+                <TextView
+                    android:id="@+id/tv_diary_list_day_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="6dp"
+                    android:text="00"
+                    android:textColor="@color/garden_black"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/tv_diary_list_day_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_diary_list_day_num"
+                    android:layout_centerInParent="true"
+                    android:paddingBottom="7dp"
+                    android:gravity="center"
+                    android:text="Day"
+                    android:textColor="@color/diary_list_item_day_text"
+                    android:textSize="11sp"
+                    android:textStyle="normal" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_diary_list_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="8">
+
+                <TextView
+                    android:id="@+id/tv_diary_list_content"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:gravity="left|center_vertical"
+                    android:text="@{diary.contents}"
+                    android:textSize="13.5sp"
+                    android:textColor="@color/black"
+                    android:textStyle="normal"
+                    android:singleLine="true"
+                    tools:text="test"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_diary_list_weather"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/img_diary_list_weather"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:gravity="center"
+                    android:background="@drawable/circle_border_diary_list_weather"
+                    android:src="@drawable/ic_launcher_foreground"/>
+
+            </LinearLayout>
 
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_diary_list_weather"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center">
-
-            <ImageView
-                android:id="@+id/img_diary_list_weather"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:gravity="center"
-                android:src="@drawable/ic_launcher_foreground"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
 
     </FrameLayout>
 

@@ -8,7 +8,7 @@ import com.mindgarden.mindgarden.util.Result
 interface DiaryRepository {
     suspend fun writeDiary(diary: Diary): Long
     suspend fun modifyDiary(newDiary: DiaryUpdate)
-    suspend fun deleteDiary(idx: Long)
+    suspend fun deleteDiary(diary: Diary)
     fun getDiaryListFlow(date: String, isAsc: Boolean): Flow<Result<List<Diary>>>
     fun getDiaryFlow(idx: Long): Flow<Result<Diary>>
 }

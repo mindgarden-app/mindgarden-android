@@ -24,4 +24,12 @@
     <color name="gray_400">#FFBDBDBD</color>
     <color name="gray_600">#FF757575</color>
 
+    <!-- diaryList -->
+    <color name="background_diary_list">#f8f8f8</color>
+    <color name="diary_list_item_delete">#78deb0</color>
+    <color name="diary_list_item_day_text">#888888</color>
+    <color name="circle_border_diary_list_weather">#e8e8e8</color>
+    <color name="main_toolbar_title">#6e6b6b</color>
+    <color name="cal_toolbar_title">#6b6b6b</color>
+    <color name="cal_month_click">#9aeec8</color>
 </resources>

@@ -30,7 +30,6 @@ ext {
 
 android {
     compileSdkVersion compile_sdk_version
-    buildToolsVersion build_tools_version
 
     defaultConfig {
         applicationId "com.mindgarden.mindgarden"

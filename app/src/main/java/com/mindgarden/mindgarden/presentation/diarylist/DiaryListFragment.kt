@@ -1,71 +1,108 @@
 package com.mindgarden.mindgarden.presentation.diarylist
 
-import android.widget.Button
-import androidx.appcompat.app.AlertDialog
+import android.app.Activity
+import android.content.Intent
+import android.os.Bundle
+import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.data.db.entity.Diary
 import com.mindgarden.mindgarden.databinding.FragmentDiaryListBinding
-import com.mindgarden.mindgarden.presentation.util.common.base.BaseFragment
+import com.mindgarden.mindgarden.presentation.util.common.MainCalendarActivity
+import com.mindgarden.mindgarden.presentation.util.common.navigation.NavigationFragment
 import com.mindgarden.mindgarden.util.ext.now
+import com.mindgarden.mindgarden.util.ext.toGardenDate
 import com.mindgarden.mindgarden.util.ext.toStringOfPattern
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.util.*
+
 
 @AndroidEntryPoint
-class DiaryListFragment :
-    BaseFragment<DiaryListViewModel, FragmentDiaryListBinding>(R.layout.fragment_diary_list) {
+class DiaryListFragment : NavigationFragment<DiaryListViewModel, FragmentDiaryListBinding>(R.layout.fragment_diary_list) {
     override val viewModel: DiaryListViewModel by viewModels()
-    private lateinit var diaryListAdapter: DiaryListAdapter
+    private val diaryListAdapter: DiaryListAdapter by lazy {
+        DiaryListAdapter(
+            { viewModel.goReadDiaryFragment(it) },
+            { diary -> showDeleteDialog(diary) }
+        )
+    }
+
+    var today = now().toGardenDate()
+    private lateinit var getResult: ActivityResultLauncher<Intent>
 
     override fun setViewModel() {
         binding.vm = viewModel
+    }
 
-        // TODO: navigation 이용해서 view Diary 화면으로 이동할 수 있도록 해주세요
-        diaryListAdapter = DiaryListAdapter({
-           findNavController().navigate(DiaryListFragmentDirections.actionDiaryListFragmentToReadDiaryFragment(it))
-        }, { diary ->
-            deleteDialog(diary)
-        })
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        // Swipe
-        val swipeHelperCallBack = SwipeHelperCallBack().apply { setClamp(200f) }
-        val itemTouchHelper = ItemTouchHelper(swipeHelperCallBack)
-//        itemTouchHelper.attachToRecyclerView(binding.rvDiaryList)
-//
         binding.rvDiaryList.apply {
             adapter = diaryListAdapter
 
-//            setOnTouchListener { _, _ ->
-//                swipeHelperCallBack.removePreviousClamp(this)
-//                false
-//            }
+            // 일기 개별 삭제 - 스와이프
+            val swipeHelperCallBack = SwipeHelperCallBack().apply { setClamp(170f) }
+            val itemTouchHelper = ItemTouchHelper(swipeHelperCallBack)
+            itemTouchHelper.attachToRecyclerView(this)
+
+            setOnTouchListener { _, _ ->
+                swipeHelperCallBack.removePreviousClamp(this)
+                false
+            }
         }
 
+        // 달력 팝업
+        binding.toolbar.toolbarTitle.setOnClickListener {
+            val intent = Intent(requireActivity(), MainCalendarActivity::class.java).apply {
+                putExtra("toolbarDate", binding.toolbar.toolbarTitle.text)
+            }
+            getResult.launch(intent)
+        }
 
-        val btnWrite: Button = binding.btnLoad
-        btnWrite.setOnClickListener {
-//            val intent : Intent = Intent(requireActivity(), WriteDiaryActivity::class.java)
-//            startActivity(intent)
-            viewModel.loadDiaryList(
-                now().toStringOfPattern(getString(R.string.pattern_calendar)),
-                false
-            )
+        var cal = Calendar.getInstance()
+        getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                cal.set(Calendar.MONTH, it.data!!.getIntExtra("month", -1))
+                cal.set(Calendar.YEAR, it.data!!.getIntExtra("year", -1))
+
+                val tz: TimeZone = cal.getTimeZone()
+                val zoneId: ZoneId = tz.toZoneId()
+                val localDateTime = LocalDateTime.ofInstant(cal.toInstant(), zoneId)
+                viewModel.setToolbarDate(localDateTime)
+            }
         }
     }
 
     override fun observeData() {
+        // TODO : databinding xml에서 활용해보기
+        this.lifecycleScope.launch {
+            viewModel.date.collect {
+                binding.toolbar.toolbarTitle.text = it.toStringOfPattern(getString(R.string.pattern_toolbar_diary_list))
 
+                // 오른쪽 화살표 회색 처리
+                if (!it.toStringOfPattern(getString(R.string.pattern_calendar)).equals(today.toStringOfPattern(getString(R.string.pattern_calendar)))) {
+                    binding.toolbar.toolbarRightButton.setImageResource(R.drawable.btn_month_right)
+                } else {
+                    binding.toolbar.toolbarRightButton.setImageResource(R.drawable.btn_right_changed)
+                }
+            }
+        }
     }
 
-    private fun deleteDialog(diary: Diary) {
-        val builder = AlertDialog.Builder(requireActivity())
-        builder.setMessage("Delete selected diary?")
-            .setNegativeButton("NO") { _, _ -> }
-            .setPositiveButton("YES") { _, _ ->
-//                viewModel.deleteDiary(diary)
+    private fun showDeleteDialog(diary: Diary) {
+        val dlg = DiaryListDeleteDialog(this@DiaryListFragment.context!!)
+        dlg.listener = object : DiaryListDeleteDialog.DiaryListDeleteDialogClickedListener {
+            override fun onDeleteClicked() {
+                viewModel.deleteDiary(diary)
             }
-        builder.show()
+        }
+        dlg.start()
     }
 }

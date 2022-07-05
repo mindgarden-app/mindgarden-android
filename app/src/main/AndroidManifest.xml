@@ -9,6 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mindgarden">
+        <activity
+            android:name=".presentation.util.common.MainCalendarActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Dialog"/>
         <activity android:name=".presentation.nickname.NickNameActivity" />
         <activity
             android:name=".presentation.MainActivity"

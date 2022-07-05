@@ -28,11 +28,9 @@ import java.time.LocalDateTime
 
 // DiaryList
 @BindingAdapter("setDiaryList")
-fun RecyclerView.setDiaryList(state: UIState<List<Diary>>) {
+fun RecyclerView.setDiaryList(list: List<Diary>) {
     val adapter = this.adapter
-    if (state is UIState.Success) {
-        (adapter as DiaryListAdapter).submitList(state.data)
-    }
+    (adapter as DiaryListAdapter).submitList(list)
 }
 
 // Diary

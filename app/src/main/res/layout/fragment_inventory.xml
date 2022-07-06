@@ -20,7 +20,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:listener="@{vm.toolbarListener}" />
+            app:listener="@{vm.toolbarListener}"
+            app:rightButtonType="@{vm.rightButtonType}"/>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"

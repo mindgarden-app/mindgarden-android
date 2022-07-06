@@ -26,6 +26,7 @@
     <!-- inventory -->
     <string name="inventory_comment_5_3_1">일기를 써야 나무를 심을 수 있어요.</string>
     <string name="inventory_comment_5_4_1">나무는 하루에 하나만 심을 수 있어요!ㅠㅠ</string>
+    <string name="inventory_comment_select_location">나무 심을 위치를 선택해 주세요</string>
 
     <!-- LocalDateTime Pattern -->
     <string name="pattern_calendar">"yyyy-MM"</string>

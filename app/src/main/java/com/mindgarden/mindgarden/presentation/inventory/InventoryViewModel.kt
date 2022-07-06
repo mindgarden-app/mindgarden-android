@@ -16,6 +16,7 @@ import com.mindgarden.mindgarden.presentation.inventory.model.InventoryMind
 import com.mindgarden.mindgarden.presentation.inventory.model.InventoryMind.Companion.convertInventoryMind
 import com.mindgarden.mindgarden.presentation.inventory.model.InventoryMind.Companion.convertMind
 import com.mindgarden.mindgarden.presentation.inventory.model.Tree
+import com.mindgarden.mindgarden.presentation.util.common.ButtonType
 import com.mindgarden.mindgarden.presentation.util.common.GardenToolbar
 import com.mindgarden.mindgarden.presentation.util.common.GardenToolbarListener
 import com.mindgarden.mindgarden.presentation.util.common.navigation.NavigationViewModel
@@ -48,6 +49,8 @@ class InventoryViewModel @AssistedInject constructor(
     private val currentDate by lazy {
         now().toStringOfPattern(application.getString(R.string.pattern_diary))
     }
+    private val _rightButtonType = MutableStateFlow(ButtonType.GRAY)
+    val rightButtonType: StateFlow<ButtonType> = _rightButtonType
 
     init {
         val gardenLocationArray = application.resources.getIntArray(R.array.garden_location_array)
@@ -85,6 +88,7 @@ class InventoryViewModel @AssistedInject constructor(
         gardenMap[location] = InventoryMind(location, tree, now(), GardenType.EMPTY)
         mind = gardenMap[location]?.convertMind()
         _garden.value = gardenMap.values.toList()
+        _rightButtonType.value = ButtonType.GREEN
     }
 
     fun removeTree(location: Int) {
@@ -100,6 +104,11 @@ class InventoryViewModel @AssistedInject constructor(
     }
 
     private fun checkValid() {
+        if (_rightButtonType.value == ButtonType.GRAY) {
+            showToast(application.applicationContext, R.string.inventory_comment_select_location)
+            return
+        }
+
         viewModelScope.launch(Dispatchers.IO) {
             val diaryCount = getDiaryCountUseCase.invoke(currentDate)
             val mindCount = getMindCountUseCase.invoke(currentDate)
@@ -134,7 +143,6 @@ class InventoryViewModel @AssistedInject constructor(
     }
 
 
-    // TODO : 완료 버튼 활성화 기능
     val toolbarListener = object : GardenToolbarListener {
         override val toolbarData: GardenToolbar
             get() = GardenToolbar.InventoryToolbar()

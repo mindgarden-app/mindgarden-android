@@ -24,6 +24,7 @@ import com.mindgarden.mindgarden.presentation.diarylist.DiaryListAdapter
 import com.mindgarden.mindgarden.presentation.inventory.adapter.garden.GardenAdapter
 import com.mindgarden.mindgarden.presentation.inventory.model.GardenType
 import com.mindgarden.mindgarden.presentation.inventory.model.InventoryMind
+import com.mindgarden.mindgarden.presentation.util.common.ButtonType
 import com.mindgarden.mindgarden.presentation.util.common.UIState
 import com.mindgarden.mindgarden.util.ext.toStringOfPattern
 import java.time.LocalDateTime
@@ -140,13 +141,13 @@ fun ImageButton.setImageButtonRes(@DrawableRes res: Int) {
 }
 
 @BindingAdapter("setTextViewBackground")
-fun TextView.setTextViewBackground(@ColorRes bgColor: Int) {
-    when (bgColor) {
-        R.color.garden_green -> {
+fun TextView.setTextViewBackground(buttonType: ButtonType) {
+    when (buttonType) {
+        ButtonType.GREEN -> {
             setBackgroundResource(R.drawable.toolbar_green_button)
             setTextColor(ContextCompat.getColor(this.context, R.color.white))
         }
-        R.color.gray_600 -> {
+        ButtonType.GRAY -> {
             setBackgroundResource(R.drawable.toolbar_gray_button)
             setTextColor(ContextCompat.getColor(this.context, R.color.gray_600))
         }

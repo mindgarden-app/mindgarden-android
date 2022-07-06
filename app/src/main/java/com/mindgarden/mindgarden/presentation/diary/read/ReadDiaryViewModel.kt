@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.data.db.entity.Diary
+import com.mindgarden.mindgarden.presentation.util.common.ButtonType
 import com.mindgarden.mindgarden.presentation.util.common.GardenToolbar
 import com.mindgarden.mindgarden.presentation.util.common.GardenToolbarListener
 import com.mindgarden.mindgarden.presentation.util.common.navigation.NavigationViewModel

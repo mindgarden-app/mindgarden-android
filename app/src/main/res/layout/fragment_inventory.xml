@@ -72,6 +72,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:spanCount="6"
+                    app:setGarden="@{vm.garden}"
                     tools:listitem="@layout/item_garden" />
 
                 <ImageView

@@ -22,10 +22,15 @@
     <string name="delete_dialog_msg">삭제하시겠습니까?</string>
     <string name="delete_dialog_cancel">취소</string>
     <string name="delete_dialog_del">삭제</string>
+    
+    <!-- inventory -->
+    <string name="inventory_comment_5_3_1">일기를 써야 나무를 심을 수 있어요.</string>
+    <string name="inventory_comment_5_4_1">나무는 하루에 하나만 심을 수 있어요!ㅠㅠ</string>
 
     <!-- LocalDateTime Pattern -->
     <string name="pattern_calendar">"yyyy-MM"</string>
     <string name="pattern_toolbar_diary">yy-MM-dd (EEE)</string>
     <string name="pattern_read_diary">hh:mm</string>
     <string name="pattern_toolbar_diary_list">yyyy년 MM월</string>
+    <string name="pattern_diary">"yyyy-MM-dd"</string>
 </resources>

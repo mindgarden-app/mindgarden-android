@@ -19,4 +19,7 @@ class GardenRepositoryImpl @Inject constructor(private val gardenDao: GardenDao)
     }.catch { e ->
         emit(Result.Error(e.localizedMessage, e))
     }
+
+    override fun getMindCount(date: String): Int = gardenDao.getMindCount(date)
+
 }

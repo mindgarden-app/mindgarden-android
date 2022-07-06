@@ -7,4 +7,5 @@ import com.mindgarden.mindgarden.util.Result
 interface GardenRepository {
     suspend fun plantMind(mind: Mind): Long
     fun getGarden(date: String): Flow<Result<List<Mind>>>
+    fun getMindCount(date: String): Int
 }

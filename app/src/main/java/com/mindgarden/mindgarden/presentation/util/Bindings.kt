@@ -21,7 +21,9 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.mindgarden.mindgarden.R
 import com.mindgarden.mindgarden.data.db.entity.Diary
 import com.mindgarden.mindgarden.presentation.diarylist.DiaryListAdapter
+import com.mindgarden.mindgarden.presentation.inventory.adapter.garden.GardenAdapter
 import com.mindgarden.mindgarden.presentation.inventory.model.GardenType
+import com.mindgarden.mindgarden.presentation.inventory.model.InventoryMind
 import com.mindgarden.mindgarden.presentation.util.common.UIState
 import com.mindgarden.mindgarden.util.ext.toStringOfPattern
 import java.time.LocalDateTime
@@ -76,6 +78,12 @@ fun TextView.setReadDiaryTime(localDateTime: LocalDateTime) {
 }
 
 // inventory
+@BindingAdapter("setGarden")
+fun RecyclerView.setGarden(list: List<InventoryMind>) {
+    val adapter = this.adapter
+    (adapter as GardenAdapter).submitList(list)
+}
+
 @BindingAdapter("setClickable")
 fun ImageView.setGardenClickable(type: GardenType) {
     this.isClickable = type == GardenType.EMPTY && !isSelected

@@ -20,17 +20,24 @@ import com.mindgarden.mindgarden.presentation.util.common.GardenToolbar
 import com.mindgarden.mindgarden.presentation.util.common.GardenToolbarListener
 import com.mindgarden.mindgarden.presentation.util.common.navigation.NavigationViewModel
 import com.mindgarden.mindgarden.util.Result
+import com.mindgarden.mindgarden.util.ext.now
+import com.mindgarden.mindgarden.util.ext.toStringOfPattern
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class InventoryViewModel @AssistedInject constructor(
     @Assisted val date: String,
     private val loadGardenUseCase: LoadGardenUseCase,
     private val plantMindUseCase: PlantMindUseCase,
-    application: Application
+    private val getDiaryCountUseCase: GetDiaryCountUseCase,
+    private val getMindCountUseCase: GetMindCountUseCase,
+    private val application: Application
 ) : NavigationViewModel() {
 
     private val gardenMap: HashMap<Int, InventoryMind> = LinkedHashMap()
@@ -38,6 +45,9 @@ class InventoryViewModel @AssistedInject constructor(
     val garden: StateFlow<List<InventoryMind>> = _garden
     private var mind: Mind? = null
     private var tree: Tree = Tree.Tree1
+    private val currentDate by lazy {
+        now().toStringOfPattern(application.getString(R.string.pattern_diary))
+    }
 
     init {
         val gardenLocationArray = application.resources.getIntArray(R.array.garden_location_array)
@@ -72,13 +82,13 @@ class InventoryViewModel @AssistedInject constructor(
     }
 
     fun clickGarden(location: Int) {
-        gardenMap[location] = InventoryMind(location, tree, GardenType.EMPTY)
+        gardenMap[location] = InventoryMind(location, tree, now(), GardenType.EMPTY)
         mind = gardenMap[location]?.convertMind()
         _garden.value = gardenMap.values.toList()
     }
 
     fun removeTree(location: Int) {
-        gardenMap[location] = InventoryMind(location, null, GardenType.EMPTY)
+        gardenMap[location] = InventoryMind(location, null, now(), GardenType.EMPTY)
         _garden.value = gardenMap.values.toList()
     }
 
@@ -89,20 +99,40 @@ class InventoryViewModel @AssistedInject constructor(
         }
     }
 
-    fun plantMind() {
-        viewModelScope.launch {
-            runCatching {
-                mind?.let {
-                    plantMindUseCase.invoke(it)
+    private fun checkValid() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val diaryCount = getDiaryCountUseCase.invoke(currentDate)
+            val mindCount = getMindCountUseCase.invoke(currentDate)
+
+            if (diaryCount < 1) {
+                withContext(Dispatchers.Main) {
+                    showToast(application.applicationContext, R.string.inventory_comment_5_3_1)
                 }
-            }.onSuccess {
-                Log.d("InventoryViewModel", "plantMind success: $it")
-                navigateBack()
-            }.onFailure {
-                Log.d("InventoryViewModel", "plantMind failure: $it")
+                cancel()
             }
+
+            if (mindCount > 0) {
+                withContext(Dispatchers.Main) {
+                    showToast(application.applicationContext, R.string.inventory_comment_5_4_1)
+                }
+                cancel()
+            }
+
+            plantMind()
         }
     }
+
+    private suspend fun plantMind() = runCatching {
+        mind?.let {
+            plantMindUseCase.invoke(it)
+        }
+    }.onSuccess {
+        Log.d("InventoryViewModel", "plantMind success: $it")
+        navigateBack()
+    }.onFailure {
+        Log.d("InventoryViewModel", "plantMind failure: $it")
+    }
+
 
     // TODO : 완료 버튼 활성화 기능
     val toolbarListener = object : GardenToolbarListener {
@@ -114,7 +144,7 @@ class InventoryViewModel @AssistedInject constructor(
         }
 
         override fun rightButtonClick() {
-            plantMind()
+            checkValid()
         }
     }
 

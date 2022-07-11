@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_width="wrap_content"
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,8 +8,8 @@
 
     <ImageView
         android:id="@+id/iv_river"
-        android:layout_width="51dp"
-        android:layout_height="51dp"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/inventory_garden_item_height"
         android:background="@drawable/background_lake"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -16,4 +17,4 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -13,12 +12,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/containerItemTree"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/iv_tree"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="58dp"
+            android:layout_height="53.5dp"
             android:background="@drawable/selector_tree"
             android:clickable="true"
             android:focusable="true"

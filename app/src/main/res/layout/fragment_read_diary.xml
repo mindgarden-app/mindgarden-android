@@ -6,7 +6,7 @@
     <data>
 
         <import type="android.view.View" />
-
+        <import type="com.mindgarden.mindgarden.presentation.util.common.ButtonType" />
         <variable
             name="vm"
             type="com.mindgarden.mindgarden.presentation.diary.read.ReadDiaryViewModel" />
@@ -22,7 +22,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:listener="@{vm.toolbarListener}" />
+            app:listener="@{vm.toolbarListener}"
+            app:rightButtonType="@{ButtonType.GRAY}"/>
 
         <ScrollView
             android:layout_width="match_parent"

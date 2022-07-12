@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="vm"
             type="com.mindgarden.mindgarden.presentation.inventory.InventoryViewModel" />
@@ -14,38 +14,98 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_garden"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:foregroundGravity="center"
-            app:layout_constraintBottom_toTopOf="@+id/rv_inventory"
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/layout_garden_toolbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:listener="@{vm.toolbarListener}"
+            app:rightButtonType="@{vm.rightButtonType}" />
+
+        <ImageView
+            android:id="@+id/ivMinimap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="17dp"
+            android:layout_marginTop="@dimen/inventory_minimap_top_margin"
+            android:src="@drawable/img_minimap"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/ivSignN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="9dp"
+            android:src="@drawable/img_sign_n"
+            app:layout_constraintBottom_toTopOf="@id/rv_garden"
+            app:layout_constraintStart_toStartOf="@id/barrier_inventory_left"
+            tools:ignore="ContentDescription" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier_inventory_left"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:barrierDirection="left"
+            app:constraint_referenced_ids="rv_garden" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_garden"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/inventory_garden_top_margin"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="14dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/materialDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivMinimap"
+            app:setGarden="@{vm.garden}"
             app:spanCount="6"
             tools:listitem="@layout/item_garden" />
 
+        <ImageView
+            android:id="@+id/ivSignS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:src="@drawable/img_sign_s"
+            app:layout_constraintEnd_toEndOf="@id/barrier_inventory_right"
+            app:layout_constraintTop_toBottomOf="@+id/rv_garden"
+            tools:ignore="ContentDescription" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier_inventory_right"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:barrierDirection="end"
+            app:constraint_referenced_ids="rv_garden" />
+
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/materialDivider"
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            app:dividerColor="@color/divider"
+            app:layout_constraintBottom_toTopOf="@id/rv_tree" />
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_inventory"
+            android:id="@+id/rv_tree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/purple_700"
+            android:backgroundTint="@color/white"
             android:orientation="horizontal"
+            android:paddingStart="12dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:treeAdapter="@{vm.trees}"
-            tools:listitem="@layout/item_inventory" />
+            tools:ignore="RtlSymmetry"
+            tools:listitem="@layout/item_tree" />
 
-        <Button
-            android:id="@+id/btnPlant"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="plant"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

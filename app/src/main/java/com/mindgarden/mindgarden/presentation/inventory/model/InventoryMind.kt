@@ -1,28 +1,33 @@
 package com.mindgarden.mindgarden.presentation.inventory.model
 
 import com.mindgarden.mindgarden.data.db.entity.Mind
+import com.mindgarden.mindgarden.util.ext.now
 import java.time.LocalDateTime
 
 data class InventoryMind(
-    val idx: Long? = null,
-    val date: LocalDateTime,
     val location: Int,
-    var treeIdx: Int? = null, // convert DrawableRes
+    var tree: Tree? = null, // convert DrawableRes
+    val date: LocalDateTime,
     var type: GardenType
 ) {
     companion object {
+        fun from(location: Int, type: GardenType) = InventoryMind(
+            location = location,
+            date = now(),
+            type = type
+        )
+
         fun Mind.convertInventoryMind() = InventoryMind(
-            idx = this.idx,
-            date = this.date,
             location = this.location,
-            treeIdx = this.location,
-            type = GardenType.PLANTED)
+            tree = this.tree,
+            date = date,
+            type = GardenType.PLANTED
+        )
 
         fun InventoryMind.convertMind() = Mind(
-            idx = this.idx ?: 0,
-            date = this.date,
+            date = date,
             location = this.location,
-            treeIdx = this.treeIdx ?: -1
+            tree = this.tree!!
         )
     }
 }

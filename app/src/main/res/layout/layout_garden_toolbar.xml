@@ -7,6 +7,9 @@
         <variable
             name="listener"
             type="com.mindgarden.mindgarden.presentation.util.common.GardenToolbarListener" />
+        <variable
+            name="rightButtonType"
+            type="com.mindgarden.mindgarden.presentation.util.common.ButtonType" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -55,7 +58,7 @@
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
             android:onClick="@{() -> listener.rightButtonClick()}"
-            app:setTextViewBackground="@{listener.toolbarData.rightButtonColor}"
+            app:setTextViewBackground="@{rightButtonType}"
             android:text="@{listener.toolbarData.rightButtonText}"
             android:textSize="13sp"
             android:textStyle="normal"
@@ -69,7 +72,7 @@
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:dividerThickness="1dp"
+            app:dividerThickness="0.5dp"
             app:dividerColor="@color/divider"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

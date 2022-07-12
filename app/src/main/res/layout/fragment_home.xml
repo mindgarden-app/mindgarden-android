@@ -21,7 +21,6 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="@{vm.text}"
             android:textAlignment="center"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -35,6 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="44dp"
             android:text="Go Inventory Test Button"
+            android:onClick="@{() -> vm.goInventoryFragment()}"
             app:layout_constraintBottom_toTopOf="@+id/text_home"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

@@ -51,7 +51,7 @@ class WeatherAdapter(private val onClick: (position: Int) -> Unit) :
         @SuppressLint("UseCompatLoadingForDrawables")
         private fun setSelected() {
             binding.weatherContainer.background =
-                binding.weatherContainer.context.getDrawable(R.drawable.border_garden)
+                binding.weatherContainer.context.getDrawable(R.drawable.background_tree_selected)
         }
     }
 

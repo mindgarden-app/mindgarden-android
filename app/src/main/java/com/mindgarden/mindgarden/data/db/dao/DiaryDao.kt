@@ -20,13 +20,23 @@ abstract class DiaryDao : BaseDao<Diary> {
     abstract fun loadDiary(idx: Long): Flow<Diary>
 
     /**
+     * 일기 수 조회
+     * date : "yyyy-MM-dd"
+     */
+    @Query("SELECT COUNT(idx) FROM diary WHERE date LIKE '%' || :date || '%'")
+    @Throws(SQLiteException::class)
+    abstract fun getDiaryCount(date: String): Int
+
+    /**
      * 일기 목록 조회
      * date : "yyyy-MM" (달별 조회), "yyyy-MM-dd" (일별 조회)
      * isAsc : 1 - 오래된 순, 0 - 최신 순
      */
-    @Query("SELECT * FROM diary WHERE date LIKE '%' || :date || '%' ORDER BY " +
-            "CASE WHEN :isAsc = 1 THEN idx END ASC," +
-            "CASE WHEN :isAsc = 0 THEN idx END DESC")
+    @Query(
+        "SELECT * FROM diary WHERE date LIKE '%' || :date || '%' ORDER BY " +
+                "CASE WHEN :isAsc = 1 THEN idx END ASC," +
+                "CASE WHEN :isAsc = 0 THEN idx END DESC"
+    )
     @Throws(SQLiteException::class)
     abstract fun loadDiaryList(date: String, isAsc: Boolean): Flow<List<Diary>>
 

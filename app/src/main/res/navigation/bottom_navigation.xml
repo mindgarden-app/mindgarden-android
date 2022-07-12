@@ -29,7 +29,15 @@
         android:id="@+id/inventoryFragment"
         android:name="com.mindgarden.mindgarden.presentation.inventory.InventoryFragment"
         android:label="InventoryFragment"
-        tools:layout="@layout/fragment_inventory"/>
+        tools:layout="@layout/fragment_inventory">
+        <argument
+            android:name="date"
+            app:argType="string" />
+        <argument
+            android:name="isEmptyGarden"
+            app:argType="boolean"
+            android:defaultValue="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/readDiaryFragment"

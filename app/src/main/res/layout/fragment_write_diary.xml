@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.mindgarden.mindgarden.presentation.util.common.ButtonType" />
         <variable
             name="vm"
             type="com.mindgarden.mindgarden.presentation.diary.write.WriteDiaryViewModel" />
@@ -20,7 +21,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:listener="@{vm.toolbarListener}" />
+            app:listener="@{vm.toolbarListener}"
+            app:rightButtonType="@{ButtonType.GREEN}"/>
 
         <ScrollView
             android:id="@+id/svWriteDiary"

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="inventory_minimap_top_margin">16.5dp</dimen>
+    <dimen name="inventory_garden_top_margin">25.3dp</dimen>
+    <dimen name="inventory_garden_item_height">51dp</dimen>
+
+</resources>

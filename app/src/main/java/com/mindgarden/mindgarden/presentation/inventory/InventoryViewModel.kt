@@ -1,100 +1,170 @@
 package com.mindgarden.mindgarden.presentation.inventory
 
-import android.annotation.SuppressLint
-import android.content.res.TypedArray
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.mindgarden.mindgarden.domain.repository.GardenRepository
+import androidx.lifecycle.viewModelScope
+import com.mindgarden.mindgarden.R
+import com.mindgarden.mindgarden.data.db.entity.Mind
+import com.mindgarden.mindgarden.domain.usecase.diary.GetDiaryCountUseCase
+import com.mindgarden.mindgarden.domain.usecase.garden.GetMindCountUseCase
+import com.mindgarden.mindgarden.domain.usecase.garden.LoadGardenUseCase
+import com.mindgarden.mindgarden.domain.usecase.garden.PlantMindUseCase
 import com.mindgarden.mindgarden.presentation.inventory.model.GardenType
 import com.mindgarden.mindgarden.presentation.inventory.model.InventoryMind
-import com.mindgarden.mindgarden.presentation.inventory.model.InventoryTree
+import com.mindgarden.mindgarden.presentation.inventory.model.InventoryMind.Companion.convertInventoryMind
+import com.mindgarden.mindgarden.presentation.inventory.model.InventoryMind.Companion.convertMind
+import com.mindgarden.mindgarden.presentation.inventory.model.Tree
+import com.mindgarden.mindgarden.presentation.util.common.ButtonType
+import com.mindgarden.mindgarden.presentation.util.common.GardenToolbar
+import com.mindgarden.mindgarden.presentation.util.common.GardenToolbarListener
+import com.mindgarden.mindgarden.presentation.util.common.navigation.NavigationViewModel
+import com.mindgarden.mindgarden.util.Result
 import com.mindgarden.mindgarden.util.ext.now
+import com.mindgarden.mindgarden.util.ext.toStringOfPattern
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import java.time.LocalDateTime
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class InventoryViewModel @AssistedInject constructor(
-    private val gardenRepository: GardenRepository,
-    @Assisted private val initData: InventoryData
-) : ViewModel() {
-    private val itemMap: HashMap<Int, InventoryMind> = LinkedHashMap()
+    @Assisted val date: String,
+    private val loadGardenUseCase: LoadGardenUseCase,
+    private val plantMindUseCase: PlantMindUseCase,
+    private val getDiaryCountUseCase: GetDiaryCountUseCase,
+    private val getMindCountUseCase: GetMindCountUseCase,
+    private val application: Application
+) : NavigationViewModel() {
 
-    private val _trees = MutableLiveData<MutableList<InventoryTree>>()
-    val trees: LiveData<MutableList<InventoryTree>> get() = _trees
-
-    fun initInventoryTrees() {
-        val items = mutableListOf<InventoryTree>()
-        for(i in 0 until initData.treeResArray.length()) {
-            items.add(InventoryTree(i, initData.treeResArray.getResourceId(i, -1)))
-        }
-        _trees.value = items
+    private val gardenMap: HashMap<Int, InventoryMind> = LinkedHashMap()
+    private val _garden = MutableStateFlow<List<InventoryMind>>(emptyList())
+    val garden: StateFlow<List<InventoryMind>> = _garden
+    private var mind: Mind? = null
+    private var tree: Tree = Tree.Tree1
+    private val currentDate by lazy {
+        now().toStringOfPattern(application.getString(R.string.pattern_diary))
     }
+    private val _rightButtonType = MutableStateFlow(ButtonType.GRAY)
+    val rightButtonType: StateFlow<ButtonType> = _rightButtonType
 
-    private val _garden = MutableLiveData<List<InventoryMind>>()
-    val garden: LiveData<List<InventoryMind>> get() = _garden
-
-    @SuppressLint("NullSafeMutableLiveData")
-    fun initGarden() {
-        setDefaultGarden(itemMap)
-//        getGarden()
-//            .subscribe(
-//                {
-//                },
-//                {
-//                    // error
-//                    Log.e("InventoryViewModel", "[subscribeOn] error get data: $it")
-//                },
-//            )
-//            .addTo(compositeDisposable)
-    }
-
-//    private fun getGarden() = gardenRepository.getGarden(initData.gardenDate)
-//        .doOnSubscribe { Log.i("InventoryViewModel", "[doOnSubscribe] show loading view") }
-
-
-    private fun setDefaultGarden(itemMap: HashMap<Int, InventoryMind>) {
-        val location = initData.locationResArray
-
-        location.forEach { location : Int ->
+    init {
+        val gardenLocationArray = application.resources.getIntArray(R.array.garden_location_array)
+        gardenLocationArray.forEach { location ->
             when (location) {
-                13, 18, 19, 24 -> {
-                    itemMap[location] = InventoryMind(date = now(),
-                        location = location, type = GardenType.RIVER)
+                13, 18, 19, 24 -> gardenMap[location] =
+                    InventoryMind.from(location, GardenType.LAKE)
+                else -> gardenMap[location] = InventoryMind.from(location, GardenType.EMPTY)
+            }
+        }
+        _garden.value = gardenMap.values.toList()
+    }
+
+    fun loadGarden() = viewModelScope.launch {
+        loadGardenUseCase.invoke(date).collect { result ->
+            when (result) {
+                is Result.Error -> {
+                    Log.d("InventoryViewModel", "error - ${result.errorMsg} ")
                 }
-                else -> {
-                    itemMap[location] = InventoryMind(date = now(),
-                        location = location, type = GardenType.EMPTY)
+                is Result.Success -> {
+                    if (result.data.isNotEmpty()) {
+                        result.data
+                            .map { it.convertInventoryMind() }
+                            .forEach { gardenMap[it.location] = it }
+                        _garden.value = gardenMap.values.toList()
+                    } else {
+                        clickGarden(1)  //default click tree
+                    }
                 }
             }
         }
-        _garden.value = itemMap.values.toList()
-        Log.d("InventoryViewModel", "End set DefaultGarden")
     }
 
-//    fun plant(mind: InventoryMind): Completable  {
-//        Log.i("InventoryViewModel", "plant ${mind.convertMind()}")
-//        return gardenRepository.plantTree(mind.convertMind())
-//    }
+    fun clickGarden(location: Int) {
+        gardenMap[location] = InventoryMind(location, tree, now(), GardenType.EMPTY)
+        mind = gardenMap[location]?.convertMind()
+        _garden.value = gardenMap.values.toList()
+        _rightButtonType.value = ButtonType.GREEN
+    }
+
+    fun removeTree(location: Int) {
+        gardenMap[location] = InventoryMind(location, null, now(), GardenType.EMPTY)
+        _garden.value = gardenMap.values.toList()
+    }
+
+    fun clickTree(tree: Tree) {
+        this.tree = tree
+        mind?.let {
+            clickGarden(it.location)
+        }
+    }
+
+    private fun checkValid() {
+        if (_rightButtonType.value == ButtonType.GRAY) {
+            showToast(application.applicationContext, R.string.inventory_comment_select_location)
+            return
+        }
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val diaryCount = getDiaryCountUseCase.invoke(currentDate)
+            val mindCount = getMindCountUseCase.invoke(currentDate)
+
+            if (diaryCount < 1) {
+                withContext(Dispatchers.Main) {
+                    showToast(application.applicationContext, R.string.inventory_comment_5_3_1)
+                }
+                cancel()
+            }
+
+            if (mindCount > 0) {
+                withContext(Dispatchers.Main) {
+                    showToast(application.applicationContext, R.string.inventory_comment_5_4_1)
+                }
+                cancel()
+            }
+
+            plantMind()
+        }
+    }
+
+    private suspend fun plantMind() = runCatching {
+        mind?.let {
+            plantMindUseCase.invoke(it)
+        }
+    }.onSuccess {
+        Log.d("InventoryViewModel", "plantMind success: $it")
+        navigateBack()
+    }.onFailure {
+        Log.d("InventoryViewModel", "plantMind failure: $it")
+    }
 
 
-    interface InventoryData {
-        val gardenDate: LocalDateTime
-        val treeResArray: TypedArray
-        val locationResArray: IntArray
+    val toolbarListener = object : GardenToolbarListener {
+        override val toolbarData: GardenToolbar
+            get() = GardenToolbar.InventoryToolbar()
+
+        override fun leftButtonClick() {
+            navigateBack()
+        }
+
+        override fun rightButtonClick() {
+            checkValid()
+        }
     }
 
     @dagger.assisted.AssistedFactory
     interface AssistedFactory {
-        fun create(initData: InventoryData): InventoryViewModel
+        fun create(date: String): InventoryViewModel
     }
 
     companion object {
         fun provideFactory(
             assistedFactory: AssistedFactory,
-            initData: InventoryData
+            initData: String
         ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
